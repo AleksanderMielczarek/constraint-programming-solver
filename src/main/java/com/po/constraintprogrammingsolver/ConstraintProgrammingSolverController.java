@@ -40,7 +40,7 @@ public class ConstraintProgrammingSolverController implements Initializable {
         problemWorkerMap.put(Problem.KNAPSACK, new KnapsackProblemService());
         problemWorkerMap.put(Problem.TEST, new TestProblemService());
 
-        Executor executor = Executors.newFixedThreadPool(1);
+        Executor executor = Executors.newSingleThreadExecutor();
         problemWorkerMap.values().forEach(service -> service.setExecutor(executor));
         problemWorkerMap.values().forEach(service -> service.setOnRunning(event -> {
             resultTextArea.textProperty().bind(service.valueProperty());

@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.ConstraintProgrammingSolverController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/ConstraintProgrammingSolver.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.ConstraintProgrammingSolverController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -24,7 +24,7 @@
                   <Button fx:id="startKnapsackButton" mnemonicParsing="false" text="%button.knapsack" />
                </content>
           </TitledPane>
-            <TitledPane prefHeight="200.0" prefWidth="200.0" text="%accordion.test">
+            <TitledPane animated="false" text="%accordion.test">
                <content>
                   <Button fx:id="startTestButton" mnemonicParsing="false" text="%button.test" />
                </content>
