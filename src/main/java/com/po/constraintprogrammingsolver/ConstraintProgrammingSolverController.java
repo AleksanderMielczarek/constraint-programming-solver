@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * Created by Aleksander on 2014-12-01.
@@ -38,16 +40,14 @@ public class ConstraintProgrammingSolverController implements Initializable {
         problemWorkerMap.put(Problem.KNAPSACK, new KnapsackProblemService());
         problemWorkerMap.put(Problem.TEST, new TestProblemService());
 
-        startKnapsackButton.setOnMouseClicked(event -> startService(Problem.KNAPSACK));
-        startTestButton.setOnMouseClicked(event -> startService(Problem.TEST));
-    }
+        Executor executor = Executors.newFixedThreadPool(1);
+        problemWorkerMap.values().forEach(service -> service.setExecutor(executor));
+        problemWorkerMap.values().forEach(service -> service.setOnRunning(event -> {
+            resultTextArea.textProperty().bind(service.valueProperty());
+            computationProgressBar.progressProperty().bind(service.progressProperty());
+        }));
 
-    private void startService(Problem problem) {
-        Service<String> service = problemWorkerMap.get(problem);
-
-        resultTextArea.textProperty().bind(service.valueProperty());
-        computationProgressBar.progressProperty().bind(service.progressProperty());
-
-        service.restart();
+        startKnapsackButton.setOnMouseClicked(event -> problemWorkerMap.get(Problem.KNAPSACK).restart());
+        startTestButton.setOnMouseClicked(event -> problemWorkerMap.get(Problem.TEST).restart());
     }
 }
