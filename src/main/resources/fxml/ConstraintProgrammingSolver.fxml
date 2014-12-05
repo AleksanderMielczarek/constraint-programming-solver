@@ -4,7 +4,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/ConstraintProgrammingSolver.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.ConstraintProgrammingSolverController">
+<BorderPane fx:id="solverBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/ConstraintProgrammingSolver.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.ConstraintProgrammingSolverController">
+    <fx:include fx:id="textAreaComponent" source="TextAreaComponent.fxml"/>
+    <fx:include fx:id="chartComponent" source="ChartComponent.fxml"/>
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -17,25 +19,22 @@
       </MenuBar>
    </top>
    <left>
-      <Accordion BorderPane.alignment="CENTER">
+      <Accordion maxHeight="-Infinity" BorderPane.alignment="TOP_LEFT">
         <panes>
           <TitledPane animated="false" text="%accordion.knapsack">
                <content>
-                  <Button fx:id="startKnapsackButton" mnemonicParsing="false" text="%button.knapsack" />
+                  <Button fx:id="startKnapsackButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%button.knapsack" />
                </content>
           </TitledPane>
-            <TitledPane animated="false" text="%accordion.test">
+            <TitledPane animated="false" text="%accordion.jobshop">
                <content>
-                  <Button fx:id="startTestButton" mnemonicParsing="false" text="%button.test" />
+                  <Button fx:id="startJobShopButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%button.jobshop" />
                </content>
             </TitledPane>
         </panes>
       </Accordion>
    </left>
    <bottom>
-      <ProgressBar fx:id="computationProgressBar" prefWidth="200.0" progress="0.0" BorderPane.alignment="CENTER" />
+      <ProgressBar fx:id="computationProgressBar" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0" BorderPane.alignment="CENTER" />
    </bottom>
-   <center>
-      <TextArea fx:id="resultTextArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
 </BorderPane>
