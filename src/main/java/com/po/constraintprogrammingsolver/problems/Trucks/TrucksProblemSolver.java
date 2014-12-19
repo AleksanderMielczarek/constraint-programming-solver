@@ -1,8 +1,6 @@
 package com.po.constraintprogrammingsolver.problems.Trucks;
 
-import com.google.common.base.Stopwatch;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
+import com.po.constraintprogrammingsolver.problems.ProblemSolver;
 import org.jacop.constraints.Constraint;
 import org.jacop.constraints.Sum;
 import org.jacop.constraints.XmulYeqZ;
@@ -12,31 +10,13 @@ import org.jacop.core.Store;
 import org.jacop.search.*;
 
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Aleksander on 2014-12-03.
  */
-public class TrucksProblemService extends Service<String> {
+public class TrucksProblemSolver implements ProblemSolver<String> {
     @Override
-    protected Task<String> createTask() {
-        return new Task<String>() {
-            @Override
-            protected String call() throws Exception {
-                Stopwatch stopwatch = Stopwatch.createStarted();
-                String result = solve();
-
-                StringBuilder stringBuilder = new StringBuilder("Total time [ms]: ")
-                        .append(stopwatch.elapsed(TimeUnit.MILLISECONDS))
-                        .append(System.getProperty("line.separator"))
-                        .append(result);
-                updateProgress(1,1);
-                return stringBuilder.toString();
-            }
-        };
-    }
-
-    private String solve() {
+    public String solveProblem() {
         Store store = new Store();
         int[] packagesWeight = {3, 4, 7, 5, 6, 4, 2, 5};
         IntVar[] packagesLocation = new IntVar[packagesWeight.length];

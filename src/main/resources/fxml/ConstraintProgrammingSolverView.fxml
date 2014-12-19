@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <BorderPane fx:id="solverBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
             stylesheets="@../css/ConstraintProgrammingSolver.css" xmlns="http://javafx.com/javafx/8"
@@ -25,9 +23,7 @@
             <tabs>
                 <Tab closable="false" text="%tab.trucks">
                     <content>
-                        <AnchorPane>
-                            <fx:include source="TrucksProblemView.fxml"/>
-                        </AnchorPane>
+                        <fx:include source="TrucksProblemView.fxml"/>
                     </content>
                 </Tab>
                 <Tab closable="false" text="%tab.jobshop">
