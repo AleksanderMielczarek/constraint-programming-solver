@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
+        <TitledPane animated="false" text="%accordion.options" expanded="true">
+            <content>
 
+            </content>
+         <VBox.margin>
+            <Insets bottom="2.0" top="5.0" />
+         </VBox.margin>
+        </TitledPane>
+
+        <TitledPane animated="false" text="%accordion.result" expanded="false">
+            <content>
+
+            </content>
+        </TitledPane>
     </children>
-</Pane>
+</VBox>
