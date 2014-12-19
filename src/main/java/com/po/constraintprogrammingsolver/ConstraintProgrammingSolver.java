@@ -1,5 +1,6 @@
 package com.po.constraintprogrammingsolver;
 
+import com.po.constraintprogrammingsolver.controllers.ConstraintProgrammingSolverController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
 public class ConstraintProgrammingSolver extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL fxml = getClass().getResource("/fxml/ConstraintProgrammingSolver.fxml");
+        URL fxml = getClass().getResource("/fxml/ConstraintProgrammingSolverView.fxml");
         ResourceBundle bundle = ResourceBundle.getBundle("bundle/bundle");
         FXMLLoader fxmlLoader = new FXMLLoader(fxml, bundle);
         fxmlLoader.setController(new ConstraintProgrammingSolverController(primaryStage));

@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems;
+package com.po.constraintprogrammingsolver.problems.Trucks;
 
 import com.google.common.base.Stopwatch;
 import javafx.concurrent.Service;

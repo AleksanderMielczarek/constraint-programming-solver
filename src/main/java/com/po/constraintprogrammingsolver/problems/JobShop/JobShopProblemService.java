@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems;
+package com.po.constraintprogrammingsolver.problems.JobShop;
 
 import com.google.common.base.Stopwatch;
 import javafx.concurrent.Service;
@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Aleksander on 2014-12-03.
  */
-public class TestProblemService extends Service<String> {
+public class JobShopProblemService extends Service<String> {
     @Override
     protected Task<String> createTask() {
         return new Task<String>() {
