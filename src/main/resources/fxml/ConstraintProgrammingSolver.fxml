@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -34,23 +35,22 @@
         </TabPane>
     </center>
     <bottom>
-      <GridPane>
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <VBox>
          <children>
-            <Label text="%label.time" />
-              <ProgressBar fx:id="computationProgressBar" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0" GridPane.columnIndex="2" />
-            <Label fx:id="timeLabel" GridPane.columnIndex="1" />
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity">
+               <children>
+                  <Label text="%label.time">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></Label>
+                  <Label fx:id="timeLabel" />
+               </children>
+            </HBox>
+              <ProgressBar fx:id="computationProgressBar" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0" />
          </children>
-      </GridPane>
+      </VBox>
     </bottom>
    <right>
-      <Button fx:id="startButton" mnemonicParsing="false" text="%button.start" BorderPane.alignment="CENTER" />
+      <Button fx:id="startButton" maxHeight="1.7976931348623157E308" mnemonicParsing="false" text="%button.start" textOverrun="CLIP" />
    </right>
 </BorderPane>
