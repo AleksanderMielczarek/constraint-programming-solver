@@ -15,6 +15,7 @@ public class JobShopProblemSolver implements ProblemSolver<String> {
             String test = String.valueOf(integer);
             String test2 = test + test + test;
         }
+        System.out.println("test");
         return "test";
     }
 }

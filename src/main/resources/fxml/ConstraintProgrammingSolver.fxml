@@ -18,14 +18,14 @@
     </top>
 
     <center>
-        <TabPane side="LEFT">
+        <TabPane fx:id="problemsTabPane" side="LEFT">
             <tabs>
-                <Tab closable="false" text="%tab.trucks">
+                <Tab fx:id="trucks" closable="false" text="%tab.trucks">
                     <content>
                         <fx:include source="TrucksProblemView.fxml" />
                     </content>
                 </Tab>
-                <Tab closable="false" text="%tab.jobshop">
+                <Tab fx:id="jobshop" closable="false" text="%tab.jobshop">
                     <content>
                         <fx:include fx:id="jobShopProblem" source="JobShopProblem.fxml" />
                     </content>
@@ -50,4 +50,7 @@
          </children>
       </GridPane>
     </bottom>
+   <right>
+      <Button fx:id="startButton" mnemonicParsing="false" text="%button.start" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>

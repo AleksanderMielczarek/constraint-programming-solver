@@ -1,6 +1,7 @@
-package com.po.constraintprogrammingsolver.problems;
+package com.po.constraintprogrammingsolver.models;
 
 import com.google.common.base.Stopwatch;
+import com.po.constraintprogrammingsolver.problems.ProblemSolver;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
