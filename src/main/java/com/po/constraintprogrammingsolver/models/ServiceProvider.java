@@ -29,4 +29,8 @@ public class ServiceProvider {
     public ObjectProperty<Problem> problemProperty() {
         return problem;
     }
+
+    public void setProblem(Problem problem) {
+        this.problem.set(problem);
+    }
 }

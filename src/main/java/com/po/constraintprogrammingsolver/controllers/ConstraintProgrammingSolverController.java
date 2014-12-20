@@ -47,8 +47,10 @@ public class ConstraintProgrammingSolverController {
     public void initialize() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
+        //bind selected tab with service provider
         problemsTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 provider.problemProperty().bind(new SimpleObjectProperty<>(Problem.valueOfId(newValue.getId()))));
+        provider.setProblem(Problem.valueOfId(problemsTabPane.getSelectionModel().getSelectedItem().getId()));
 
         //job shop
         jobShopService.setOnSucceeded(event -> {
