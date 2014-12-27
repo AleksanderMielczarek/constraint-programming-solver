@@ -5,30 +5,101 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.controllers.TrucksProblemController">
-    <children>
-        <TitledPane fx:id="accordionInTab" expanded="true" text="%accordion.options" textAlignment="CENTER">
-            <content>
-                <HBox prefHeight="100.0" prefWidth="200.0">
-                    <children>
+<ScrollPane fitToWidth="true" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.controllers.TrucksProblemController">
+    <content>
+        <VBox>
+            <children>
+                <TitledPane fx:id="accordionInTab" animated="true" expanded="true" text="%accordion.options" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                    <content>
+                        <HBox prefWidth="200.0">
+                            <children>
+                                <AnchorPane prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" text="%titledPanel.vehicles" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="200.0">
+                                                    <children>
+                                                        <VBox layoutX="9.600000381469727" layoutY="11.600000381469727" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="2.0">
+                                                            <children>
+                                                                <TableView fx:id="trucksTable" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                                                    <columns>
+                                                                        <TableColumn fx:id="trucksIDCol" prefWidth="75.0" text="%tablelabel.trucks.id" />
+                                                                        <TableColumn fx:id="trucksLoadingCol" prefWidth="75.0" text="%tablelabel.trucks.capacity" />
+                                                                        <TableColumn fx:id="trucksCombustionCol" prefWidth="75.0" text="%tablelabel.trucks.combustion" />
+                                                                    </columns>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                                </TableView>
+                                                                <HBox>
+                                                                   <children>
+
+                                                                       <TextField fx:id="TruckID" promptText="ID">
+                                                                           <HBox.margin>
+                                                                               <Insets right="2" />
+                                                                           </HBox.margin>
+                                                                       </TextField>
+                                                                       <TextField fx:id="TruckLoading" promptText="Loading">
+                                                                           <HBox.margin>
+                                                                               <Insets right="2" />
+                                                                           </HBox.margin>
+                                                                       </TextField>
+                                                                       <TextField fx:id="TruckCombustion" promptText="Combustion">
+                                                                           <HBox.margin>
+                                                                               <Insets right="2" />
+                                                                           </HBox.margin>
+                                                                       </TextField>
+                                                                       <Button fx:id="addTruckBtn" minWidth="80" mnemonicParsing="false" text="%button.addTruck" />
+                                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets top="5.0" />
+                                                   </VBox.margin>
+                                                                </HBox>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </AnchorPane>
+
+                                            </content>
+                                        </TitledPane>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" text="%titledPanel.packages" textAlignment="CENTER" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0">
+                                            <content>
+                                                <AnchorPane fx:id="insertSpace" maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="200.0" />
+                                            </content>
+                                        </TitledPane>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" text="%titledPanel.others" textAlignment="CENTER" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0">
+                                            <content>
+                                                <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="200.0" />
+                                            </content>
+                                        </TitledPane>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </HBox>
+                    </content>
+                    <VBox.margin>
+                        <Insets bottom="2.0" top="5.0" />
+                    </VBox.margin>
+                </TitledPane>
+
+                <TitledPane animated="false" expanded="false" text="%accordion.result" VBox.vgrow="ALWAYS">
+                    <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <Button mnemonicParsing="false" text="Button" />
-                            </children></AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-                    </children>
-                </HBox>
-            </content>
-         <VBox.margin>
-            <Insets bottom="2.0" top="5.0" />
-         </VBox.margin>
-        </TitledPane>
-
-        <TitledPane animated="false" expanded="false" text="%accordion.result">
-            <content>
-
-            </content>
-        </TitledPane>
-    </children>
-</VBox>
+                                <Button />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>
