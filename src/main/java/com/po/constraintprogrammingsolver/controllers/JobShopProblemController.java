@@ -2,9 +2,7 @@ package com.po.constraintprogrammingsolver.controllers;
 
 import com.google.common.collect.Multimap;
 import com.po.constraintprogrammingsolver.models.ProblemService;
-import com.po.constraintprogrammingsolver.models.ValidatorResult;
 import com.po.constraintprogrammingsolver.models.jobshop.*;
-import com.po.constraintprogrammingsolver.problems.ProblemSolver;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopProblemSolver;
 import com.po.constraintprogrammingsolver.problems.jobshop.TaskIntVarWrapper;
@@ -25,8 +23,6 @@ import org.jfree.data.gantt.TaskSeriesCollection;
 
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * Created by Aleksander on 2014-12-19.
@@ -146,35 +142,5 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     @Override
     public void setProgressProperty(DoubleProperty progressProperty) {
         this.progressProperty = progressProperty;
-    }
-
-    @Override
-    public JobShopModel getModel() {
-        return model;
-    }
-
-    @Override
-    public Function<JobShopModel, JobShopData> getModelToDataConverter() {
-        return modelToDataConverter;
-    }
-
-    @Override
-    public ProblemSolver<JobShopData, Multimap<Integer, TaskIntVarWrapper>> getProblemSolver() {
-        return problemSolver;
-    }
-
-    @Override
-    public Function<Multimap<Integer, TaskIntVarWrapper>, TaskSeriesCollection> getSolutionToResultConverter() {
-        return solutionToResultConverter;
-    }
-
-    @Override
-    public Function<JobShopModel, ValidatorResult> getValidator() {
-        return validator;
-    }
-
-    @Override
-    public Supplier<TaskSeriesCollection> getDefaultResultSupplier() {
-        return defaultResultSupplier;
     }
 }
