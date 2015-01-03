@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems.jobshop2;
+package com.po.constraintprogrammingsolver.problems.jobshop;
 
 import org.jacop.core.IntVar;
 

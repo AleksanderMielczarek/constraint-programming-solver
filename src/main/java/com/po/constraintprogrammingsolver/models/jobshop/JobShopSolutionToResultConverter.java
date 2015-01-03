@@ -1,7 +1,7 @@
 package com.po.constraintprogrammingsolver.models.jobshop;
 
 import com.google.common.collect.Multimap;
-import com.po.constraintprogrammingsolver.problems.jobshop2.TaskIntVarWrapper;
+import com.po.constraintprogrammingsolver.problems.jobshop.TaskIntVarWrapper;
 import org.jfree.data.gantt.Task;
 import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;

@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems.jobshop2;
+package com.po.constraintprogrammingsolver.problems.jobshop;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Iterables;

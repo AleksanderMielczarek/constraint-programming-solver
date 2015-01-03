@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems.jobshop2;
+package com.po.constraintprogrammingsolver.problems.jobshop;
 
 /**
 * Created by Aleksander on 2015-01-01.
