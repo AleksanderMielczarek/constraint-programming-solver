@@ -12,15 +12,15 @@ import java.util.ResourceBundle;
  * Created by Janek on 2014-12-19.
  */
 
-public class TrucksProblemController implements Initializable{
+public class TrucksProblemController {
     @FXML
     private TitledPane accordionInTab;
 
     @FXML
     private Accordion accord;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
 //        accord.setExpandedPane(accordionInTab);
     }
 }

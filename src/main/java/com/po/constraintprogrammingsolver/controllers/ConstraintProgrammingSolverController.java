@@ -1,9 +1,8 @@
 package com.po.constraintprogrammingsolver.controllers;
 
-import com.po.constraintprogrammingsolver.models.ProblemService;
+import com.po.constraintprogrammingsolver.models.ControllerProvider;
+import com.po.constraintprogrammingsolver.models.Problem;
 import com.po.constraintprogrammingsolver.models.ServiceProvider;
-import com.po.constraintprogrammingsolver.problems.JobShop.JobShopProblemSolver;
-import com.po.constraintprogrammingsolver.problems.Problem;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +11,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,6 +23,8 @@ public class ConstraintProgrammingSolverController {
     private ProgressBar computationProgressBar;
     @FXML
     private Label timeLabel;
+    @FXML
+    private Label errorLabel;
 
     @FXML
     private TabPane problemsTabPane;
@@ -31,36 +33,47 @@ public class ConstraintProgrammingSolverController {
     private Button startButton;
 
     @FXML
-    private JobShopProblemController jobShopController;
+    private JobShopProblemController jobShopProblemController;
+
+    @FXML
+    private ResourceBundle resources;
 
     private final Stage stage;
-    private final ProblemService<String> jobShopService;
-    private final ServiceProvider provider;
 
     public ConstraintProgrammingSolverController(Stage stage) {
         this.stage = stage;
-        jobShopService = new ProblemService<>(new JobShopProblemSolver());
-        provider = new ServiceProvider();
     }
 
     @FXML
     public void initialize() {
+        //one executor for all tasks
         ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        //register problem here
+        ControllerProvider controllerProvider = new ControllerProvider();
+        controllerProvider.registerProblemController(Problem.JOB_SHOP, jobShopProblemController);
+
+        //set properties
+        controllerProvider.getControllers().values().stream()
+                .forEach(controller -> {
+                    controller.setTimeProperty(timeLabel.textProperty());
+                    controller.setErrorProperty(errorLabel.textProperty());
+                    controller.setProgressProperty(computationProgressBar.progressProperty());
+                });
+
+        //get services from controllers
+        ServiceProvider serviceProvider = new ServiceProvider();
+        controllerProvider.getControllers().entrySet().stream()
+                .forEach(entry -> serviceProvider.registerProblemService(entry.getKey(), entry.getValue().getProblemService()));
+        serviceProvider.getProblems().values().stream()
+                .forEach(service -> service.setExecutor(executor));
 
         //bind selected tab with service provider
         problemsTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-                provider.problemProperty().bind(new SimpleObjectProperty<>(Problem.valueOfId(newValue.getId()))));
-        provider.setProblem(Problem.valueOfId(problemsTabPane.getSelectionModel().getSelectedItem().getId()));
+                serviceProvider.problemProperty().bind(new SimpleObjectProperty<>(Problem.valueOfId(newValue.getId()))));
+        serviceProvider.setProblem(Problem.valueOfId(problemsTabPane.getSelectionModel().getSelectedItem().getId()));
 
-        //job shop
-        jobShopService.setOnSucceeded(event -> {
-            //jobShopController.solutionProperty().bind(jobShopService.valueProperty().get().solutionProperty());
-            timeLabel.textProperty().bind(jobShopService.valueProperty().get().timeProperty());
-        });
-        jobShopService.setOnRunning(event -> computationProgressBar.progressProperty().bind(jobShopService.progressProperty()));
-        provider.registerService(Problem.JOB_SHOP, jobShopService);
-
-        startButton.setOnMouseClicked(event -> provider.getService().restart());
+        startButton.setOnMouseClicked(event -> serviceProvider.getProblemService().restart());
 
         stage.setOnCloseRequest(event -> executor.shutdown());
     }

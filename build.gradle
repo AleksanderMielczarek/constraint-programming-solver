@@ -14,4 +14,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'org:jacop:4.1.0'
     compile 'com.google.guava:guava:18.0'
+    compile 'org.jfree:jfreechart:1.0.19-fx'
+    compile 'org.apache.commons:commons-lang3:3.3.2'
 }

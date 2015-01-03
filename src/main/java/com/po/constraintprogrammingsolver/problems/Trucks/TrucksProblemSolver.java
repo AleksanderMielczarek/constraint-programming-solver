@@ -10,13 +10,14 @@ import org.jacop.core.Store;
 import org.jacop.search.*;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Created by Aleksander on 2014-12-03.
  */
-public class TrucksProblemSolver implements ProblemSolver<String> {
+public class TrucksProblemSolver implements ProblemSolver<String, String> {
     @Override
-    public String solveProblem() {
+    public Optional<String> solveProblem(String data) {
         Store store = new Store();
         int[] packagesWeight = {3, 4, 7, 5, 6, 4, 2, 5};
         IntVar[] packagesLocation = new IntVar[packagesWeight.length];
@@ -65,6 +66,6 @@ public class TrucksProblemSolver implements ProblemSolver<String> {
         } else
             stringBuilder.append("---Not resolved---");
 
-        return stringBuilder.toString();
+        return Optional.of(stringBuilder.toString());
     }
 }

@@ -37,6 +37,7 @@
     <bottom>
       <VBox>
          <children>
+            <Label id="label-error" fx:id="errorLabel" />
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity">
                <children>
                   <Label text="%label.time">

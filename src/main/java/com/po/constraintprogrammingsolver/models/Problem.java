@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems;
+package com.po.constraintprogrammingsolver.models;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -23,7 +23,8 @@ public enum Problem {
     private final static Map<String, Problem> problemMap;
 
     static {
-        problemMap = Arrays.asList(values()).stream().collect(Collectors.toMap(Problem::getId, problem -> problem));
+        problemMap = Arrays.stream(values())
+                .collect(Collectors.toMap(Problem::getId, problem -> problem));
     }
 
     public static Problem valueOfId(String id) {

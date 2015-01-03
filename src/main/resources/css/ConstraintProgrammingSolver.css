@@ -3,8 +3,13 @@
 }
 
 .tab-pane {
-    -fx-tab-min-width:55;
-    -fx-tab-max-width:60;
-    -fx-tab-min-height:90;
-    -fx-tab-max-height:100;
+    -fx-tab-min-width: 55;
+    -fx-tab-max-width: 60;
+    -fx-tab-min-height: 90;
+    -fx-tab-max-height: 100;
+}
+
+#label-error {
+    -fx-font-size: 12pt;
+    -fx-text-fill: red;
 }

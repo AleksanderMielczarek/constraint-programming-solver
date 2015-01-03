@@ -8,13 +8,15 @@ import javafx.beans.property.StringProperty;
 /**
  * Created by Aleksander on 2014-12-18.
  */
-public class Result<T> {
+public class ProblemResult<T> {
     private final StringProperty time;
     private final ObjectProperty<T> solution;
+    private final StringProperty error;
 
-    public Result(long time, T solution) {
+    public ProblemResult(long time, T solution, String error) {
         this.time = new SimpleStringProperty(String.valueOf(time));
         this.solution = new SimpleObjectProperty<>(solution);
+        this.error = new SimpleStringProperty(error);
     }
 
     public String getTime() {
@@ -31,5 +33,13 @@ public class Result<T> {
 
     public ObjectProperty<T> solutionProperty() {
         return solution;
+    }
+
+    public String getError() {
+        return error.get();
+    }
+
+    public StringProperty errorProperty() {
+        return error;
     }
 }
