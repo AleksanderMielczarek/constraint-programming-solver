@@ -1,9 +1,9 @@
 package com.po.constraintprogrammingsolver.models.jobshop;
 
 import com.google.common.base.Splitter;
-import com.po.constraintprogrammingsolver.problems.jobshop.Job;
-import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
-import com.po.constraintprogrammingsolver.problems.jobshop.Task;
+import com.po.constraintprogrammingsolver.problems.jobshop2.Job;
+import com.po.constraintprogrammingsolver.problems.jobshop2.JobShopData;
+import com.po.constraintprogrammingsolver.problems.jobshop2.Task;
 
 import java.util.ArrayList;
 import java.util.List;
