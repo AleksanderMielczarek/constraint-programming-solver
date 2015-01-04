@@ -2,6 +2,10 @@ package com.po.constraintprogrammingsolver.controllers;
 
 import com.po.constraintprogrammingsolver.models.ProblemService;
 import com.po.constraintprogrammingsolver.models.jobshop.*;
+import com.po.constraintprogrammingsolver.models.jobshop.wrappers.ComparatorVariableTypeWrapper;
+import com.po.constraintprogrammingsolver.models.jobshop.wrappers.CostFunctionTypeWrapper;
+import com.po.constraintprogrammingsolver.models.jobshop.wrappers.IndomainTypeWrapper;
+import com.po.constraintprogrammingsolver.models.jobshop.wrappers.SelectChoicePointTypeWrapper;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopProblemSolver;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
@@ -12,6 +16,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import org.jfree.chart.ChartFactory;
@@ -39,14 +44,25 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
             .append(System.getProperty("line.separator"))
             .append("5;3 2 4;5 10 15")
             .toString();
-    private static final IndomainType DEFAULT_INDOMAIN = IndomainType.INDOMAIN_MIN;
-
+    private static final IndomainTypeWrapper DEFAULT_INDOMAIN = IndomainTypeWrapper.INDOMAIN_MIN;
+    private static final SelectChoicePointTypeWrapper DEFAULT_SELECT_CHOICE_POINT = SelectChoicePointTypeWrapper.INPUT_ORDER_SELECT;
+    private static final ComparatorVariableTypeWrapper DEFAULT_COMPARATOR_VARIABLE = ComparatorVariableTypeWrapper.SMALLEST_MIN;
+    private static final CostFunctionTypeWrapper DEFAULT_COST_FUNCTION = CostFunctionTypeWrapper.NO_COST_FUNCTION;
+    
     @FXML
     private BorderPane borderPane;
     @FXML
-    private ComboBox<IndomainType> indomainType;
+    private ComboBox<CostFunctionTypeWrapper> costFunctionType;
+    @FXML
+    private ComboBox<IndomainTypeWrapper> indomainType;
+    @FXML
+    private ComboBox<SelectChoicePointTypeWrapper> selectChoicePointType;
+    @FXML
+    private ComboBox<ComparatorVariableTypeWrapper> comparatorVariableType;
     @FXML
     private TextArea jobs;
+    @FXML
+    private Label comparatorVariableLabel;
 
     @FXML
     private ResourceBundle resources;
@@ -74,10 +90,28 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
         defaultResultSupplier = new JobShopDefaultResultSupplier();
         problemService = new ProblemService<>(model, modelToDataConverter, problemSolver, solutionToResultConverter, validator, defaultResultSupplier, resources);
 
+        //hide comparator variable combo
+        selectChoicePointType.valueProperty().addListener((observable, oldValue, newValue) -> {
+            comparatorVariableType.visibleProperty().set(newValue.isComparatorVariable());
+            comparatorVariableLabel.visibleProperty().set(newValue.isComparatorVariable());
+        });
+
         //combo box and default values
-        indomainType.setItems(FXCollections.observableList(Arrays.asList(IndomainType.values())));
-        indomainType.setConverter(IndomainType.getStringConverter(resources));
+        costFunctionType.setItems(FXCollections.observableList(Arrays.asList(CostFunctionTypeWrapper.values())));
+        costFunctionType.setConverter(CostFunctionTypeWrapper.getStringConverter(resources));
+        costFunctionType.valueProperty().set(DEFAULT_COST_FUNCTION);
+        
+        indomainType.setItems(FXCollections.observableList(Arrays.asList(IndomainTypeWrapper.values())));
+        indomainType.setConverter(IndomainTypeWrapper.getStringConverter(resources));
         indomainType.valueProperty().set(DEFAULT_INDOMAIN);
+
+        selectChoicePointType.setItems(FXCollections.observableList(Arrays.asList(SelectChoicePointTypeWrapper.values())));
+        selectChoicePointType.setConverter(SelectChoicePointTypeWrapper.getStringConverter(resources));
+        selectChoicePointType.valueProperty().set(DEFAULT_SELECT_CHOICE_POINT);
+
+        comparatorVariableType.setItems(FXCollections.observableList(Arrays.asList(ComparatorVariableTypeWrapper.values())));
+        comparatorVariableType.setConverter(ComparatorVariableTypeWrapper.getStringConverter(resources));
+        comparatorVariableType.valueProperty().set(DEFAULT_COMPARATOR_VARIABLE);
 
         jobs.textProperty().set(DEFAULT_JOBS);
 
@@ -97,7 +131,10 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
         });
 
         //bind model
-        model.indomainTypeProperty().bind(indomainType.valueProperty());
+        model.costFunctionTypeWrapperProperty().bind(costFunctionType.valueProperty());
+        model.indomainTypeWrapperProperty().bind(indomainType.valueProperty());
+        model.selectChoicePointTypeWrapperProperty().bind(selectChoicePointType.valueProperty());
+        model.comparatorVariableTypeWrapperProperty().bind(comparatorVariableType.valueProperty());
         model.jobsProperty().bind(jobs.textProperty());
 
         //start service listeners

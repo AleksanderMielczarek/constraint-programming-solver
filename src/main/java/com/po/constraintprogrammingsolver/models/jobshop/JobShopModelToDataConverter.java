@@ -4,6 +4,13 @@ import com.google.common.base.Splitter;
 import com.po.constraintprogrammingsolver.problems.jobshop.Job;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
 import com.po.constraintprogrammingsolver.problems.jobshop.Task;
+import com.po.constraintprogrammingsolver.problems.jobshop.factories.JacopProvider;
+import com.po.constraintprogrammingsolver.problems.jobshop.factories.JacopProviders;
+import com.po.constraintprogrammingsolver.problems.jobshop.factories.comparatorvariable.ComparatorVariableType;
+import com.po.constraintprogrammingsolver.problems.jobshop.factories.costfunction.CostFunctionType;
+import com.po.constraintprogrammingsolver.problems.jobshop.factories.indomain.IndomainType;
+import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointComparatorVariableType;
+import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointStoreType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +49,27 @@ public class JobShopModelToDataConverter implements Function<JobShopModel, JobSh
             jobs.add(job);
         }
 
-        return new JobShopData(jobs, model.getIndomain());
+        JacopProvider jacopProvider;
+        IndomainType indomainType = model.getIndomainTypeWrapper().getIndomainType();
+        if (model.getSelectChoicePointTypeWrapper().isStore()) {
+            SelectChoicePointStoreType selectChoicePointType = model.getSelectChoicePointTypeWrapper().getSelectChoicePointStoreType().get();
+            if (model.getCostFunctionTypeWrapper().getCostFunctionType().isPresent()) {
+                CostFunctionType costFunctionType = model.getCostFunctionTypeWrapper().getCostFunctionType().get();
+                jacopProvider = JacopProviders.simpleJacopProviderWithCostFunction(indomainType, selectChoicePointType, costFunctionType);
+            } else {
+                jacopProvider = JacopProviders.simpleJacopProvider(indomainType, selectChoicePointType);
+            }
+        } else {
+            ComparatorVariableType comparatorVariableType = model.getComparatorVariableTypeWrapper().getComparatorVariableType();
+            SelectChoicePointComparatorVariableType selectChoicePointComparatorVariableType = model.getSelectChoicePointTypeWrapper().getSelectChoicePointComparatorVariableType().get();
+            if (model.getCostFunctionTypeWrapper().getCostFunctionType().isPresent()) {
+                CostFunctionType costFunctionType = model.getCostFunctionTypeWrapper().getCostFunctionType().get();
+                jacopProvider = JacopProviders.comparatorVariableJacopProviderWithCostFunction(indomainType, comparatorVariableType, selectChoicePointComparatorVariableType, costFunctionType);
+            } else {
+                jacopProvider = JacopProviders.comparatorVariableJacopProvider(indomainType, comparatorVariableType, selectChoicePointComparatorVariableType);
+            }
+        }
+
+        return new JobShopData(jobs, jacopProvider);
     }
 }

@@ -1,21 +1,30 @@
 package com.po.constraintprogrammingsolver.models.jobshop;
 
+import com.po.constraintprogrammingsolver.models.jobshop.wrappers.ComparatorVariableTypeWrapper;
+import com.po.constraintprogrammingsolver.models.jobshop.wrappers.CostFunctionTypeWrapper;
+import com.po.constraintprogrammingsolver.models.jobshop.wrappers.IndomainTypeWrapper;
+import com.po.constraintprogrammingsolver.models.jobshop.wrappers.SelectChoicePointTypeWrapper;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import org.jacop.search.Indomain;
 
 /**
  * Created by Aleksander on 2015-01-03.
  */
 public class JobShopModel {
     private final StringProperty jobs;
-    private final ObjectProperty<IndomainType> indomainType;
+    private final ObjectProperty<CostFunctionTypeWrapper> costFunctionTypeWrapper;
+    private final ObjectProperty<IndomainTypeWrapper> indomainTypeWrapper;
+    private final ObjectProperty<SelectChoicePointTypeWrapper> selectChoicePointTypeWrapper;
+    private final ObjectProperty<ComparatorVariableTypeWrapper> comparatorVariableTypeWrapper;
 
     public JobShopModel() {
         jobs = new SimpleStringProperty();
-        indomainType = new SimpleObjectProperty<>();
+        costFunctionTypeWrapper = new SimpleObjectProperty<>();
+        indomainTypeWrapper = new SimpleObjectProperty<>();
+        selectChoicePointTypeWrapper = new SimpleObjectProperty<>();
+        comparatorVariableTypeWrapper = new SimpleObjectProperty<>();
     }
 
     public String getJobs() {
@@ -26,15 +35,35 @@ public class JobShopModel {
         return jobs;
     }
 
-    public IndomainType getIndomainType() {
-        return indomainType.get();
+    public CostFunctionTypeWrapper getCostFunctionTypeWrapper() {
+        return costFunctionTypeWrapper.get();
     }
 
-    public ObjectProperty<IndomainType> indomainTypeProperty() {
-        return indomainType;
+    public ObjectProperty<CostFunctionTypeWrapper> costFunctionTypeWrapperProperty() {
+        return costFunctionTypeWrapper;
     }
 
-    public Indomain getIndomain() {
-        return indomainType.get().getIndomain();
+    public IndomainTypeWrapper getIndomainTypeWrapper() {
+        return indomainTypeWrapper.get();
+    }
+
+    public ObjectProperty<IndomainTypeWrapper> indomainTypeWrapperProperty() {
+        return indomainTypeWrapper;
+    }
+
+    public SelectChoicePointTypeWrapper getSelectChoicePointTypeWrapper() {
+        return selectChoicePointTypeWrapper.get();
+    }
+
+    public ObjectProperty<SelectChoicePointTypeWrapper> selectChoicePointTypeWrapperProperty() {
+        return selectChoicePointTypeWrapper;
+    }
+
+    public ComparatorVariableTypeWrapper getComparatorVariableTypeWrapper() {
+        return comparatorVariableTypeWrapper.get();
+    }
+
+    public ObjectProperty<ComparatorVariableTypeWrapper> comparatorVariableTypeWrapperProperty() {
+        return comparatorVariableTypeWrapper;
     }
 }

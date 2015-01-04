@@ -74,8 +74,9 @@ public class JobShopProblemSolver implements ProblemSolver<JobShopData, JobShopS
 
         search.setPrintInfo(false);
         boolean result;
-        if (data.getCostFunction().isPresent()) {
-            result = search.labeling(store, select, data.getCostFunction().get());
+        if (data.getJacopProvider().getCostFunction().isPresent()) {
+            JobShopTemporaryData temporaryData = new JobShopTemporaryData(store, taskJob, taskMachine, data.getJobs());
+            result = search.labeling(store, select, data.getJacopProvider().getCostFunction().get().getCostFunction(temporaryData));
         } else {
             result = search.labeling(store, select);
         }
