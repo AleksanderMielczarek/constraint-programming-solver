@@ -17,9 +17,9 @@ import java.util.Optional;
 /**
  * Created by Aleksander on 2014-12-03.
  */
-public class JobShopProblemSolver implements ProblemSolver<JobShopData, Multimap<Integer, TaskIntVarWrapper>> {
+public class JobShopProblemSolver implements ProblemSolver<JobShopData, JobShopSolution> {
     @Override
-    public Optional<Multimap<Integer, TaskIntVarWrapper>> solveProblem(JobShopData data) {
+    public Optional<JobShopSolution> solveProblem(JobShopData data) {
         int maxTime = data.getJobs().stream()
                 .mapToInt(job -> job.getStart() + job.getTasks().stream()
                         .mapToInt(Task::getTime)
@@ -78,7 +78,7 @@ public class JobShopProblemSolver implements ProblemSolver<JobShopData, Multimap
         }
 
         if (result) {
-            return Optional.of(taskJob);
+            return Optional.of(new JobShopSolution(taskJob));
         } else {
             return Optional.empty();
         }

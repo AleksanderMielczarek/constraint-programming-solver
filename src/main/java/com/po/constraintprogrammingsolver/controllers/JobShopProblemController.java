@@ -1,11 +1,10 @@
 package com.po.constraintprogrammingsolver.controllers;
 
-import com.google.common.collect.Multimap;
 import com.po.constraintprogrammingsolver.models.ProblemService;
 import com.po.constraintprogrammingsolver.models.jobshop.*;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopProblemSolver;
-import com.po.constraintprogrammingsolver.problems.jobshop.TaskIntVarWrapper;
+import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -27,7 +26,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Aleksander on 2014-12-19.
  */
-public class JobShopProblemController implements ProblemController<JobShopModel, JobShopData, Multimap<Integer, TaskIntVarWrapper>, TaskSeriesCollection> {
+public class JobShopProblemController implements ProblemController<JobShopModel, JobShopData, JobShopSolution, JobShopResult> {
     private static final String CHART_TITLE = "chart.title";
     private static final String CHART_AXIS_X = "chart.axis.x";
     private static final String CHART_AXIS_Y = "chart.axis.y";
@@ -52,9 +51,7 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     @FXML
     private ResourceBundle resources;
 
-    private ObjectProperty<TaskSeriesCollection> datasetProperty;
-
-    private ProblemService<JobShopModel, JobShopData, Multimap<Integer, TaskIntVarWrapper>, TaskSeriesCollection> problemService;
+    private ProblemService<JobShopModel, JobShopData, JobShopSolution, JobShopResult> problemService;
     private JobShopModel model;
     private JobShopModelToDataConverter modelToDataConverter;
     private JobShopProblemSolver problemSolver;
@@ -68,28 +65,6 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
 
     @FXML
     public void initialize() {
-        //combo box and default values
-        indomainType.setItems(FXCollections.observableList(Arrays.asList(IndomainType.values())));
-        indomainType.setConverter(IndomainType.getStringConverter(resources));
-        indomainType.valueProperty().set(DEFAULT_INDOMAIN);
-
-        jobs.textProperty().set(DEFAULT_JOBS);
-
-        //chart
-        datasetProperty = new SimpleObjectProperty<>();
-        TaskSeriesCollection dataset = new TaskSeriesCollection();
-        ChartViewer chartViewer = new ChartViewer(createChart(dataset));
-        borderPane.setCenter(chartViewer);
-
-        //change chart
-        datasetProperty.addListener((observable, oldValue, newValue) -> {
-            dataset.removeAll();
-            int series = newValue.getSeriesCount();
-            for (int i = 0; i < series; i++) {
-                dataset.add(newValue.getSeries(i));
-            }
-        });
-
         //models
         model = new JobShopModel();
         modelToDataConverter = new JobShopModelToDataConverter();
@@ -99,13 +74,35 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
         defaultResultSupplier = new JobShopDefaultResultSupplier();
         problemService = new ProblemService<>(model, modelToDataConverter, problemSolver, solutionToResultConverter, validator, defaultResultSupplier, resources);
 
+        //combo box and default values
+        indomainType.setItems(FXCollections.observableList(Arrays.asList(IndomainType.values())));
+        indomainType.setConverter(IndomainType.getStringConverter(resources));
+        indomainType.valueProperty().set(DEFAULT_INDOMAIN);
+
+        jobs.textProperty().set(DEFAULT_JOBS);
+
+        //chart
+        ObjectProperty<TaskSeriesCollection> datasetProperty = new SimpleObjectProperty<>();
+        JobShopResult result = defaultResultSupplier.get();
+        ChartViewer chartViewer = new ChartViewer(createChart(result.getTaskSeriesCollection()));
+        borderPane.setCenter(chartViewer);
+
+        //change chart
+        datasetProperty.addListener((observable, oldValue, newValue) -> {
+            result.getTaskSeriesCollection().removeAll();
+            int series = newValue.getSeriesCount();
+            for (int i = 0; i < series; i++) {
+                result.getTaskSeriesCollection().add(newValue.getSeries(i));
+            }
+        });
+
         //bind model
         model.indomainTypeProperty().bind(indomainType.valueProperty());
         model.jobsProperty().bind(jobs.textProperty());
 
         //start service listeners
         problemService.setOnSucceeded(event -> {
-            datasetProperty.bind(problemService.valueProperty().get().solutionProperty());
+            datasetProperty.bind(problemService.valueProperty().get().getResult().taskSeriesCollectionProperty());
             timeProperty.bind(problemService.valueProperty().get().timeProperty());
             errorProperty.bind(problemService.valueProperty().get().errorProperty());
         });
@@ -125,7 +122,7 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     }
 
     @Override
-    public ProblemService<JobShopModel, JobShopData, Multimap<Integer, TaskIntVarWrapper>, TaskSeriesCollection> getProblemService() {
+    public ProblemService<JobShopModel, JobShopData, JobShopSolution, JobShopResult> getProblemService() {
         return problemService;
     }
 

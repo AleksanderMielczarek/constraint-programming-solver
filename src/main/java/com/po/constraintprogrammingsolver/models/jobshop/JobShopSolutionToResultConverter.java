@@ -1,7 +1,6 @@
 package com.po.constraintprogrammingsolver.models.jobshop;
 
-import com.google.common.collect.Multimap;
-import com.po.constraintprogrammingsolver.problems.jobshop.TaskIntVarWrapper;
+import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
 import org.jfree.data.gantt.Task;
 import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
@@ -13,7 +12,7 @@ import java.util.function.Function;
 /**
  * Created by Aleksander on 2015-01-03.
  */
-public class JobShopSolutionToResultConverter implements Function<Multimap<Integer, TaskIntVarWrapper>, TaskSeriesCollection> {
+public class JobShopSolutionToResultConverter implements Function<JobShopSolution, JobShopResult> {
     private static final String CHART_LABEL = "chart.label";
 
     private final ResourceBundle resources;
@@ -23,10 +22,10 @@ public class JobShopSolutionToResultConverter implements Function<Multimap<Integ
     }
 
     @Override
-    public TaskSeriesCollection apply(Multimap<Integer, TaskIntVarWrapper> taskJob) {
+    public JobShopResult apply(JobShopSolution solution) {
         TaskSeriesCollection dataset = new TaskSeriesCollection();
 
-        taskJob.asMap().entrySet().stream()
+        solution.getSolution().asMap().entrySet().stream()
                 .map(entry -> {
                     TaskSeries series = new TaskSeries(resources.getString(CHART_LABEL) + entry.getKey());
                     entry.getValue().stream()
@@ -41,6 +40,6 @@ public class JobShopSolutionToResultConverter implements Function<Multimap<Integ
                 })
                 .forEach(dataset::add);
 
-        return dataset;
+        return new JobShopResult(dataset);
     }
 }

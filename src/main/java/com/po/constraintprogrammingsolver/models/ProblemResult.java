@@ -1,7 +1,5 @@
 package com.po.constraintprogrammingsolver.models;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -10,12 +8,12 @@ import javafx.beans.property.StringProperty;
  */
 public class ProblemResult<T> {
     private final StringProperty time;
-    private final ObjectProperty<T> solution;
+    private final T result;
     private final StringProperty error;
 
-    public ProblemResult(long time, T solution, String error) {
+    public ProblemResult(long time, T result, String error) {
         this.time = new SimpleStringProperty(String.valueOf(time));
-        this.solution = new SimpleObjectProperty<>(solution);
+        this.result = result;
         this.error = new SimpleStringProperty(error);
     }
 
@@ -27,12 +25,8 @@ public class ProblemResult<T> {
         return time;
     }
 
-    public T getSolution() {
-        return solution.get();
-    }
-
-    public ObjectProperty<T> solutionProperty() {
-        return solution;
+    public T getResult() {
+        return result;
     }
 
     public String getError() {
