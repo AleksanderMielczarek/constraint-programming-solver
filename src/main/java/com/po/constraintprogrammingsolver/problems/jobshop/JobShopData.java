@@ -1,8 +1,7 @@
 package com.po.constraintprogrammingsolver.problems.jobshop;
 
-import org.jacop.core.IntVar;
+import com.po.constraintprogrammingsolver.problems.jobshop.factories.JacopProvider;
 import org.jacop.core.Var;
-import org.jacop.search.Indomain;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,27 +11,27 @@ import java.util.Optional;
  */
 public class JobShopData {
     private final List<Job> jobs;
-    private final Indomain<IntVar> indomain;
+    private final JacopProvider jacopProvider;
     private final Optional<Var> costFunction;
 
-    public JobShopData(List<Job> jobs, Indomain<IntVar> indomain, Var costFunction) {
+    public JobShopData(List<Job> jobs, JacopProvider jacopProvider, Var costFunction) {
         this.jobs = jobs;
-        this.indomain = indomain;
+        this.jacopProvider = jacopProvider;
         this.costFunction = Optional.of(costFunction);
     }
 
-    public JobShopData(List<Job> jobs, Indomain<IntVar> indomain) {
+    public JobShopData(List<Job> jobs, JacopProvider jacopProvider) {
         this.jobs = jobs;
-        this.indomain = indomain;
-        costFunction = Optional.empty();
+        this.jacopProvider = jacopProvider;
+        this.costFunction = Optional.empty();
     }
 
     public List<Job> getJobs() {
         return jobs;
     }
 
-    public Indomain<IntVar> getIndomain() {
-        return indomain;
+    public JacopProvider getJacopProvider() {
+        return jacopProvider;
     }
 
     public Optional<Var> getCostFunction() {
