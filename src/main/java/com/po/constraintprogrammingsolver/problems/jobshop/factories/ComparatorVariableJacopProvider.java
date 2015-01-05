@@ -3,7 +3,6 @@ package com.po.constraintprogrammingsolver.problems.jobshop.factories;
 
 import com.po.constraintprogrammingsolver.problems.jobshop.factories.comparatorvariable.ComparatorVariableFactory;
 import com.po.constraintprogrammingsolver.problems.jobshop.factories.comparatorvariable.ComparatorVariableType;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.costfunction.CostFunctionType;
 import com.po.constraintprogrammingsolver.problems.jobshop.factories.indomain.IndomainType;
 import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointComparatorVariableFactory;
 import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointComparatorVariableType;
@@ -20,18 +19,9 @@ public class ComparatorVariableJacopProvider extends AbstractJacopProvider {
     private final SelectChoicePointComparatorVariableType selectChoicePointType;
     private final ComparatorVariable<IntVar> comparatorVariable;
 
-    public ComparatorVariableJacopProvider(IndomainType indomainType, ComparatorVariableType comparatorVariableType, SelectChoicePointComparatorVariableType selectChoicePointType, CostFunctionType costFunctionType) {
-        super(indomainType, costFunctionType);
-
-        this.selectChoicePointType = selectChoicePointType;
-
-        ComparatorVariableFactory comparatorVariableFactory = new ComparatorVariableFactory();
-        comparatorVariable = comparatorVariableFactory.createJacopType(comparatorVariableType);
-    }
-
     public ComparatorVariableJacopProvider(IndomainType indomainType, ComparatorVariableType comparatorVariableType, SelectChoicePointComparatorVariableType selectChoicePointType) {
         super(indomainType);
-        
+
         this.selectChoicePointType = selectChoicePointType;
 
         ComparatorVariableFactory comparatorVariableFactory = new ComparatorVariableFactory();

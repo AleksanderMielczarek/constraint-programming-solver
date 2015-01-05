@@ -15,6 +15,8 @@ import org.jacop.search.Indomain;
 import org.jacop.search.Search;
 import org.jacop.search.SelectChoicePoint;
 
+import java.util.Comparator;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -37,7 +39,7 @@ public class JobShopProblemSolver implements ProblemSolver<JobShopData, JobShopS
         for (Job job : data.getJobs()) {
             for (Task task : job.getTasks()) {
                 //Variable
-                IntVar taskStartVar = new IntVar(store, job.getName() + task.getName(), job.getStart(), maxTime);
+                IntVar taskStartVar = new IntVar(store, job.getStart(), maxTime);
 
                 //Constraints
                 //Constraint on job
@@ -74,15 +76,16 @@ public class JobShopProblemSolver implements ProblemSolver<JobShopData, JobShopS
 
         search.setPrintInfo(false);
         boolean result;
-        if (data.getJacopProvider().getCostFunction().isPresent()) {
-            JobShopTemporaryData temporaryData = new JobShopTemporaryData(store, taskJob, taskMachine, data.getJobs());
-            result = search.labeling(store, select, data.getJacopProvider().getCostFunction().get().getCostFunction(temporaryData));
-        } else {
-            result = search.labeling(store, select);
-        }
+        result = search.labeling(store, select);
 
         if (result) {
-            return Optional.of(new JobShopSolution(taskJob));
+            int cost = taskJob.asMap().entrySet().stream()
+                    .map(Map.Entry::getValue)
+                    .map(Iterables::getLast)
+                    .map(wrapper -> wrapper.getTask().getTime() + wrapper.getIntVar().value())
+                    .max(Comparator.<Integer>naturalOrder()).get();
+
+            return Optional.of(new JobShopSolution(taskJob, cost));
         } else {
             return Optional.empty();
         }

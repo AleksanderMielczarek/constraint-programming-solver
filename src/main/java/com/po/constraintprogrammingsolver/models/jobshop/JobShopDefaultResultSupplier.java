@@ -1,5 +1,6 @@
 package com.po.constraintprogrammingsolver.models.jobshop;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jfree.data.gantt.TaskSeriesCollection;
 
 import java.util.function.Supplier;
@@ -10,6 +11,6 @@ import java.util.function.Supplier;
 public class JobShopDefaultResultSupplier implements Supplier<JobShopResult> {
     @Override
     public JobShopResult get() {
-        return new JobShopResult(new TaskSeriesCollection());
+        return new JobShopResult(new TaskSeriesCollection(), StringUtils.EMPTY, StringUtils.EMPTY);
     }
 }

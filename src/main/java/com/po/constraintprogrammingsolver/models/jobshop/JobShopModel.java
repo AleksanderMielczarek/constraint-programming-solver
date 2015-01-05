@@ -1,7 +1,6 @@
 package com.po.constraintprogrammingsolver.models.jobshop;
 
 import com.po.constraintprogrammingsolver.models.jobshop.wrappers.ComparatorVariableTypeWrapper;
-import com.po.constraintprogrammingsolver.models.jobshop.wrappers.CostFunctionTypeWrapper;
 import com.po.constraintprogrammingsolver.models.jobshop.wrappers.IndomainTypeWrapper;
 import com.po.constraintprogrammingsolver.models.jobshop.wrappers.SelectChoicePointTypeWrapper;
 import javafx.beans.property.ObjectProperty;
@@ -14,14 +13,13 @@ import javafx.beans.property.StringProperty;
  */
 public class JobShopModel {
     private final StringProperty jobs;
-    private final ObjectProperty<CostFunctionTypeWrapper> costFunctionTypeWrapper;
     private final ObjectProperty<IndomainTypeWrapper> indomainTypeWrapper;
     private final ObjectProperty<SelectChoicePointTypeWrapper> selectChoicePointTypeWrapper;
     private final ObjectProperty<ComparatorVariableTypeWrapper> comparatorVariableTypeWrapper;
 
     public JobShopModel() {
         jobs = new SimpleStringProperty();
-        costFunctionTypeWrapper = new SimpleObjectProperty<>();
+
         indomainTypeWrapper = new SimpleObjectProperty<>();
         selectChoicePointTypeWrapper = new SimpleObjectProperty<>();
         comparatorVariableTypeWrapper = new SimpleObjectProperty<>();
@@ -33,14 +31,6 @@ public class JobShopModel {
 
     public StringProperty jobsProperty() {
         return jobs;
-    }
-
-    public CostFunctionTypeWrapper getCostFunctionTypeWrapper() {
-        return costFunctionTypeWrapper.get();
-    }
-
-    public ObjectProperty<CostFunctionTypeWrapper> costFunctionTypeWrapperProperty() {
-        return costFunctionTypeWrapper;
     }
 
     public IndomainTypeWrapper getIndomainTypeWrapper() {

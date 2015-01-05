@@ -1,6 +1,5 @@
 package com.po.constraintprogrammingsolver.problems.jobshop.factories;
 
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.costfunction.CostFunctionType;
 import com.po.constraintprogrammingsolver.problems.jobshop.factories.indomain.IndomainType;
 import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointStoreFactory;
 import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointStoreType;
@@ -14,13 +13,6 @@ import org.jacop.search.SelectChoicePoint;
  */
 public class SimpleJacopProvider extends AbstractJacopProvider {
     private final SelectChoicePointStoreType selectChoicePointType;
-
-    public SimpleJacopProvider(IndomainType indomainType, SelectChoicePointStoreType selectChoicePointType, CostFunctionType costFunctionType) {
-        super(indomainType, costFunctionType);
-
-        this.selectChoicePointType = selectChoicePointType;
-    }
-
 
     public SimpleJacopProvider(IndomainType indomainType, SelectChoicePointStoreType selectChoicePointType) {
         super(indomainType);

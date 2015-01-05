@@ -3,7 +3,6 @@ package com.po.constraintprogrammingsolver.controllers;
 import com.po.constraintprogrammingsolver.models.ProblemService;
 import com.po.constraintprogrammingsolver.models.jobshop.*;
 import com.po.constraintprogrammingsolver.models.jobshop.wrappers.ComparatorVariableTypeWrapper;
-import com.po.constraintprogrammingsolver.models.jobshop.wrappers.CostFunctionTypeWrapper;
 import com.po.constraintprogrammingsolver.models.jobshop.wrappers.IndomainTypeWrapper;
 import com.po.constraintprogrammingsolver.models.jobshop.wrappers.SelectChoicePointTypeWrapper;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
@@ -18,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -47,12 +47,9 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     private static final IndomainTypeWrapper DEFAULT_INDOMAIN = IndomainTypeWrapper.INDOMAIN_MIN;
     private static final SelectChoicePointTypeWrapper DEFAULT_SELECT_CHOICE_POINT = SelectChoicePointTypeWrapper.INPUT_ORDER_SELECT;
     private static final ComparatorVariableTypeWrapper DEFAULT_COMPARATOR_VARIABLE = ComparatorVariableTypeWrapper.SMALLEST_MIN;
-    private static final CostFunctionTypeWrapper DEFAULT_COST_FUNCTION = CostFunctionTypeWrapper.NO_COST_FUNCTION;
-    
+
     @FXML
     private BorderPane borderPane;
-    @FXML
-    private ComboBox<CostFunctionTypeWrapper> costFunctionType;
     @FXML
     private ComboBox<IndomainTypeWrapper> indomainType;
     @FXML
@@ -63,6 +60,10 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     private TextArea jobs;
     @FXML
     private Label comparatorVariableLabel;
+    @FXML
+    private TextArea result;
+    @FXML
+    private TextField cost;
 
     @FXML
     private ResourceBundle resources;
@@ -97,10 +98,6 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
         });
 
         //combo box and default values
-        costFunctionType.setItems(FXCollections.observableList(Arrays.asList(CostFunctionTypeWrapper.values())));
-        costFunctionType.setConverter(CostFunctionTypeWrapper.getStringConverter(resources));
-        costFunctionType.valueProperty().set(DEFAULT_COST_FUNCTION);
-        
         indomainType.setItems(FXCollections.observableList(Arrays.asList(IndomainTypeWrapper.values())));
         indomainType.setConverter(IndomainTypeWrapper.getStringConverter(resources));
         indomainType.valueProperty().set(DEFAULT_INDOMAIN);
@@ -114,24 +111,26 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
         comparatorVariableType.valueProperty().set(DEFAULT_COMPARATOR_VARIABLE);
 
         jobs.textProperty().set(DEFAULT_JOBS);
+        cost.textProperty().set(defaultResultSupplier.get().getCost());
+        result.textProperty().set(defaultResultSupplier.get().getResult());
 
         //chart
-        ObjectProperty<TaskSeriesCollection> datasetProperty = new SimpleObjectProperty<>();
-        JobShopResult result = defaultResultSupplier.get();
-        ChartViewer chartViewer = new ChartViewer(createChart(result.getTaskSeriesCollection()));
+        TaskSeriesCollection taskSeriesCollection = defaultResultSupplier.get().getTaskSeriesCollection();
+        ObjectProperty<TaskSeriesCollection> datasetProperty = new SimpleObjectProperty<>(taskSeriesCollection);
+        JFreeChart jFreeChart = createChart(taskSeriesCollection);
+        ChartViewer chartViewer = new ChartViewer(jFreeChart);
         borderPane.setCenter(chartViewer);
 
         //change chart
         datasetProperty.addListener((observable, oldValue, newValue) -> {
-            result.getTaskSeriesCollection().removeAll();
+            taskSeriesCollection.removeAll();
             int series = newValue.getSeriesCount();
             for (int i = 0; i < series; i++) {
-                result.getTaskSeriesCollection().add(newValue.getSeries(i));
+                taskSeriesCollection.add(newValue.getSeries(i));
             }
         });
 
         //bind model
-        model.costFunctionTypeWrapperProperty().bind(costFunctionType.valueProperty());
         model.indomainTypeWrapperProperty().bind(indomainType.valueProperty());
         model.selectChoicePointTypeWrapperProperty().bind(selectChoicePointType.valueProperty());
         model.comparatorVariableTypeWrapperProperty().bind(comparatorVariableType.valueProperty());
@@ -140,6 +139,8 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
         //start service listeners
         problemService.setOnSucceeded(event -> {
             datasetProperty.bind(problemService.valueProperty().get().getResult().taskSeriesCollectionProperty());
+            cost.textProperty().bind(problemService.valueProperty().get().getResult().costProperty());
+            result.textProperty().bind(problemService.valueProperty().get().getResult().resultProperty());
             timeProperty.bind(problemService.valueProperty().get().timeProperty());
             errorProperty.bind(problemService.valueProperty().get().errorProperty());
         });

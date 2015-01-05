@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -11,31 +12,28 @@
         <panes>
           <TitledPane animated="false" text="%accordion.options">
                <content>
-                  <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                  <HBox spacing="10.0">
                      <children>
-                        <GridPane maxWidth="1.7976931348623157E308" minWidth="-Infinity">
+                        <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="NEVER">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
                           </columnConstraints>
                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="%label.indomain" GridPane.rowIndex="1" />
-                              <Label text="%label.choice.point.select" GridPane.rowIndex="2" />
-                              <Label fx:id="comparatorVariableLabel" text="%label.comparator.variable" GridPane.rowIndex="3" />
-                              <ComboBox fx:id="indomainType" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <ComboBox fx:id="selectChoicePointType" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <ComboBox fx:id="comparatorVariableType" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label text="%label.cost.function" />
-                              <ComboBox fx:id="costFunctionType" prefWidth="150.0" GridPane.columnIndex="1" />
+                              <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.indomain" />
+                              <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.choice.point.select" GridPane.rowIndex="1" />
+                              <Label fx:id="comparatorVariableLabel" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.comparator.variable" GridPane.rowIndex="2" />
+                              <ComboBox fx:id="indomainType" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" />
+                              <ComboBox fx:id="selectChoicePointType" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="comparatorVariableType" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
-                        <TextArea fx:id="jobs" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                        <TextArea fx:id="jobs" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                </content>
@@ -43,4 +41,21 @@
         </panes>
       </Accordion>
    </top>
+   <bottom>
+      <Accordion BorderPane.alignment="CENTER">
+        <panes>
+          <TitledPane animated="false" text="%accordion.result">
+               <content>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.cost" />
+                        <TextField fx:id="cost" editable="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                        <TextArea fx:id="result" editable="false" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+               </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
+   </bottom>
 </BorderPane>
