@@ -1,20 +1,30 @@
 package com.po.constraintprogrammingsolver.controllers;
 
-import com.po.constraintprogrammingsolver.problems.Trucks.Truck;
+import com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers.OthersController;
+import com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers.PackagesController;
+import com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers.ResultController;
+import com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers.VehiclesController;
+import com.po.constraintprogrammingsolver.problems.Trucks.*;
+import com.po.constraintprogrammingsolver.problems.Trucks.Package;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.converter.IntegerStringConverter;
+import javafx.scene.control.TitledPane;
+import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -22,84 +32,107 @@ import java.util.ResourceBundle;
  */
 
 public class TrucksProblemController implements Initializable {
+    @FXML
+    private TitledPane dataAccordion;
 
     @FXML
-    private TableColumn<Truck, Integer> trucksIDCol;
+    private TitledPane resultAccordion;
 
     @FXML
-    private TableColumn<Truck, Integer> trucksLoadingCol;
+    private VehiclesController vehiclesController;
 
     @FXML
-    private TableColumn<Truck, Integer> trucksCombustionCol;
+    private PackagesController packagesController;
 
     @FXML
-    private TableView<Truck> trucksTable;
+    private OthersController othersController;
 
     @FXML
-    private Button addTruckBtn;
+    private ResultController resultController;
 
-    @FXML
-    private TextField TruckID;
+    private Button startBtn;
+    private TrucksResult trucksResult;
 
-    @FXML
-    private TextField TruckLoading;
 
-    @FXML
-    private TextField TruckCombustion;
-
-    private ObservableList<Truck> trucksData;
-
-    @Override
     public void initialize(URL location, ResourceBundle resources) {
-        adjustColumns();
-        handlingAddTruckBtn();
-        trucksData = FXCollections.observableArrayList();
-        trucksTable.setItems(trucksData);
-
+        trucksResult = new TrucksResult();
+        startBtn = othersController.getStartBtn();
+        handlingStartBtn();
     }
 
-    private void adjustColumns() {
-        adjustViewTrucksTableColumns();
-        adjustPropertiesTrucksTableColumns();
-    }
+    private void handlingStartBtn() {
+        startBtn.setOnAction((ActionEvent e) -> {
+            getDataFromControllers();
+            TrucksProblemData trucksProblemData = getDataFromControllers();
+            TrucksProblemSolver trucksProblemSolver = new TrucksProblemSolver(trucksProblemData);
+            trucksResult = trucksProblemSolver.solveProblem();
 
-    private void handlingAddTruckBtn() {
-        addTruckBtn.setOnAction((ActionEvent e) -> {
-            trucksData.add(new Truck(
-                    Integer.parseInt(TruckID.getText()),
-                    Integer.parseInt(TruckLoading.getText()),
-                    Integer.parseInt(TruckCombustion.getText())
-            ));
-            TruckID.clear();
-            TruckLoading.clear();
-            TruckCombustion.clear();
+            initResultPackageLocationsTable();
+            initResultVehicleLoadTable();
+            initCostText();
+
+            dataAccordion.setExpanded(false);
+            resultAccordion.setExpanded(true);
         });
     }
 
-    private void adjustViewTrucksTableColumns() {
-        trucksIDCol.prefWidthProperty().bind(trucksTable.widthProperty().multiply(0.2));
-        trucksLoadingCol.prefWidthProperty().bind(trucksTable.widthProperty().multiply(0.4));
-        trucksCombustionCol.prefWidthProperty().bind(trucksTable.widthProperty().multiply(0.4));
+    private TrucksProblemData getDataFromControllers() {
+        TrucksProblemData trucksProblemData = new TrucksProblemData();
+
+        trucksProblemData.setTrucksData(new ArrayList<>(vehiclesController.getData()));
+        trucksProblemData.setPackagesData(new ArrayList<>(packagesController.getData()));
+        trucksProblemData.setOthersData(othersController.getOthersData());
+
+        return trucksProblemData;
     }
 
-    private void adjustPropertiesTrucksTableColumns() {
-        trucksIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
-        trucksLoadingCol.setCellValueFactory(new PropertyValueFactory<>("loading"));
-        trucksLoadingCol.setCellFactory(TextFieldTableCell.<Truck, Integer>forTableColumn(new IntegerStringConverter()));
-        trucksLoadingCol.setOnEditCommit(
-                (TableColumn.CellEditEvent<Truck, Integer> t) -> {
-                    ((Truck) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())).setLoading(t.getNewValue());
+    private void initResultPackageLocationsTable() {
+        TableView<ObservableMap.Entry<Integer, String>> packageLocationTable = resultController.getPackageLocationTable();
+        ObservableMap<Integer, String> packagesLocations = trucksResult.getPackagesLocations();
+        TableColumn<ObservableMap.Entry<Integer, String>, Integer> vehicleColLocation =
+               resultController.getVehicleColLocation();
+        TableColumn<ObservableMap.Entry<Integer, String>, String> packagesCol =
+                resultController.getPackagesCol();
 
-                });
-        trucksCombustionCol.setCellValueFactory(new PropertyValueFactory<>("combustion"));
-        trucksCombustionCol.setCellFactory(TextFieldTableCell.<Truck, Integer>forTableColumn(new IntegerStringConverter()));
-        trucksCombustionCol.setOnEditCommit(
-                (TableColumn.CellEditEvent<Truck, Integer> t) -> {
-                    ((Truck) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())).setCombustion(t.getNewValue());
+        packagesLocations.addListener((MapChangeListener.Change<? extends Integer, ? extends String> change) -> {
+            packageLocationTable.setItems(FXCollections.observableArrayList(packagesLocations.entrySet()));
+        });
 
-                });
+        vehicleColLocation.setCellValueFactory((p) -> {
+            return new ReadOnlyObjectWrapper<>(p.getValue().getKey());
+        });
+
+        packagesCol.setCellValueFactory((p) -> {
+            return new ReadOnlyObjectWrapper<>(p.getValue().getValue());
+        });
+        packageLocationTable.setItems(FXCollections.observableArrayList(packagesLocations.entrySet()));
+    }
+
+    private void initResultVehicleLoadTable() {
+        TableView<ObservableMap.Entry<Integer, Integer>> vehiclesLoadTable = resultController.getVehiclesLoadTable();
+        ObservableMap<Integer, Integer> capacities = trucksResult.getCapacities();
+        TableColumn<ObservableMap.Entry<Integer, Integer>, Integer> vehicleColLoad =
+                resultController.getVehicleColLoad();
+        TableColumn<ObservableMap.Entry<Integer, Integer>, Integer> loadCol =
+                resultController.getLoadCol();
+
+        capacities.addListener((MapChangeListener.Change<? extends Integer, ? extends Integer> change) -> {
+            vehiclesLoadTable.setItems(FXCollections.observableArrayList(capacities.entrySet()));
+        });
+
+        vehicleColLoad.setCellValueFactory((p) -> {
+            return new ReadOnlyObjectWrapper<>(p.getValue().getKey());
+        });
+
+        loadCol.setCellValueFactory((p) -> {
+            return new ReadOnlyObjectWrapper<>(p.getValue().getValue());
+        });
+        vehiclesLoadTable.setItems(FXCollections.observableArrayList(capacities.entrySet()));
+    }
+
+    private void initCostText() {
+        Text costText = resultController.getCostText();
+        costText.textProperty().bind(trucksResult.wholeCostProperty());
     }
 
 
