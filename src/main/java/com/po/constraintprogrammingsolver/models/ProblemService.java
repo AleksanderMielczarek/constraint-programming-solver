@@ -55,12 +55,15 @@ public class ProblemService<T, S, U, V> extends Service<ProblemResult<V>> {
                     updateProgress(1, 1);
                     return result;
                 }
+                updateProgress(1, 5);
 
                 //convert model to data
                 S data = modelToDataConverter.apply(model);
+                updateProgress(2, 5);
 
                 //find solution
                 Optional<U> solution = problemSolver.solveProblem(data);
+                updateProgress(3, 5);
 
                 if (!solution.isPresent()) {
                     long time = stopwatch.elapsed(TimeUnit.MILLISECONDS);
@@ -71,6 +74,7 @@ public class ProblemService<T, S, U, V> extends Service<ProblemResult<V>> {
 
                 //convert solution to result
                 V convertedSolution = solutionToResultConverter.apply(solution.get());
+                updateProgress(4, 5);
 
                 long time = stopwatch.elapsed(TimeUnit.MILLISECONDS);
                 ProblemResult<V> result = new ProblemResult<>(time, convertedSolution, validatorResult.getMessage());
