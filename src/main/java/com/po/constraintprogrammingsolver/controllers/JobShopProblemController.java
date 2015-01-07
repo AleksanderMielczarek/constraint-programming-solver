@@ -9,8 +9,6 @@ import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopProblemSolver;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -75,6 +73,7 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     private JobShopSolutionToResultConverter solutionToResultConverter;
     private JobShopValidator validator;
     private JobShopDefaultResultSupplier defaultResultSupplier;
+    private JobShopResultConsumer resultConsumer;
 
     private StringProperty timeProperty;
     private StringProperty errorProperty;
@@ -89,7 +88,25 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
         solutionToResultConverter = new JobShopSolutionToResultConverter(resources);
         validator = new JobShopValidator(resources);
         defaultResultSupplier = new JobShopDefaultResultSupplier();
-        problemService = new ProblemService<>(model, modelToDataConverter, problemSolver, solutionToResultConverter, validator, defaultResultSupplier, resources);
+
+        //chart
+        TaskSeriesCollection taskSeriesCollection = defaultResultSupplier.get().getTaskSeriesCollection();
+        JFreeChart jFreeChart = createChart(taskSeriesCollection);
+        ChartViewer chartViewer = new ChartViewer(jFreeChart);
+        borderPane.setCenter(chartViewer);
+
+        //extra consumer
+        resultConsumer = new JobShopResultConsumer(taskSeriesCollection);
+
+        //service
+        problemService = new ProblemService<>(model,
+                modelToDataConverter,
+                problemSolver,
+                solutionToResultConverter,
+                validator,
+                defaultResultSupplier,
+                resultConsumer,
+                resources);
 
         //hide comparator variable combo
         selectChoicePointType.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -114,22 +131,6 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
         cost.textProperty().set(defaultResultSupplier.get().getCost());
         result.textProperty().set(defaultResultSupplier.get().getResult());
 
-        //chart
-        TaskSeriesCollection taskSeriesCollection = defaultResultSupplier.get().getTaskSeriesCollection();
-        ObjectProperty<TaskSeriesCollection> datasetProperty = new SimpleObjectProperty<>(taskSeriesCollection);
-        JFreeChart jFreeChart = createChart(taskSeriesCollection);
-        ChartViewer chartViewer = new ChartViewer(jFreeChart);
-        borderPane.setCenter(chartViewer);
-
-        //change chart
-        datasetProperty.addListener((observable, oldValue, newValue) -> {
-            taskSeriesCollection.removeAll();
-            int series = newValue.getSeriesCount();
-            for (int i = 0; i < series; i++) {
-                taskSeriesCollection.add(newValue.getSeries(i));
-            }
-        });
-
         //bind model
         model.indomainTypeWrapperProperty().bind(indomainType.valueProperty());
         model.selectChoicePointTypeWrapperProperty().bind(selectChoicePointType.valueProperty());
@@ -138,7 +139,6 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
 
         //start service listeners
         problemService.setOnSucceeded(event -> {
-            datasetProperty.bind(problemService.valueProperty().get().getResult().taskSeriesCollectionProperty());
             cost.textProperty().bind(problemService.valueProperty().get().getResult().costProperty());
             result.textProperty().bind(problemService.valueProperty().get().getResult().resultProperty());
             timeProperty.bind(problemService.valueProperty().get().timeProperty());
@@ -178,4 +178,5 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     public void setProgressProperty(DoubleProperty progressProperty) {
         this.progressProperty = progressProperty;
     }
+
 }

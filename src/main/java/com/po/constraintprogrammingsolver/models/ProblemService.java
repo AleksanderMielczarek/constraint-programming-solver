@@ -8,6 +8,7 @@ import javafx.concurrent.Task;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -23,7 +24,10 @@ public class ProblemService<T, S, U, V> extends Service<ProblemResult<V>> {
     private final Function<U, V> solutionToResultConverter;
     private final Function<T, ValidatorResult> validator;
     private final Supplier<V> defaultResultSupplier;
+    private final Optional<Consumer<V>> resultConsumer;
     private final ResourceBundle resources;
+
+    private final int steps;
 
     public ProblemService(T model,
                           Function<T, S> modelToDataConverter,
@@ -39,6 +43,27 @@ public class ProblemService<T, S, U, V> extends Service<ProblemResult<V>> {
         this.validator = validator;
         this.defaultResultSupplier = defaultResultSupplier;
         this.resources = resources;
+        this.resultConsumer = Optional.empty();
+        steps = 5;
+    }
+
+    public ProblemService(T model,
+                          Function<T, S> modelToDataConverter,
+                          ProblemSolver<S, U> problemSolver,
+                          Function<U, V> solutionToResultConverter,
+                          Function<T, ValidatorResult> validator,
+                          Supplier<V> defaultResultSupplier,
+                          Consumer<V> resultConsumer,
+                          ResourceBundle resources) {
+        this.model = model;
+        this.modelToDataConverter = modelToDataConverter;
+        this.problemSolver = problemSolver;
+        this.solutionToResultConverter = solutionToResultConverter;
+        this.validator = validator;
+        this.defaultResultSupplier = defaultResultSupplier;
+        this.resultConsumer = Optional.of(resultConsumer);
+        this.resources = resources;
+        steps = 6;
     }
 
     @Override
@@ -50,22 +75,28 @@ public class ProblemService<T, S, U, V> extends Service<ProblemResult<V>> {
 
                 ValidatorResult validatorResult = validator.apply(model);
                 if (validatorResult.isError()) {
+                    if (resultConsumer.isPresent()) {
+                        resultConsumer.get().accept(defaultResultSupplier.get());
+                    }
                     long time = stopwatch.elapsed(TimeUnit.MILLISECONDS);
                     ProblemResult<V> result = new ProblemResult<>(time, defaultResultSupplier.get(), validatorResult.getMessage());
                     updateProgress(1, 1);
                     return result;
                 }
-                updateProgress(1, 5);
+                updateProgress(1, steps);
 
                 //convert model to data
                 S data = modelToDataConverter.apply(model);
-                updateProgress(2, 5);
+                updateProgress(2, steps);
 
                 //find solution
                 Optional<U> solution = problemSolver.solveProblem(data);
-                updateProgress(3, 5);
+                updateProgress(3, steps);
 
                 if (!solution.isPresent()) {
+                    if (resultConsumer.isPresent()) {
+                        resultConsumer.get().accept(defaultResultSupplier.get());
+                    }
                     long time = stopwatch.elapsed(TimeUnit.MILLISECONDS);
                     ProblemResult<V> result = new ProblemResult<>(time, defaultResultSupplier.get(), resources.getString(SOLUTION_NOT_FOUND));
                     updateProgress(1, 1);
@@ -74,8 +105,12 @@ public class ProblemService<T, S, U, V> extends Service<ProblemResult<V>> {
 
                 //convert solution to result
                 V convertedSolution = solutionToResultConverter.apply(solution.get());
-                updateProgress(4, 5);
+                updateProgress(4, steps);
 
+                if (resultConsumer.isPresent()) {
+                    resultConsumer.get().accept(convertedSolution);
+                    updateProgress(5, steps);
+                }
                 long time = stopwatch.elapsed(TimeUnit.MILLISECONDS);
                 ProblemResult<V> result = new ProblemResult<>(time, convertedSolution, validatorResult.getMessage());
                 updateProgress(1, 1);

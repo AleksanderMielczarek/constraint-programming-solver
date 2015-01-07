@@ -30,9 +30,6 @@ public class ConstraintProgrammingSolverController {
     private TabPane problemsTabPane;
 
     @FXML
-    private Button startButton;
-
-    @FXML
     private JobShopProblemController jobShopProblemController;
 
     @FXML
@@ -40,17 +37,21 @@ public class ConstraintProgrammingSolverController {
 
     private final Stage stage;
 
+    private final ServiceProvider serviceProvider;
+    private final ControllerProvider controllerProvider;
+    private final ExecutorService executorService;
+
     public ConstraintProgrammingSolverController(Stage stage) {
         this.stage = stage;
+
+        controllerProvider = new ControllerProvider();
+        serviceProvider = new ServiceProvider();
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     @FXML
     public void initialize() {
-        //one executor for all tasks
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-
         //register problem here
-        ControllerProvider controllerProvider = new ControllerProvider();
         controllerProvider.registerProblemController(Problem.JOB_SHOP, jobShopProblemController);
 
         //set properties
@@ -62,19 +63,21 @@ public class ConstraintProgrammingSolverController {
                 });
 
         //get services from controllers
-        ServiceProvider serviceProvider = new ServiceProvider();
         controllerProvider.getControllers().entrySet().stream()
                 .forEach(entry -> serviceProvider.registerProblemService(entry.getKey(), entry.getValue().getProblemService()));
         serviceProvider.getProblems().values().stream()
-                .forEach(service -> service.setExecutor(executor));
+                .forEach(service -> service.setExecutor(executorService));
 
         //bind selected tab with service provider
         problemsTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 serviceProvider.problemProperty().bind(new SimpleObjectProperty<>(Problem.valueOfId(newValue.getId()))));
         serviceProvider.setProblem(Problem.valueOfId(problemsTabPane.getSelectionModel().getSelectedItem().getId()));
 
-        startButton.setOnMouseClicked(event -> serviceProvider.getProblemService().restart());
+        stage.setOnCloseRequest(event -> executorService.shutdown());
+    }
 
-        stage.setOnCloseRequest(event -> executor.shutdown());
+    @FXML
+    private void startButtonOnMouseClicked() {
+        serviceProvider.getProblemService().restart();
     }
 }
