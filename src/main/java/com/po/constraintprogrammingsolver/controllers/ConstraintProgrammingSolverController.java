@@ -5,7 +5,6 @@ import com.po.constraintprogrammingsolver.models.Problem;
 import com.po.constraintprogrammingsolver.models.ServiceProvider;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TabPane;
