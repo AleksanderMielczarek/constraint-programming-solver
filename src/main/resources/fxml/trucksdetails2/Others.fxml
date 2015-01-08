@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" text="%titledPanel.others" textAlignment="CENTER" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.OthersController">
+    <content>
+        <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="200.0">
+            <children>
+                <GridPane hgap="10" vgap="10">
+                    <padding>
+                        <Insets top="25" right="25" left="25" bottom="25" />
+                    </padding>
+                    <Text text="%label.distance" GridPane.columnIndex="0" GridPane.rowIndex="0"></Text>
+                    <TextField fx:id="distance" GridPane.columnIndex="1" GridPane.rowIndex="0"></TextField>
+                    <Text text="%label.costFuel" GridPane.columnIndex="0" GridPane.rowIndex="1"></Text>
+                    <TextField fx:id="costFuel" GridPane.columnIndex="1" GridPane.rowIndex="1"></TextField>
+                    <Button fx:id="startBtn" text="START" GridPane.columnIndex="0" GridPane.rowIndex="2"></Button>
+                </GridPane>
+            </children>
+        </AnchorPane>
+    </content>
+</TitledPane>

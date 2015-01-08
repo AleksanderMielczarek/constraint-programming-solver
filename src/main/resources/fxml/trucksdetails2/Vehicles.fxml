@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" text="%titledPanel.vehicles" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.VehiclesController">
+    <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="200.0">
+            <children>
+                <VBox layoutX="9.600000381469727" layoutY="11.600000381469727" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="2.0">
+                    <children>
+                        <TableView fx:id="trucksTable" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                            <columns>
+                                <TableColumn fx:id="trucksIDCol"  text="%tablelabel.trucks.id" />
+                                <TableColumn fx:id="trucksLoadingCol"  text="%tablelabel.trucks.loading" />
+                                <TableColumn fx:id="trucksCombustionCol"  text="%tablelabel.trucks.combustion" />
+                            </columns>
+                        </TableView>
+                        <HBox>
+                            <children>
+
+                                <TextField fx:id="truckID" promptText="%tablelabel.trucks.id">
+                                    <HBox.margin>
+                                        <Insets right="2" />
+                                    </HBox.margin>
+                                </TextField>
+                                <TextField fx:id="truckLoading" promptText="%tablelabel.trucks.loading">
+                                    <HBox.margin>
+                                        <Insets right="2" />
+                                    </HBox.margin>
+                                </TextField>
+                                <TextField fx:id="truckCombustion" promptText="%tablelabel.trucks.combustion">
+                                    <HBox.margin>
+                                        <Insets right="2" />
+                                    </HBox.margin>
+                                </TextField>
+                                <Button fx:id="addTruckBtn" minWidth="100" mnemonicParsing="false" text="%button.addTruck" />
+                            </children>
+                            <VBox.margin>
+                                <Insets top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+
+    </content>
+</TitledPane>

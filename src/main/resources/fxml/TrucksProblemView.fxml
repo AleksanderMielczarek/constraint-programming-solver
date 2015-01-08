@@ -5,30 +5,47 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.controllers.TrucksProblemController">
-    <children>
-        <TitledPane fx:id="accordionInTab" expanded="true" text="%accordion.options" textAlignment="CENTER">
-            <content>
-                <HBox prefHeight="100.0" prefWidth="200.0">
-                    <children>
+<ScrollPane fitToWidth="true" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.controllers.TrucksProblemController">
+    <content>
+        <VBox>
+            <children>
+                <TitledPane fx:id="dataAccordion" animated="true" expanded="true" text="%accordion.options" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                    <content>
+                        <HBox prefWidth="200.0">
+                            <children>
+                                <AnchorPane prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <fx:include fx:id="vehicles" source="trucksdetails2/Vehicles.fxml" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <fx:include fx:id="packages" source="trucksdetails2/Packages.fxml" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <fx:include fx:id="others" source="trucksdetails2/Others.fxml" />
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </HBox>
+                    </content>
+                    <VBox.margin>
+                        <Insets bottom="2.0" top="5.0" />
+                    </VBox.margin>
+                </TitledPane>
+
+                <TitledPane fx:id="resultAccordion" animated="true" expanded="false" text="%accordion.result" VBox.vgrow="ALWAYS">
+                    <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <Button mnemonicParsing="false" text="Button" />
-                            </children></AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-                    </children>
-                </HBox>
-            </content>
-         <VBox.margin>
-            <Insets bottom="2.0" top="5.0" />
-         </VBox.margin>
-        </TitledPane>
-
-        <TitledPane animated="false" expanded="false" text="%accordion.result">
-            <content>
-
-            </content>
-        </TitledPane>
-    </children>
-</VBox>
+                                <fx:include fx:id="result" source="trucksdetails2/Result.fxml" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>
