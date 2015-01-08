@@ -4,32 +4,27 @@ import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.O
 import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.PackagesController;
 import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.ResultController;
 import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.VehiclesController;
-import com.po.constraintprogrammingsolver.models.ProblemService;
-import com.po.constraintprogrammingsolver.problems.trucks2.*;
-import javafx.beans.property.DoubleProperty;
+import com.po.constraintprogrammingsolver.problems.trucks2.TrucksProblemData;
+import com.po.constraintprogrammingsolver.problems.trucks2.TrucksProblemSolver;
+import com.po.constraintprogrammingsolver.problems.trucks2.TrucksResult;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.text.Text;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 /**
  * Created by Janek on 2014-12-19.
  */
 
-public class TrucksProblemController implements ProblemController<TrucksProblemData, TrucksProblemData, TrucksResult, TrucksResult> {
+public class TrucksProblemController {
     @FXML
     private TitledPane dataAccordion;
 
@@ -48,38 +43,27 @@ public class TrucksProblemController implements ProblemController<TrucksProblemD
     @FXML
     private ResultController resultController;
 
-    private StringProperty timeProperty;
-    private StringProperty errorProperty;
-    private DoubleProperty progressProperty;
-
     private Button startBtn;
     private TrucksResult trucksResult;
-
-    private ProblemService<TrucksProblemData, TrucksProblemData, TrucksResult, TrucksResult> problemService;
 
     @FXML
     public void initialize() {
         trucksResult = new TrucksResult();
         startBtn = othersController.getStartBtn();
-        handlingStartBtn();
     }
 
-    private void handlingStartBtn() {
-        startBtn.setOnAction((ActionEvent e) -> {
-            getDataFromControllers();
-            TrucksProblemData trucksProblemData = getDataFromControllers();
-            TrucksProblemSolver trucksProblemSolver = new TrucksProblemSolver(trucksProblemData);
-            trucksResult = trucksProblemSolver.solveProblem();
+    public void handlingStartBtn() {
+        getDataFromControllers();
+        TrucksProblemData trucksProblemData = getDataFromControllers();
+        TrucksProblemSolver trucksProblemSolver = new TrucksProblemSolver();
+        trucksResult = trucksProblemSolver.solveProblem(trucksProblemData).get();
 
-            initResultPackageLocationsTable();
-            initResultVehicleLoadTable();
-            initCostText();
+        initResultPackageLocationsTable();
+        initResultVehicleLoadTable();
+        initCostText();
 
-            problemService = new ProblemService<>()
-
-            dataAccordion.setExpanded(false);
-            resultAccordion.setExpanded(true);
-        });
+        dataAccordion.setExpanded(false);
+        resultAccordion.setExpanded(true);
     }
 
     private TrucksProblemData getDataFromControllers() {
@@ -96,7 +80,7 @@ public class TrucksProblemController implements ProblemController<TrucksProblemD
         TableView<ObservableMap.Entry<Integer, String>> packageLocationTable = resultController.getPackageLocationTable();
         ObservableMap<Integer, String> packagesLocations = trucksResult.getPackagesLocations();
         TableColumn<ObservableMap.Entry<Integer, String>, Integer> vehicleColLocation =
-               resultController.getVehicleColLocation();
+                resultController.getVehicleColLocation();
         TableColumn<ObservableMap.Entry<Integer, String>, String> packagesCol =
                 resultController.getPackagesCol();
 
@@ -140,27 +124,4 @@ public class TrucksProblemController implements ProblemController<TrucksProblemD
         Text costText = resultController.getCostText();
         costText.textProperty().bind(trucksResult.wholeCostProperty());
     }
-
-    @Override
-    public ProblemService<TrucksProblemData, TrucksProblemData, TrucksResult, TrucksResult> getProblemService() {
-        return problemService;
-    }
-
-    @Override
-    public void setTimeProperty(StringProperty timeProperty) {
-        this.timeProperty = timeProperty;
-    }
-
-    @Override
-    public void setErrorProperty(StringProperty errorProperty) {
-        this.errorProperty = errorProperty;
-    }
-
-    @Override
-    public void setProgressProperty(DoubleProperty progressProperty) {
-        this.progressProperty = progressProperty;
-    }
-
-
 }
-

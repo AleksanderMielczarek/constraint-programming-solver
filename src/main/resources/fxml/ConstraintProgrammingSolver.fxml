@@ -23,7 +23,7 @@
             <tabs>
                 <Tab fx:id="trucks" closable="false" text="%tab.trucks">
                     <content>
-                        <fx:include fx:id="truckProblem" source="TrucksProblemView.fxml" />
+                        <fx:include fx:id="truckProblem" source="TrucksProblem.fxml" />
                     </content>
                 </Tab>
                 <Tab fx:id="jobshop" closable="false" text="%tab.jobshop">

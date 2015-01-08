@@ -55,7 +55,6 @@ public class ConstraintProgrammingSolverController {
     public void initialize() {
         //register problem here
         controllerProvider.registerProblemController(Problem.JOB_SHOP, jobShopProblemController);
-        controllerProvider.registerProblemController(Problem.TRUCKS, trucksProblemController);
 
         //set properties
         controllerProvider.getControllers().values().stream()
@@ -81,6 +80,10 @@ public class ConstraintProgrammingSolverController {
 
     @FXML
     private void startButtonOnMouseClicked() {
+        if (serviceProvider.getProblem().equals(Problem.TRUCKS)) {
+            trucksProblemController.handlingStartBtn();
+            return;
+        }
         serviceProvider.getProblemService().restart();
     }
 }
