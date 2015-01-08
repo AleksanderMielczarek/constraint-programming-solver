@@ -1,27 +1,33 @@
 package com.po.constraintprogrammingsolver.problems.trucks2;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ObservableDoubleValue;
+
 /**
  * Created by Janek on 2014-12-28.
  */
 public class Others {
-    private double distanceValue;
-    private double costFuel;
+    private SimpleDoubleProperty distanceValue;
+    private SimpleDoubleProperty costFuel;
 
-    public Others() {}
+    public Others() {
+        distanceValue = new SimpleDoubleProperty(50);
+        costFuel = new SimpleDoubleProperty(5);
+    }
 
-    public double getDistanceValue() {
+    public Double getDistanceValue() {
+        return distanceValue.get();
+    }
+
+    public SimpleDoubleProperty distanceValueProperty() {
         return distanceValue;
     }
 
-    public void setDistanceValue(double distanceValue) {
-        this.distanceValue = distanceValue;
+    public Double getCostFuel() {
+        return costFuel.get();
     }
 
-    public double getCostFuel() {
+    public SimpleDoubleProperty costFuelProperty() {
         return costFuel;
-    }
-
-    public void setCostFuel(double costFuel) {
-        this.costFuel = costFuel;
     }
 }

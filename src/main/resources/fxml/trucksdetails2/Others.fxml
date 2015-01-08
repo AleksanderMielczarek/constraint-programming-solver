@@ -19,7 +19,6 @@
                     <TextField fx:id="distance" GridPane.columnIndex="1" GridPane.rowIndex="0"></TextField>
                     <Text text="%label.costFuel" GridPane.columnIndex="0" GridPane.rowIndex="1"></Text>
                     <TextField fx:id="costFuel" GridPane.columnIndex="1" GridPane.rowIndex="1"></TextField>
-                    <Button fx:id="startBtn" text="START" GridPane.columnIndex="0" GridPane.rowIndex="2"></Button>
                 </GridPane>
             </children>
         </AnchorPane>

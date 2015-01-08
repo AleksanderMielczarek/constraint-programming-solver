@@ -4,6 +4,7 @@ import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.O
 import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.PackagesController;
 import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.ResultController;
 import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.VehiclesController;
+import com.po.constraintprogrammingsolver.problems.trucks2.InitData;
 import com.po.constraintprogrammingsolver.problems.trucks2.TrucksProblemData;
 import com.po.constraintprogrammingsolver.problems.trucks2.TrucksProblemSolver;
 import com.po.constraintprogrammingsolver.problems.trucks2.TrucksResult;
@@ -43,13 +44,12 @@ public class TrucksProblemController {
     @FXML
     private ResultController resultController;
 
-    private Button startBtn;
     private TrucksResult trucksResult;
 
     @FXML
     public void initialize() {
         trucksResult = new TrucksResult();
-        startBtn = othersController.getStartBtn();
+        setInitData();
     }
 
     public void handlingStartBtn() {
@@ -123,5 +123,11 @@ public class TrucksProblemController {
     private void initCostText() {
         Text costText = resultController.getCostText();
         costText.textProperty().bind(trucksResult.wholeCostProperty());
+    }
+
+    private void setInitData() {
+        InitData initData = new InitData();
+        vehiclesController.setData(initData.getStartVehicles());
+        packagesController.setData(initData.getStartPackages());
     }
 }

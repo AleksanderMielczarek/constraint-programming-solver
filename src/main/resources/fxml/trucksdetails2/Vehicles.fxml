@@ -17,6 +17,11 @@
                                 <TableColumn fx:id="trucksCombustionCol"  text="%tablelabel.trucks.combustion" />
                             </columns>
                         </TableView>
+                        <Button fx:id="deleteTruckBtn" minWidth="100" text="%button.deleteTruck">
+                            <VBox.margin>
+                                <Insets top="5.0"/>
+                            </VBox.margin>
+                                </Button>
                         <HBox>
                             <children>
 

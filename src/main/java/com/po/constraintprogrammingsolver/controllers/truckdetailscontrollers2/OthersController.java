@@ -1,10 +1,16 @@
 package com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2;
 
 import com.po.constraintprogrammingsolver.problems.trucks2.Others;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,17 +40,16 @@ public class OthersController implements Initializable {
         return othersData;
     }
 
-    public Button getStartBtn() {
-        return startBtn;
-    }
-
     private void handlingTextFields() {
-        distance.textProperty().addListener((observable, oldValue, newValue) -> {
-            othersData.setDistanceValue(Double.parseDouble(newValue));
-        });
+        distance.textProperty().bindBidirectional(othersData.distanceValueProperty(), new NumberStringConverter());
+        costFuel.textProperty().bindBidirectional(othersData.costFuelProperty(), new NumberStringConverter());
 
-        costFuel.textProperty().addListener((observable, oldValue, newValue) -> {
-            othersData.setCostFuel(Double.parseDouble(newValue));
-        });
+//        distance.textProperty().addListener((observable, oldValue, newValue) -> {
+//            othersData.setDistanceValue(Double.parseDouble(newValue));
+//        });
+//
+//        costFuel.textProperty().addListener((observable, oldValue, newValue) -> {
+//            othersData.setCostFuel(Double.parseDouble(newValue));
+//        });
     }
 }

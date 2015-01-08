@@ -21,6 +21,11 @@
                                 <TableColumn fx:id="packageWeightCol" text="%tablelabel.package.weight"/>
                             </columns>
                         </TableView>
+                        <Button fx:id="deletePackageBtn" minWidth="100" text="%button.deletePackage">
+                            <VBox.margin>
+                                <Insets top="5.0"/>
+                            </VBox.margin>
+                        </Button>
                         <HBox>
                             <children>
                                 <TextField fx:id="packageID" promptText="%tablelabel.package.id">

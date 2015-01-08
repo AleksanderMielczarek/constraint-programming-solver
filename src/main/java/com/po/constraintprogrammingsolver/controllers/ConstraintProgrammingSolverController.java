@@ -55,7 +55,6 @@ public class ConstraintProgrammingSolverController {
     public void initialize() {
         //register problem here
         controllerProvider.registerProblemController(Problem.JOB_SHOP, jobShopProblemController);
-
         //set properties
         controllerProvider.getControllers().values().stream()
                 .forEach(controller -> {

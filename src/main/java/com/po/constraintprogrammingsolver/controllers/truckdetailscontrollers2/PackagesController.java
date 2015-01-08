@@ -1,6 +1,11 @@
 package com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2;
 
 import com.po.constraintprogrammingsolver.problems.trucks2.Package;
+import com.po.constraintprogrammingsolver.problems.trucks2.Truck;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +20,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -34,24 +40,36 @@ public class PackagesController implements Initializable, TruckController<Packag
     private Button addPackageBtn;
 
     @FXML
+    private Button deletePackageBtn;
+
+    @FXML
     private TextField packageID;
 
     @FXML
     private TextField packageWeight;
 
     private ObservableList<Package> trucksData;
+    private IntegerProperty truckIndexInTable;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         trucksData = FXCollections.observableArrayList();
+        truckIndexInTable = new SimpleIntegerProperty();
         adjustColumns();
         handlingAddPackageBtn();
+        handlingDeletePackageBtn();
         packagesTable.setItems(trucksData);
     }
 
     @Override
     public ObservableList<Package> getData() {
         return trucksData;
+    }
+
+    @Override
+    public void setData(ArrayList<Package> initData) {
+        trucksData.addAll(initData);
     }
 
     private void adjustColumns() {
@@ -85,6 +103,31 @@ public class PackagesController implements Initializable, TruckController<Packag
                             t.getTablePosition().getRow()).setWeight(t.getNewValue());
 
                 });
+    }
+
+    private void handlingDeletePackageBtn() {
+        packagesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Package>() {
+            public void changed(ObservableValue<? extends Package> observable, Package oldvalue, Package newValue) {
+                setTruckIndexInTable(trucksData.indexOf(newValue));
+            }
+        });
+
+        deletePackageBtn.setOnAction(event -> {
+            trucksData.remove(getTruckIndexInTable());
+            packagesTable.getSelectionModel().clearSelection();
+        });
+    }
+
+    public int getTruckIndexInTable() {
+        return truckIndexInTable.get();
+    }
+
+    public IntegerProperty truckIndexInTableProperty() {
+        return truckIndexInTable;
+    }
+
+    public void setTruckIndexInTable(int truckIndexInTable) {
+        this.truckIndexInTable.set(truckIndexInTable);
     }
 
 }
