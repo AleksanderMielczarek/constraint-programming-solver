@@ -1,19 +1,21 @@
 package com.po.constraintprogrammingsolver.controllers;
 
-import com.google.common.collect.Multimap;
 import com.po.constraintprogrammingsolver.models.ProblemService;
 import com.po.constraintprogrammingsolver.models.jobshop.*;
+import com.po.constraintprogrammingsolver.models.jobshop.wrappers.ComparatorVariableTypeWrapper;
+import com.po.constraintprogrammingsolver.models.jobshop.wrappers.IndomainTypeWrapper;
+import com.po.constraintprogrammingsolver.models.jobshop.wrappers.SelectChoicePointTypeWrapper;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopProblemSolver;
-import com.po.constraintprogrammingsolver.problems.jobshop.TaskIntVarWrapper;
+import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -27,7 +29,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Aleksander on 2014-12-19.
  */
-public class JobShopProblemController implements ProblemController<JobShopModel, JobShopData, Multimap<Integer, TaskIntVarWrapper>, TaskSeriesCollection> {
+public class JobShopProblemController implements ProblemController<JobShopModel, JobShopData, JobShopSolution, JobShopResult> {
     private static final String CHART_TITLE = "chart.title";
     private static final String CHART_AXIS_X = "chart.axis.x";
     private static final String CHART_AXIS_Y = "chart.axis.y";
@@ -40,27 +42,38 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
             .append(System.getProperty("line.separator"))
             .append("5;3 2 4;5 10 15")
             .toString();
-    private static final IndomainType DEFAULT_INDOMAIN = IndomainType.INDOMAIN_MIN;
+    private static final IndomainTypeWrapper DEFAULT_INDOMAIN = IndomainTypeWrapper.INDOMAIN_MIN;
+    private static final SelectChoicePointTypeWrapper DEFAULT_SELECT_CHOICE_POINT = SelectChoicePointTypeWrapper.INPUT_ORDER_SELECT;
+    private static final ComparatorVariableTypeWrapper DEFAULT_COMPARATOR_VARIABLE = ComparatorVariableTypeWrapper.SMALLEST_MIN;
 
     @FXML
     private BorderPane borderPane;
     @FXML
-    private ComboBox<IndomainType> indomainType;
+    private ComboBox<IndomainTypeWrapper> indomainType;
+    @FXML
+    private ComboBox<SelectChoicePointTypeWrapper> selectChoicePointType;
+    @FXML
+    private ComboBox<ComparatorVariableTypeWrapper> comparatorVariableType;
     @FXML
     private TextArea jobs;
+    @FXML
+    private Label comparatorVariableLabel;
+    @FXML
+    private TextArea result;
+    @FXML
+    private TextField cost;
 
     @FXML
     private ResourceBundle resources;
 
-    private ObjectProperty<TaskSeriesCollection> datasetProperty;
-
-    private ProblemService<JobShopModel, JobShopData, Multimap<Integer, TaskIntVarWrapper>, TaskSeriesCollection> problemService;
+    private ProblemService<JobShopModel, JobShopData, JobShopSolution, JobShopResult> problemService;
     private JobShopModel model;
     private JobShopModelToDataConverter modelToDataConverter;
     private JobShopProblemSolver problemSolver;
     private JobShopSolutionToResultConverter solutionToResultConverter;
     private JobShopValidator validator;
     private JobShopDefaultResultSupplier defaultResultSupplier;
+    private JobShopResultConsumer resultConsumer;
 
     private StringProperty timeProperty;
     private StringProperty errorProperty;
@@ -68,28 +81,6 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
 
     @FXML
     public void initialize() {
-        //combo box and default values
-        indomainType.setItems(FXCollections.observableList(Arrays.asList(IndomainType.values())));
-        indomainType.setConverter(IndomainType.getStringConverter(resources));
-        indomainType.valueProperty().set(DEFAULT_INDOMAIN);
-
-        jobs.textProperty().set(DEFAULT_JOBS);
-
-        //chart
-        datasetProperty = new SimpleObjectProperty<>();
-        TaskSeriesCollection dataset = new TaskSeriesCollection();
-        ChartViewer chartViewer = new ChartViewer(createChart(dataset));
-        borderPane.setCenter(chartViewer);
-
-        //change chart
-        datasetProperty.addListener((observable, oldValue, newValue) -> {
-            dataset.removeAll();
-            int series = newValue.getSeriesCount();
-            for (int i = 0; i < series; i++) {
-                dataset.add(newValue.getSeries(i));
-            }
-        });
-
         //models
         model = new JobShopModel();
         modelToDataConverter = new JobShopModelToDataConverter();
@@ -97,15 +88,59 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
         solutionToResultConverter = new JobShopSolutionToResultConverter(resources);
         validator = new JobShopValidator(resources);
         defaultResultSupplier = new JobShopDefaultResultSupplier();
-        problemService = new ProblemService<>(model, modelToDataConverter, problemSolver, solutionToResultConverter, validator, defaultResultSupplier, resources);
+
+        //chart
+        TaskSeriesCollection taskSeriesCollection = defaultResultSupplier.get().getTaskSeriesCollection();
+        JFreeChart jFreeChart = createChart(taskSeriesCollection);
+        ChartViewer chartViewer = new ChartViewer(jFreeChart);
+        borderPane.setCenter(chartViewer);
+
+        //extra consumer
+        resultConsumer = new JobShopResultConsumer(taskSeriesCollection);
+
+        //service
+        problemService = new ProblemService<>(model,
+                modelToDataConverter,
+                problemSolver,
+                solutionToResultConverter,
+                validator,
+                defaultResultSupplier,
+                resultConsumer,
+                resources);
+
+        //hide comparator variable combo
+        selectChoicePointType.valueProperty().addListener((observable, oldValue, newValue) -> {
+            comparatorVariableType.visibleProperty().set(newValue.isComparatorVariable());
+            comparatorVariableLabel.visibleProperty().set(newValue.isComparatorVariable());
+        });
+
+        //combo box and default values
+        indomainType.setItems(FXCollections.observableList(Arrays.asList(IndomainTypeWrapper.values())));
+        indomainType.setConverter(IndomainTypeWrapper.getStringConverter(resources));
+        indomainType.valueProperty().set(DEFAULT_INDOMAIN);
+
+        selectChoicePointType.setItems(FXCollections.observableList(Arrays.asList(SelectChoicePointTypeWrapper.values())));
+        selectChoicePointType.setConverter(SelectChoicePointTypeWrapper.getStringConverter(resources));
+        selectChoicePointType.valueProperty().set(DEFAULT_SELECT_CHOICE_POINT);
+
+        comparatorVariableType.setItems(FXCollections.observableList(Arrays.asList(ComparatorVariableTypeWrapper.values())));
+        comparatorVariableType.setConverter(ComparatorVariableTypeWrapper.getStringConverter(resources));
+        comparatorVariableType.valueProperty().set(DEFAULT_COMPARATOR_VARIABLE);
+
+        jobs.textProperty().set(DEFAULT_JOBS);
+        cost.textProperty().set(defaultResultSupplier.get().getCost());
+        result.textProperty().set(defaultResultSupplier.get().getResult());
 
         //bind model
-        model.indomainTypeProperty().bind(indomainType.valueProperty());
+        model.indomainTypeWrapperProperty().bind(indomainType.valueProperty());
+        model.selectChoicePointTypeWrapperProperty().bind(selectChoicePointType.valueProperty());
+        model.comparatorVariableTypeWrapperProperty().bind(comparatorVariableType.valueProperty());
         model.jobsProperty().bind(jobs.textProperty());
 
         //start service listeners
         problemService.setOnSucceeded(event -> {
-            datasetProperty.bind(problemService.valueProperty().get().solutionProperty());
+            cost.textProperty().bind(problemService.valueProperty().get().getResult().costProperty());
+            result.textProperty().bind(problemService.valueProperty().get().getResult().resultProperty());
             timeProperty.bind(problemService.valueProperty().get().timeProperty());
             errorProperty.bind(problemService.valueProperty().get().errorProperty());
         });
@@ -125,7 +160,7 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     }
 
     @Override
-    public ProblemService<JobShopModel, JobShopData, Multimap<Integer, TaskIntVarWrapper>, TaskSeriesCollection> getProblemService() {
+    public ProblemService<JobShopModel, JobShopData, JobShopSolution, JobShopResult> getProblemService() {
         return problemService;
     }
 
@@ -143,4 +178,5 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     public void setProgressProperty(DoubleProperty progressProperty) {
         this.progressProperty = progressProperty;
     }
+
 }

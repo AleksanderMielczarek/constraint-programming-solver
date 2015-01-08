@@ -10,16 +10,21 @@ import org.jacop.constraints.PrimitiveConstraint;
 import org.jacop.constraints.XplusClteqZ;
 import org.jacop.core.IntVar;
 import org.jacop.core.Store;
-import org.jacop.search.*;
+import org.jacop.search.DepthFirstSearch;
+import org.jacop.search.Indomain;
+import org.jacop.search.Search;
+import org.jacop.search.SelectChoicePoint;
 
+import java.util.Comparator;
+import java.util.Map;
 import java.util.Optional;
 
 /**
  * Created by Aleksander on 2014-12-03.
  */
-public class JobShopProblemSolver implements ProblemSolver<JobShopData, Multimap<Integer, TaskIntVarWrapper>> {
+public class JobShopProblemSolver implements ProblemSolver<JobShopData, JobShopSolution> {
     @Override
-    public Optional<Multimap<Integer, TaskIntVarWrapper>> solveProblem(JobShopData data) {
+    public Optional<JobShopSolution> solveProblem(JobShopData data) {
         int maxTime = data.getJobs().stream()
                 .mapToInt(job -> job.getStart() + job.getTasks().stream()
                         .mapToInt(Task::getTime)
@@ -34,7 +39,7 @@ public class JobShopProblemSolver implements ProblemSolver<JobShopData, Multimap
         for (Job job : data.getJobs()) {
             for (Task task : job.getTasks()) {
                 //Variable
-                IntVar taskStartVar = new IntVar(store, job.getName() + task.getName(), job.getStart(), maxTime);
+                IntVar taskStartVar = new IntVar(store, job.getStart(), maxTime);
 
                 //Constraints
                 //Constraint on job
@@ -66,19 +71,21 @@ public class JobShopProblemSolver implements ProblemSolver<JobShopData, Multimap
                 .toArray(IntVar[]::new);
 
         Search<IntVar> search = new DepthFirstSearch<>();
-        Indomain<IntVar> indomain = data.getIndomain();
-        SelectChoicePoint<IntVar> select = new InputOrderSelect<>(store, intVars, indomain);
+        Indomain<IntVar> indomain = data.getJacopProvider().getIndomain();
+        SelectChoicePoint<IntVar> select = data.getJacopProvider().getSelectChoicePoint(intVars, store, indomain);
 
         search.setPrintInfo(false);
         boolean result;
-        if (data.getCostFunction().isPresent()) {
-            result = search.labeling(store, select, data.getCostFunction().get());
-        } else {
-            result = search.labeling(store, select);
-        }
+        result = search.labeling(store, select);
 
         if (result) {
-            return Optional.of(taskJob);
+            int cost = taskJob.asMap().entrySet().stream()
+                    .map(Map.Entry::getValue)
+                    .map(Iterables::getLast)
+                    .map(wrapper -> wrapper.getTask().getTime() + wrapper.getIntVar().value())
+                    .max(Comparator.<Integer>naturalOrder()).get();
+
+            return Optional.of(new JobShopSolution(taskJob, cost));
         } else {
             return Optional.empty();
         }
