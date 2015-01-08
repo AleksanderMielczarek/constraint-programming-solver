@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers;
+package com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2;
 
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
@@ -8,7 +8,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 /**

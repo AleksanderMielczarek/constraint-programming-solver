@@ -1,11 +1,6 @@
-package com.po.constraintprogrammingsolver.problems.Trucks;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+package com.po.constraintprogrammingsolver.problems.trucks2;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Janek on 2014-12-22.

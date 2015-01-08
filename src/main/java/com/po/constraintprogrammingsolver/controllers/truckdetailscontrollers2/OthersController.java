@@ -1,6 +1,6 @@
-package com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers;
+package com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2;
 
-import com.po.constraintprogrammingsolver.problems.Trucks.Others;
+import com.po.constraintprogrammingsolver.problems.trucks2.Others;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

@@ -1,18 +1,14 @@
-package com.po.constraintprogrammingsolver.problems.Trucks;
+package com.po.constraintprogrammingsolver.problems.trucks2;
 
 import com.po.constraintprogrammingsolver.problems.ProblemSolver;
-import com.sun.deploy.util.ArrayUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jacop.constraints.*;
 import org.jacop.constraints.binpacking.Binpacking;
 import org.jacop.core.IntVar;
 import org.jacop.core.Store;
 import org.jacop.search.*;
-import scala.Int;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;

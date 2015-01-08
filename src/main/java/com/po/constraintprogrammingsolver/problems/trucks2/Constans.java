@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems.Trucks;
+package com.po.constraintprogrammingsolver.problems.trucks2;
 
 /**
  * Created by Janek on 2015-01-04.

@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems.Trucks;
+package com.po.constraintprogrammingsolver.problems.trucks2;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;

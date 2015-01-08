@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -16,6 +17,7 @@ import java.util.ResourceBundle;
 public class ConstraintProgrammingSolver extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Locale.setDefault(new Locale("pl", "PL"));
         URL fxml = getClass().getResource("/fxml/ConstraintProgrammingSolver.fxml");
         ResourceBundle bundle = ResourceBundle.getBundle("bundle/bundle");
         FXMLLoader fxmlLoader = new FXMLLoader(fxml, bundle);
@@ -24,6 +26,7 @@ public class ConstraintProgrammingSolver extends Application {
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {

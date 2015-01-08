@@ -1,14 +1,11 @@
 package com.po.constraintprogrammingsolver.controllers;
 
-import com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers.OthersController;
-import com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers.PackagesController;
-import com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers.ResultController;
-import com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers.VehiclesController;
-import com.po.constraintprogrammingsolver.problems.Trucks.*;
-import com.po.constraintprogrammingsolver.problems.Trucks.Package;
+import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.OthersController;
+import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.PackagesController;
+import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.ResultController;
+import com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2.VehiclesController;
+import com.po.constraintprogrammingsolver.problems.trucks2.*;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
@@ -23,8 +20,6 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 /**

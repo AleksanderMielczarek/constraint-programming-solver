@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers;
+package com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2;
 
 import javafx.collections.ObservableList;
 

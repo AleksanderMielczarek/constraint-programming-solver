@@ -1,6 +1,6 @@
-package com.po.constraintprogrammingsolver.controllers.TruckDetailsControllers;
+package com.po.constraintprogrammingsolver.controllers.truckdetailscontrollers2;
 
-import com.po.constraintprogrammingsolver.problems.Trucks.Package;
+import com.po.constraintprogrammingsolver.problems.trucks2.Package;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
