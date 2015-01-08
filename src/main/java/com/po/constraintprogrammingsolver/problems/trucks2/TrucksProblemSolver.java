@@ -11,28 +11,29 @@ import org.jacop.search.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 /**
  * Created by Aleksander on 2014-12-03.
  */
-public class TrucksProblemSolver implements ProblemSolver<TrucksResult> {
+public class TrucksProblemSolver implements ProblemSolver<TrucksProblemData, TrucksResult> {
     private int[] packagesWeight = {3, 5, 1, 2};
     private int[] trucksLoading = {10, 10, 10, 10};
     private int[] trucksCombustion = {10, 4, 6, 1};
     private TrucksResult trucksResult;
     private TrucksProblemData trucksProblemData;
 
-    public TrucksProblemSolver(TrucksProblemData trucksProblemData) {
+    @Override
+    public Optional<TrucksResult> solveProblem(TrucksProblemData trucksProblemData) {
+        //constructor
         this.trucksProblemData = trucksProblemData;
         initPackagesWeight();
         initTrucksLoadingAndCombustion();
         trucksResult = new TrucksResult();
         setIDMap();
-    }
 
-    @Override
-    public TrucksResult solveProblem() {
+
         Store store = new Store();
 
         IntVar[] packagesLocation = new IntVar[packagesWeight.length];
@@ -113,11 +114,14 @@ public class TrucksProblemSolver implements ProblemSolver<TrucksResult> {
 //        } else
 //            stringBuilder.append("---Not resolved---");
 //        System.out.println(stringBuilder.toString());
-        trucksResult.setPackageLocations(changeIntvarToInt(packagesLocation));
-        trucksResult.setCapacities(changeIntvarToInt(capacities));
-        trucksResult.setWholeCost(trucksProblemData, (double) cost.value()/multiplier);
+        if(Result) {
+            trucksResult.setPackageLocations(changeIntvarToInt(packagesLocation));
+            trucksResult.setCapacities(changeIntvarToInt(capacities));
+            trucksResult.setWholeCost(trucksProblemData, (double) cost.value() / multiplier);
+            return Optional.of(trucksResult);
+        }
 
-        return trucksResult;
+        return Optional.empty();
     }
 
     private void initPackagesWeight() {

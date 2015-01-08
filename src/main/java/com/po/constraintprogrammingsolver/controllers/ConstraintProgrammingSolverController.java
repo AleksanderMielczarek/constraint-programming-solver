@@ -32,6 +32,9 @@ public class ConstraintProgrammingSolverController {
     private JobShopProblemController jobShopProblemController;
 
     @FXML
+    private TrucksProblemController trucksProblemController;
+
+    @FXML
     private ResourceBundle resources;
 
     private final Stage stage;
@@ -52,6 +55,7 @@ public class ConstraintProgrammingSolverController {
     public void initialize() {
         //register problem here
         controllerProvider.registerProblemController(Problem.JOB_SHOP, jobShopProblemController);
+        controllerProvider.registerProblemController(Problem.TRUCKS, trucksProblemController);
 
         //set properties
         controllerProvider.getControllers().values().stream()
