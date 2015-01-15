@@ -4,12 +4,12 @@ import com.google.common.base.Splitter;
 import com.po.constraintprogrammingsolver.problems.jobshop.Job;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
 import com.po.constraintprogrammingsolver.problems.jobshop.Task;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.JacopProvider;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.JacopProviders;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.comparatorvariable.ComparatorVariableType;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.indomain.IndomainType;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointComparatorVariableType;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointStoreType;
+import com.po.constraintprogrammingsolver.problems.factories.JacopProvider;
+import com.po.constraintprogrammingsolver.problems.factories.JacopProviders;
+import com.po.constraintprogrammingsolver.problems.factories.comparatorvariable.ComparatorVariableType;
+import com.po.constraintprogrammingsolver.problems.factories.indomain.IndomainType;
+import com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint.SelectChoicePointComparatorVariableType;
+import com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint.SelectChoicePointStoreType;
 
 import java.util.ArrayList;
 import java.util.List;

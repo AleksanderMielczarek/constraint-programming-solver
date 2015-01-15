@@ -1,15 +1,14 @@
-package com.po.constraintprogrammingsolver.problems.jobshop.factories;
+package com.po.constraintprogrammingsolver.problems.factories;
 
 
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.comparatorvariable.ComparatorVariableFactory;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.comparatorvariable.ComparatorVariableType;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.indomain.IndomainType;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointComparatorVariableFactory;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointComparatorVariableType;
+import com.po.constraintprogrammingsolver.problems.factories.comparatorvariable.ComparatorVariableFactory;
+import com.po.constraintprogrammingsolver.problems.factories.comparatorvariable.ComparatorVariableType;
+import com.po.constraintprogrammingsolver.problems.factories.indomain.IndomainType;
+import com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint.SelectChoicePointComparatorVariableFactory;
+import com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint.SelectChoicePointComparatorVariableType;
 import org.jacop.core.IntVar;
 import org.jacop.core.Store;
 import org.jacop.search.ComparatorVariable;
-import org.jacop.search.Indomain;
 import org.jacop.search.SelectChoicePoint;
 
 /**
@@ -29,7 +28,7 @@ public class ComparatorVariableJacopProvider extends AbstractJacopProvider {
     }
 
     @Override
-    public SelectChoicePoint<IntVar> getSelectChoicePoint(IntVar[] variables, Store store, Indomain<IntVar> indomain) {
+    public SelectChoicePoint<IntVar> getSelectChoicePoint(IntVar[] variables, Store storeó) {
         SelectChoicePointComparatorVariableFactory selectChoicePointFactory = new SelectChoicePointComparatorVariableFactory(variables, indomain, comparatorVariable);
         return selectChoicePointFactory.createJacopType(selectChoicePointType);
     }

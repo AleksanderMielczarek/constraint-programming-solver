@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint;
+package com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint;
 
 /**
  * Created by Aleksander on 2015-01-04.

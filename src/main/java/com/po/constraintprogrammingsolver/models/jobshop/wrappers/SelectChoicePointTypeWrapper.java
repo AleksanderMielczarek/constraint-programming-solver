@@ -1,7 +1,7 @@
 package com.po.constraintprogrammingsolver.models.jobshop.wrappers;
 
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointComparatorVariableType;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointStoreType;
+import com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint.SelectChoicePointComparatorVariableType;
+import com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint.SelectChoicePointStoreType;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.util.StringConverter;

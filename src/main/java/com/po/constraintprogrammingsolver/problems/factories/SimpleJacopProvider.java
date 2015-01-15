@@ -1,11 +1,10 @@
-package com.po.constraintprogrammingsolver.problems.jobshop.factories;
+package com.po.constraintprogrammingsolver.problems.factories;
 
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.indomain.IndomainType;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointStoreFactory;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointStoreType;
+import com.po.constraintprogrammingsolver.problems.factories.indomain.IndomainType;
+import com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint.SelectChoicePointStoreFactory;
+import com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint.SelectChoicePointStoreType;
 import org.jacop.core.IntVar;
 import org.jacop.core.Store;
-import org.jacop.search.Indomain;
 import org.jacop.search.SelectChoicePoint;
 
 /**
@@ -21,7 +20,7 @@ public class SimpleJacopProvider extends AbstractJacopProvider {
     }
 
     @Override
-    public SelectChoicePoint<IntVar> getSelectChoicePoint(IntVar[] variables, Store store, Indomain<IntVar> indomain) {
+    public SelectChoicePoint<IntVar> getSelectChoicePoint(IntVar[] variables, Store store) {
         SelectChoicePointStoreFactory selectChoicePointFactory = new SelectChoicePointStoreFactory(variables, indomain, store);
         return selectChoicePointFactory.createJacopType(selectChoicePointType);
     }

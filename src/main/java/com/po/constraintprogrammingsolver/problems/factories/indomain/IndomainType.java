@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems.jobshop.factories.indomain;
+package com.po.constraintprogrammingsolver.problems.factories.indomain;
 
 /**
  * Created by Aleksander on 2015-01-04.

@@ -1,6 +1,6 @@
-package com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint;
+package com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint;
 
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.JacopFactory;
+import com.po.constraintprogrammingsolver.problems.factories.JacopFactory;
 import org.jacop.core.IntVar;
 import org.jacop.search.SelectChoicePoint;
 

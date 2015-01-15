@@ -1,9 +1,9 @@
-package com.po.constraintprogrammingsolver.problems.jobshop.factories;
+package com.po.constraintprogrammingsolver.problems.factories;
 
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.comparatorvariable.ComparatorVariableType;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.indomain.IndomainType;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointComparatorVariableType;
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.selectchoicepoint.SelectChoicePointStoreType;
+import com.po.constraintprogrammingsolver.problems.factories.comparatorvariable.ComparatorVariableType;
+import com.po.constraintprogrammingsolver.problems.factories.indomain.IndomainType;
+import com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint.SelectChoicePointComparatorVariableType;
+import com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint.SelectChoicePointStoreType;
 
 /**
  * Created by Aleksander on 2015-01-04.

@@ -1,6 +1,6 @@
 package com.po.constraintprogrammingsolver.problems.jobshop;
 
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.JacopProvider;
+import com.po.constraintprogrammingsolver.problems.factories.JacopProvider;
 
 import java.util.List;
 

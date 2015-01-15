@@ -11,7 +11,6 @@ import org.jacop.constraints.XplusClteqZ;
 import org.jacop.core.IntVar;
 import org.jacop.core.Store;
 import org.jacop.search.DepthFirstSearch;
-import org.jacop.search.Indomain;
 import org.jacop.search.Search;
 import org.jacop.search.SelectChoicePoint;
 
@@ -71,8 +70,7 @@ public class JobShopProblemSolver implements ProblemSolver<JobShopData, JobShopS
                 .toArray(IntVar[]::new);
 
         Search<IntVar> search = new DepthFirstSearch<>();
-        Indomain<IntVar> indomain = data.getJacopProvider().getIndomain();
-        SelectChoicePoint<IntVar> select = data.getJacopProvider().getSelectChoicePoint(intVars, store, indomain);
+        SelectChoicePoint<IntVar> select = data.getJacopProvider().getSelectChoicePoint(intVars, store);
 
         search.setPrintInfo(false);
         boolean result;

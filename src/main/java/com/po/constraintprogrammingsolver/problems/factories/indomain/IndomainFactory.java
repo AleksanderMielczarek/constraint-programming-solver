@@ -1,6 +1,6 @@
-package com.po.constraintprogrammingsolver.problems.jobshop.factories.indomain;
+package com.po.constraintprogrammingsolver.problems.factories.indomain;
 
-import com.po.constraintprogrammingsolver.problems.jobshop.factories.JacopFactory;
+import com.po.constraintprogrammingsolver.problems.factories.JacopFactory;
 import org.jacop.core.IntVar;
 import org.jacop.search.*;
 
