@@ -55,17 +55,10 @@ public class ConstraintProgrammingSolverController {
     public void initialize() {
         //register problem here
         controllerProvider.registerProblemController(Problem.JOB_SHOP, jobShopProblemController);
-        //set properties
-        controllerProvider.getControllers().values().stream()
-                .forEach(controller -> {
-                    controller.setTimeProperty(timeLabel.textProperty());
-                    controller.setErrorProperty(errorLabel.textProperty());
-                    controller.setProgressProperty(computationProgressBar.progressProperty());
-                });
 
-        //get services from controllers
+        //get services from controllers and register
         controllerProvider.getControllers().entrySet().stream()
-                .forEach(entry -> serviceProvider.registerProblemService(entry.getKey(), entry.getValue().getProblemService()));
+                .forEach(entry -> serviceProvider.registerProblemService(entry.getKey(), entry.getValue().getService()));
         serviceProvider.getProblems().values().stream()
                 .forEach(service -> service.setExecutor(executorService));
 

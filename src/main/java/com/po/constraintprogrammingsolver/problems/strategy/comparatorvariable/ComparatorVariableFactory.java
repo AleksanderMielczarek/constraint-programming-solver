@@ -1,16 +1,17 @@
-package com.po.constraintprogrammingsolver.problems.factories.comparatorvariable;
+package com.po.constraintprogrammingsolver.problems.strategy.comparatorvariable;
 
-import com.po.constraintprogrammingsolver.problems.factories.JacopFactory;
 import org.jacop.core.IntVar;
 import org.jacop.search.*;
 
 /**
  * Created by Aleksander on 2015-01-04.
  */
-public class ComparatorVariableFactory implements JacopFactory<ComparatorVariableType, ComparatorVariable<IntVar>> {
-    @Override
-    public ComparatorVariable<IntVar> createJacopType(ComparatorVariableType jacopType) {
-        switch (jacopType) {
+public class ComparatorVariableFactory {
+    private ComparatorVariableFactory() {
+    }
+
+    public static ComparatorVariable<IntVar> createComparatorVariable(ComparatorVariableType comparatorVariableType) {
+        switch (comparatorVariableType) {
             case LARGEST_DOMAIN:
                 return new LargestDomain<>();
             case LARGEST_MAX:

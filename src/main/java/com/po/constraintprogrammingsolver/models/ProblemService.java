@@ -1,7 +1,8 @@
 package com.po.constraintprogrammingsolver.models;
 
 import com.google.common.base.Stopwatch;
-import com.po.constraintprogrammingsolver.problems.ProblemSolver;
+import com.po.constraintprogrammingsolver.problems.JacopStrategyProblemSolver;
+import com.po.constraintprogrammingsolver.problems.strategy.JacopStrategyProvider;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -20,7 +21,8 @@ public class ProblemService<T, S, U, V> extends Service<ProblemResult<V>> {
 
     private final T model;
     private final Function<T, S> modelToDataConverter;
-    private final ProblemSolver<S, U> problemSolver;
+    private final Function<T, JacopStrategyProvider> modelToJacopStrategyProviderConverter;
+    private final JacopStrategyProblemSolver<S, U> problemSolver;
     private final Function<U, V> solutionToResultConverter;
     private final Function<T, ValidatorResult> validator;
     private final Supplier<V> defaultResultSupplier;
@@ -31,25 +33,28 @@ public class ProblemService<T, S, U, V> extends Service<ProblemResult<V>> {
 
     public ProblemService(T model,
                           Function<T, S> modelToDataConverter,
-                          ProblemSolver<S, U> problemSolver,
+                          Function<T, JacopStrategyProvider> modelToJacopStrategyProviderConverter,
+                          JacopStrategyProblemSolver<S, U> problemSolver,
                           Function<U, V> solutionToResultConverter,
                           Function<T, ValidatorResult> validator,
                           Supplier<V> defaultResultSupplier,
                           ResourceBundle resources) {
         this.model = model;
         this.modelToDataConverter = modelToDataConverter;
+        this.modelToJacopStrategyProviderConverter = modelToJacopStrategyProviderConverter;
         this.problemSolver = problemSolver;
         this.solutionToResultConverter = solutionToResultConverter;
         this.validator = validator;
         this.defaultResultSupplier = defaultResultSupplier;
         this.resources = resources;
         this.resultConsumer = Optional.empty();
-        steps = 5;
+        steps = 6;
     }
 
     public ProblemService(T model,
                           Function<T, S> modelToDataConverter,
-                          ProblemSolver<S, U> problemSolver,
+                          Function<T, JacopStrategyProvider> modelToJacopStrategyProviderConverter,
+                          JacopStrategyProblemSolver<S, U> problemSolver,
                           Function<U, V> solutionToResultConverter,
                           Function<T, ValidatorResult> validator,
                           Supplier<V> defaultResultSupplier,
@@ -57,13 +62,14 @@ public class ProblemService<T, S, U, V> extends Service<ProblemResult<V>> {
                           ResourceBundle resources) {
         this.model = model;
         this.modelToDataConverter = modelToDataConverter;
+        this.modelToJacopStrategyProviderConverter = modelToJacopStrategyProviderConverter;
         this.problemSolver = problemSolver;
         this.solutionToResultConverter = solutionToResultConverter;
         this.validator = validator;
         this.defaultResultSupplier = defaultResultSupplier;
         this.resultConsumer = Optional.of(resultConsumer);
         this.resources = resources;
-        steps = 6;
+        steps = 7;
     }
 
     @Override
@@ -89,9 +95,13 @@ public class ProblemService<T, S, U, V> extends Service<ProblemResult<V>> {
                 S data = modelToDataConverter.apply(model);
                 updateProgress(2, steps);
 
-                //find solution
-                Optional<U> solution = problemSolver.solveProblem(data);
+                //convert model to jacop provider
+                JacopStrategyProvider jacopStrategyProvider = modelToJacopStrategyProviderConverter.apply(model);
                 updateProgress(3, steps);
+
+                //find solution
+                Optional<U> solution = problemSolver.solveProblem(data, jacopStrategyProvider);
+                updateProgress(4, steps);
 
                 if (!solution.isPresent()) {
                     if (resultConsumer.isPresent()) {
@@ -105,11 +115,11 @@ public class ProblemService<T, S, U, V> extends Service<ProblemResult<V>> {
 
                 //convert solution to result
                 V convertedSolution = solutionToResultConverter.apply(solution.get());
-                updateProgress(4, steps);
+                updateProgress(5, steps);
 
                 if (resultConsumer.isPresent()) {
                     resultConsumer.get().accept(convertedSolution);
-                    updateProgress(5, steps);
+                    updateProgress(6, steps);
                 }
                 long time = stopwatch.elapsed(TimeUnit.MILLISECONDS);
                 ProblemResult<V> result = new ProblemResult<>(time, convertedSolution, validatorResult.getMessage());

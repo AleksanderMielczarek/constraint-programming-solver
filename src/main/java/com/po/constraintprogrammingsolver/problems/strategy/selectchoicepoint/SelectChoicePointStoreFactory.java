@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems.factories.selectchoicepoint;
+package com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint;
 
 import org.jacop.core.IntVar;
 import org.jacop.core.Store;
@@ -21,8 +21,8 @@ public class SelectChoicePointStoreFactory implements SelectChoicePointFactory<S
     }
 
     @Override
-    public SelectChoicePoint<IntVar> createJacopType(SelectChoicePointStoreType jacopType) {
-        switch (jacopType) {
+    public SelectChoicePoint<IntVar> createSelectChoicePoint(SelectChoicePointStoreType selectChoicePointType) {
+        switch (selectChoicePointType) {
             case INPUT_ORDER_SELECT:
                 return new InputOrderSelect<>(store, variables, indomain);
             default:

@@ -8,14 +8,10 @@ import com.po.constraintprogrammingsolver.models.jobshop.wrappers.SelectChoicePo
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopProblemSolver;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Service;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -29,7 +25,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Aleksander on 2014-12-19.
  */
-public class JobShopProblemController implements ProblemController<JobShopModel, JobShopData, JobShopSolution, JobShopResult> {
+public class JobShopProblemController implements ProblemController {
     private static final String CHART_TITLE = "chart.title";
     private static final String CHART_AXIS_X = "chart.axis.x";
     private static final String CHART_AXIS_Y = "chart.axis.y";
@@ -62,6 +58,12 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     private TextArea result;
     @FXML
     private TextField cost;
+    @FXML
+    private ProgressBar computationProgressBar;
+    @FXML
+    private Label timeLabel;
+    @FXML
+    private Label errorLabel;
 
     @FXML
     private ResourceBundle resources;
@@ -69,21 +71,19 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     private ProblemService<JobShopModel, JobShopData, JobShopSolution, JobShopResult> problemService;
     private JobShopModel model;
     private JobShopModelToDataConverter modelToDataConverter;
+    private JobShopModelToJacopProviderConverter modelToJacopProviderConverter;
     private JobShopProblemSolver problemSolver;
     private JobShopSolutionToResultConverter solutionToResultConverter;
     private JobShopValidator validator;
     private JobShopDefaultResultSupplier defaultResultSupplier;
     private JobShopResultConsumer resultConsumer;
 
-    private StringProperty timeProperty;
-    private StringProperty errorProperty;
-    private DoubleProperty progressProperty;
-
     @FXML
     public void initialize() {
         //models
         model = new JobShopModel();
         modelToDataConverter = new JobShopModelToDataConverter();
+        modelToJacopProviderConverter = new JobShopModelToJacopProviderConverter();
         problemSolver = new JobShopProblemSolver();
         solutionToResultConverter = new JobShopSolutionToResultConverter(resources);
         validator = new JobShopValidator(resources);
@@ -101,6 +101,7 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
         //service
         problemService = new ProblemService<>(model,
                 modelToDataConverter,
+                modelToJacopProviderConverter,
                 problemSolver,
                 solutionToResultConverter,
                 validator,
@@ -141,10 +142,10 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
         problemService.setOnSucceeded(event -> {
             cost.textProperty().bind(problemService.valueProperty().get().getResult().costProperty());
             result.textProperty().bind(problemService.valueProperty().get().getResult().resultProperty());
-            timeProperty.bind(problemService.valueProperty().get().timeProperty());
-            errorProperty.bind(problemService.valueProperty().get().errorProperty());
+            timeLabel.textProperty().bind(problemService.valueProperty().get().timeProperty());
+            errorLabel.textProperty().bind(problemService.valueProperty().get().errorProperty());
         });
-        problemService.setOnRunning(event -> progressProperty.bind(problemService.progressProperty()));
+        problemService.setOnRunning(event -> computationProgressBar.progressProperty().bind(problemService.progressProperty()));
     }
 
     private JFreeChart createChart(IntervalCategoryDataset dataset) {
@@ -160,23 +161,8 @@ public class JobShopProblemController implements ProblemController<JobShopModel,
     }
 
     @Override
-    public ProblemService<JobShopModel, JobShopData, JobShopSolution, JobShopResult> getProblemService() {
+    public Service<?> getService() {
         return problemService;
-    }
-
-    @Override
-    public void setTimeProperty(StringProperty timeProperty) {
-        this.timeProperty = timeProperty;
-    }
-
-    @Override
-    public void setErrorProperty(StringProperty errorProperty) {
-        this.errorProperty = errorProperty;
-    }
-
-    @Override
-    public void setProgressProperty(DoubleProperty progressProperty) {
-        this.progressProperty = progressProperty;
     }
 
 }

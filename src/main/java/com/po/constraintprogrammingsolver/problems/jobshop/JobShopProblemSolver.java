@@ -3,7 +3,9 @@ package com.po.constraintprogrammingsolver.problems.jobshop;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Multimap;
+import com.po.constraintprogrammingsolver.problems.JacopStrategyProblemSolver;
 import com.po.constraintprogrammingsolver.problems.ProblemSolver;
+import com.po.constraintprogrammingsolver.problems.strategy.JacopStrategyProvider;
 import org.jacop.constraints.Constraint;
 import org.jacop.constraints.Or;
 import org.jacop.constraints.PrimitiveConstraint;
@@ -21,9 +23,9 @@ import java.util.Optional;
 /**
  * Created by Aleksander on 2014-12-03.
  */
-public class JobShopProblemSolver implements ProblemSolver<JobShopData, JobShopSolution> {
+public class JobShopProblemSolver implements JacopStrategyProblemSolver<JobShopData, JobShopSolution> {
     @Override
-    public Optional<JobShopSolution> solveProblem(JobShopData data) {
+    public Optional<JobShopSolution> solveProblem(JobShopData data, JacopStrategyProvider jacopStrategyProvider) {
         int maxTime = data.getJobs().stream()
                 .mapToInt(job -> job.getStart() + job.getTasks().stream()
                         .mapToInt(Task::getTime)
@@ -34,6 +36,7 @@ public class JobShopProblemSolver implements ProblemSolver<JobShopData, JobShopS
 
         Multimap<Integer, TaskIntVarWrapper> taskJob = ArrayListMultimap.create();
         Multimap<Integer, TaskIntVarWrapper> taskMachine = ArrayListMultimap.create();
+
 
         for (Job job : data.getJobs()) {
             for (Task task : job.getTasks()) {
@@ -70,7 +73,7 @@ public class JobShopProblemSolver implements ProblemSolver<JobShopData, JobShopS
                 .toArray(IntVar[]::new);
 
         Search<IntVar> search = new DepthFirstSearch<>();
-        SelectChoicePoint<IntVar> select = data.getJacopProvider().getSelectChoicePoint(intVars, store);
+        SelectChoicePoint<IntVar> select = jacopStrategyProvider.getSelectChoicePoint(intVars, store);
 
         search.setPrintInfo(false);
         boolean result;

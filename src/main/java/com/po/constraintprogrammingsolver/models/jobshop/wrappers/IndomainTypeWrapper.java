@@ -1,6 +1,6 @@
 package com.po.constraintprogrammingsolver.models.jobshop.wrappers;
 
-import com.po.constraintprogrammingsolver.problems.factories.indomain.IndomainType;
+import com.po.constraintprogrammingsolver.problems.strategy.indomain.IndomainType;
 import javafx.util.StringConverter;
 
 import java.util.ResourceBundle;

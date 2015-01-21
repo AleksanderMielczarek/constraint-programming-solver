@@ -34,23 +34,6 @@
             </tabs>
         </TabPane>
     </center>
-    <bottom>
-      <VBox>
-         <children>
-            <Label id="label-error" fx:id="errorLabel" />
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity">
-               <children>
-                  <Label text="%label.time">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin></Label>
-                  <Label fx:id="timeLabel" />
-               </children>
-            </HBox>
-              <ProgressBar fx:id="computationProgressBar" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0" />
-         </children>
-      </VBox>
-    </bottom>
    <right>
       <Button fx:id="startButton" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#startButtonOnMouseClicked" text="%button.start" textOverrun="CLIP" />
    </right>

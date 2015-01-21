@@ -1,15 +1,16 @@
-package com.po.constraintprogrammingsolver.problems.factories.indomain;
+package com.po.constraintprogrammingsolver.problems.strategy.indomain;
 
-import com.po.constraintprogrammingsolver.problems.factories.JacopFactory;
 import org.jacop.core.IntVar;
 import org.jacop.search.*;
 
 /**
  * Created by Aleksander on 2015-01-04.
  */
-public class IndomainFactory implements JacopFactory<IndomainType, Indomain<IntVar>> {
-    @Override
-    public Indomain<IntVar> createJacopType(IndomainType jacopType) {
+public class IndomainFactory {
+    private IndomainFactory() {
+    }
+
+    public static Indomain<IntVar> createIndomain(IndomainType jacopType) {
         switch (jacopType) {
             case INDOMAIN_MIN:
                 return new IndomainMin<>();

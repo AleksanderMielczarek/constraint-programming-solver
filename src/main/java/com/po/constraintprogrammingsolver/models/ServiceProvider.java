@@ -2,8 +2,8 @@ package com.po.constraintprogrammingsolver.models;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.concurrent.Service;
 
-import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -11,18 +11,18 @@ import java.util.Map;
  * Created by Aleksander on 2014-12-20.
  */
 public class ServiceProvider {
-    private final Map<Problem, ProblemService<?, ?, ?, ?>> problems = new EnumMap<>(Problem.class);
+    private final Map<Problem, Service<?>> problems = new EnumMap<>(Problem.class);
     private final ObjectProperty<Problem> problem = new SimpleObjectProperty<>();
 
-    public void registerProblemService(Problem problem, ProblemService<?, ?, ?, ?> problemService) {
+    public void registerProblemService(Problem problem, Service<?> problemService) {
         problems.put(problem, problemService);
     }
 
-    public ProblemService<?, ?, ?, ?> getProblemService() {
+    public Service<?> getProblemService() {
         return problems.get(problem.get());
     }
 
-    public Map<Problem, ProblemService<?, ?, ?, ?>> getProblems() {
+    public Map<Problem, Service<?>> getProblems() {
         return problems;
     }
 

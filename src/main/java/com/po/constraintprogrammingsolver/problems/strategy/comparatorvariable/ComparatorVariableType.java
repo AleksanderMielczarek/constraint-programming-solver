@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems.factories.comparatorvariable;
+package com.po.constraintprogrammingsolver.problems.strategy.comparatorvariable;
 
 /**
  * Created by Aleksander on 2015-01-04.
