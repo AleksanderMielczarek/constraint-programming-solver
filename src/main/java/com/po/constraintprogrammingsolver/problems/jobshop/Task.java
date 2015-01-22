@@ -1,42 +1,40 @@
 package com.po.constraintprogrammingsolver.problems.jobshop;
 
+import java.util.Optional;
+
 /**
  * Created by Aleksander on 2015-01-01.
  */
 public class Task {
     private final int machine;
-    private final int time;
+    private final int duration;
+    private Optional<Integer> startTime;
 
-    public Task(int machine, int time) {
+    public Task(int machine, int duration) {
         this.machine = machine;
-        this.time = time;
+        this.duration = duration;
+        this.startTime = Optional.empty();
+    }
+
+    public Task(int machine, int startTime, int duration) {
+        this.machine = machine;
+        this.duration = duration;
+        this.startTime = Optional.of(duration);
     }
 
     public int getMachine() {
         return machine;
     }
 
-    public int getTime() {
-        return time;
+    public int getDuration() {
+        return duration;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Task task = (Task) o;
-
-        if (machine != task.machine) return false;
-        if (time != task.time) return false;
-
-        return true;
+    public Optional<Integer> getStartTime() {
+        return startTime;
     }
 
-    @Override
-    public int hashCode() {
-        int result = machine;
-        result = 31 * result + time;
-        return result;
+    public void setStartTime(int startTime) {
+        this.startTime = Optional.of(startTime);
     }
 }

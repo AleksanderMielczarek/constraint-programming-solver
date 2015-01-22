@@ -49,7 +49,7 @@ public class JobShopSolutionToResultConverter implements Function<JobShopSolutio
 
                                 String description = Integer.toString(wrapper.getTask().getMachine());
                                 long start = wrapper.getIntVar().value();
-                                long end = start + wrapper.getTask().getTime();
+                                long end = start + wrapper.getTask().getDuration();
                                 return new Task(description, new SimpleTimePeriod(start, end));
                             })
                             .forEach(series::add);

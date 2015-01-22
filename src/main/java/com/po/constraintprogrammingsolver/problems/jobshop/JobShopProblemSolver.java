@@ -4,12 +4,8 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Multimap;
 import com.po.constraintprogrammingsolver.problems.JacopStrategyProblemSolver;
-import com.po.constraintprogrammingsolver.problems.ProblemSolver;
 import com.po.constraintprogrammingsolver.problems.strategy.JacopStrategyProvider;
-import org.jacop.constraints.Constraint;
-import org.jacop.constraints.Or;
-import org.jacop.constraints.PrimitiveConstraint;
-import org.jacop.constraints.XplusClteqZ;
+import org.jacop.constraints.*;
 import org.jacop.core.IntVar;
 import org.jacop.core.Store;
 import org.jacop.search.DepthFirstSearch;
@@ -26,18 +22,17 @@ import java.util.Optional;
 public class JobShopProblemSolver implements JacopStrategyProblemSolver<JobShopData, JobShopSolution> {
     @Override
     public Optional<JobShopSolution> solveProblem(JobShopData data, JacopStrategyProvider jacopStrategyProvider) {
-        int maxTime = data.getJobs().stream()
-                .mapToInt(job -> job.getStart() + job.getTasks().stream()
-                        .mapToInt(Task::getTime)
-                        .sum())
-                .sum();
+        int maxTime = data.maxEndTime();
 
         Store store = new Store();
 
         Multimap<Integer, TaskIntVarWrapper> taskJob = ArrayListMultimap.create();
         Multimap<Integer, TaskIntVarWrapper> taskMachine = ArrayListMultimap.create();
 
+        data.getJobs().stream()
+                .map(job-> job.)
 
+        Constraint diff2 = new Diff2();
         for (Job job : data.getJobs()) {
             for (Task task : job.getTasks()) {
                 //Variable
@@ -47,15 +42,15 @@ public class JobShopProblemSolver implements JacopStrategyProblemSolver<JobShopD
                 //Constraint on job
                 if (task.getNumber() > 1) {
                     TaskIntVarWrapper previousTaskIntVarWrapper = Iterables.getLast(taskJob.get(job.getNumber()));
-                    Constraint constraint = new XplusClteqZ(previousTaskIntVarWrapper.getIntVar(), previousTaskIntVarWrapper.getTask().getTime(), taskStartVar);
+                    Constraint constraint = new XplusClteqZ(previousTaskIntVarWrapper.getIntVar(), previousTaskIntVarWrapper.getTask().getDuration(), taskStartVar);
                     store.impose(constraint);
                 }
                 //Constraint on machine
                 if (!taskMachine.get(task.getMachine()).isEmpty()) {
                     taskMachine.get(task.getMachine()).stream()
                             .forEach(taskIntVarWrapper -> {
-                                PrimitiveConstraint constraint1 = new XplusClteqZ(taskStartVar, task.getTime(), taskIntVarWrapper.getIntVar());
-                                PrimitiveConstraint constraint2 = new XplusClteqZ(taskIntVarWrapper.getIntVar(), taskIntVarWrapper.getTask().getTime(), taskStartVar);
+                                PrimitiveConstraint constraint1 = new XplusClteqZ(taskStartVar, task.getDuration(), taskIntVarWrapper.getIntVar());
+                                PrimitiveConstraint constraint2 = new XplusClteqZ(taskIntVarWrapper.getIntVar(), taskIntVarWrapper.getTask().getDuration(), taskStartVar);
                                 Constraint or = new Or(constraint1, constraint2);
                                 store.impose(or);
                             });
@@ -83,7 +78,7 @@ public class JobShopProblemSolver implements JacopStrategyProblemSolver<JobShopD
             int cost = taskJob.asMap().entrySet().stream()
                     .map(Map.Entry::getValue)
                     .map(Iterables::getLast)
-                    .map(wrapper -> wrapper.getTask().getTime() + wrapper.getIntVar().value())
+                    .map(wrapper -> wrapper.getTask().getDuration() + wrapper.getIntVar().value())
                     .max(Comparator.<Integer>naturalOrder()).get();
 
             return Optional.of(new JobShopSolution(taskJob, cost));
