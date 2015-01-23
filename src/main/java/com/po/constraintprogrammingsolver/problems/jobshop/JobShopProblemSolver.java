@@ -46,7 +46,7 @@ public class JobShopProblemSolver implements JacopStrategyProblemSolver<JobShopD
         long solverTime = solverStopwatch.elapsed(TimeUnit.MILLISECONDS);
 
         if (result) {
-            return Optional.of(new JobShopSolution(data, search.getCostValue(), constraintTime, solverTime));
+            return Optional.of(new JobShopSolution(data, search.getCostValue(), search.getBacktracks(), search.getDecisions(), search.getMaximumDepth(), search.getNodes(), search.getWrongDecisions(), constraintTime, solverTime));
         }
         return Optional.empty();
     }

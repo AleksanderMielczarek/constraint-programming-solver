@@ -6,8 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.controllers.JobShopProblemController">
+<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.gui.controllers.jobshop.JobShopProblemController">
     <top>
         <Accordion maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <panes>
@@ -15,30 +14,26 @@
                     <content>
                         <HBox spacing="10.0">
                             <children>
-                                <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                          HBox.hgrow="NEVER">
+                                <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="NEVER">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.indomain"/>
-                                        <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.choice.point.select" GridPane.rowIndex="1"/>
-                                        <Label fx:id="comparatorVariableLabel" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                               text="%label.comparator.variable" GridPane.rowIndex="2"/>
-                                        <ComboBox fx:id="indomainType" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1"/>
-                                        <ComboBox fx:id="selectChoicePointType" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1"
-                                                  GridPane.rowIndex="1"/>
-                                        <ComboBox fx:id="comparatorVariableType" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1"
-                                                  GridPane.rowIndex="2"/>
+                                        <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.indomain" />
+                                        <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.choice.point.select" GridPane.rowIndex="1" />
+                                        <Label fx:id="comparatorVariableLabel" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.comparator.variable" GridPane.rowIndex="2" />
+                                        <ComboBox fx:id="comboBoxIndomain" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" />
+                                        <ComboBox fx:id="comboBoxSelectChoicePoint" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <ComboBox fx:id="comboBoxComparatorVariable" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     </children>
                                 </GridPane>
-                                <TextArea fx:id="jobs" HBox.hgrow="ALWAYS"/>
+                                <TextArea fx:id="textAreaJobShopData" HBox.hgrow="ALWAYS" />
                             </children>
                         </HBox>
                     </content>
@@ -47,9 +42,39 @@
                     <content>
                         <HBox spacing="10.0">
                             <children>
-                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.cost"/>
-                                <TextField fx:id="cost" editable="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                <TextArea fx:id="result" editable="false" HBox.hgrow="ALWAYS"/>
+                        <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                                      <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.cost" />
+                              <Label text="%label.backtracks" GridPane.rowIndex="1" />
+                              <Label text="%label.decisions" GridPane.rowIndex="2" />
+                              <Label text="%label.maximum.depth" GridPane.rowIndex="3" />
+                              <Label text="%label.nodes" GridPane.rowIndex="4" />
+                              <Label text="%label.wrong.decisions" GridPane.rowIndex="5" />
+                              <Label text="%label.time" GridPane.rowIndex="6" />
+                              <Label fx:id="labelBacktracks" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="labelDecisions" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="labelMaximumDepth" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="labelNodes" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="labelWrongDecisions" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label fx:id="labelTime" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label fx:id="labelCost" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                                <TextArea fx:id="textAreaJobShopResult" editable="false" HBox.hgrow="ALWAYS" />
                             </children>
                         </HBox>
                     </content>
@@ -60,18 +85,9 @@
     <bottom>
         <VBox>
             <children>
-                <Label id="label-error" fx:id="errorLabel"/>
-                <HBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity">
-                    <children>
-                        <Label text="%label.time">
-                            <HBox.margin>
-                                <Insets right="10.0"/>
-                            </HBox.margin>
-                        </Label>
-                        <Label fx:id="timeLabel"/>
-                    </children>
-                </HBox>
-                <ProgressBar fx:id="computationProgressBar" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0"/>
+                <Label id="label-error" fx:id="labelError" />
+            <Label fx:id="labelUpdateMessage" />
+                <ProgressBar fx:id="progressBarService" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0" />
             </children>
         </VBox>
     </bottom>
