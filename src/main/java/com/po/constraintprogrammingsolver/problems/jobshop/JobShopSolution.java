@@ -6,14 +6,16 @@ package com.po.constraintprogrammingsolver.problems.jobshop;
 public class JobShopSolution {
     private final JobShopData jobShopData;
     private final int cost;
+    private final long constraintTime;
     private final long solverTime;
     private final long totalTime;
 
-    public JobShopSolution(JobShopData jobShopData, int cost, long solverTime, long totalTime) {
+    public JobShopSolution(JobShopData jobShopData, int cost, long constraintTime, long solverTime) {
         this.jobShopData = jobShopData;
         this.cost = cost;
+        this.constraintTime = constraintTime;
         this.solverTime = solverTime;
-        this.totalTime = totalTime;
+        this.totalTime = constraintTime + solverTime;
     }
 
     public JobShopData getJobShopData() {
@@ -22,6 +24,10 @@ public class JobShopSolution {
 
     public int getCost() {
         return cost;
+    }
+
+    public long getConstraintTime() {
+        return constraintTime;
     }
 
     public long getSolverTime() {

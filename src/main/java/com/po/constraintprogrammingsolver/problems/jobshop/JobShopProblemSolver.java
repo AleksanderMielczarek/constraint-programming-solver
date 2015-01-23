@@ -1,20 +1,22 @@
 package com.po.constraintprogrammingsolver.problems.jobshop;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Iterables;
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.Multimap;
 import com.po.constraintprogrammingsolver.problems.JacopStrategyProblemSolver;
 import com.po.constraintprogrammingsolver.problems.strategy.JacopStrategyProvider;
-import org.jacop.constraints.*;
+import org.jacop.constraints.Constraint;
+import org.jacop.constraints.Diff2;
+import org.jacop.constraints.XgtY;
 import org.jacop.core.IntVar;
 import org.jacop.core.Store;
 import org.jacop.search.DepthFirstSearch;
 import org.jacop.search.Search;
 import org.jacop.search.SelectChoicePoint;
 
-import java.util.Comparator;
-import java.util.Map;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Aleksander on 2014-12-03.
@@ -22,68 +24,82 @@ import java.util.Optional;
 public class JobShopProblemSolver implements JacopStrategyProblemSolver<JobShopData, JobShopSolution> {
     @Override
     public Optional<JobShopSolution> solveProblem(JobShopData data, JacopStrategyProvider jacopStrategyProvider) {
-        int maxTime = data.maxEndTime();
+        Stopwatch constraintStopwatch = Stopwatch.createStarted();
 
         Store store = new Store();
 
-        Multimap<Integer, TaskIntVarWrapper> taskJob = ArrayListMultimap.create();
-        Multimap<Integer, TaskIntVarWrapper> taskMachine = ArrayListMultimap.create();
-
-        data.getJobs().stream()
-                .map(job-> job.)
-
-        Constraint diff2 = new Diff2();
-        for (Job job : data.getJobs()) {
-            for (Task task : job.getTasks()) {
-                //Variable
-                IntVar taskStartVar = new IntVar(store, job.getStart(), maxTime);
-
-                //Constraints
-                //Constraint on job
-                if (task.getNumber() > 1) {
-                    TaskIntVarWrapper previousTaskIntVarWrapper = Iterables.getLast(taskJob.get(job.getNumber()));
-                    Constraint constraint = new XplusClteqZ(previousTaskIntVarWrapper.getIntVar(), previousTaskIntVarWrapper.getTask().getDuration(), taskStartVar);
-                    store.impose(constraint);
-                }
-                //Constraint on machine
-                if (!taskMachine.get(task.getMachine()).isEmpty()) {
-                    taskMachine.get(task.getMachine()).stream()
-                            .forEach(taskIntVarWrapper -> {
-                                PrimitiveConstraint constraint1 = new XplusClteqZ(taskStartVar, task.getDuration(), taskIntVarWrapper.getIntVar());
-                                PrimitiveConstraint constraint2 = new XplusClteqZ(taskIntVarWrapper.getIntVar(), taskIntVarWrapper.getTask().getDuration(), taskStartVar);
-                                Constraint or = new Or(constraint1, constraint2);
-                                store.impose(or);
-                            });
-                }
-
-                //complete maps
-                TaskIntVarWrapper varWrapper = new TaskIntVarWrapper(task, taskStartVar);
-                taskJob.put(job.getNumber(), varWrapper);
-                taskMachine.put(task.getMachine(), varWrapper);
-            }
-        }
-
-        IntVar[] intVars = taskJob.values().stream()
-                .map(TaskIntVarWrapper::getIntVar)
-                .toArray(IntVar[]::new);
+        IntVar[] starts = createStartIntVariables(data, store);
+        createPrimitiveConstraints(data.tasksOnJobs(), store);
+        createPrimitiveConstraints(data.tasksOnMachines(), store);
+        createGlobalConstraints(data, store, starts);
 
         Search<IntVar> search = new DepthFirstSearch<>();
-        SelectChoicePoint<IntVar> select = jacopStrategyProvider.getSelectChoicePoint(intVars, store);
+        SelectChoicePoint<IntVar> select = jacopStrategyProvider.getSelectChoicePoint(starts, store);
 
+        /*IntVar cost = new IntVar(store, data.minStartTime(), data.maxEndTime());
+        Constraint max = new Max(starts, cost);
+        max.impose(store);*/
+
+        long constraintTime = constraintStopwatch.elapsed(TimeUnit.MILLISECONDS);
+
+        Stopwatch solverStopwatch = Stopwatch.createStarted();
         search.setPrintInfo(false);
-        boolean result;
-        result = search.labeling(store, select);
+
+        boolean result = search.labeling(store, select);
+        long solverTime = solverStopwatch.elapsed(TimeUnit.MILLISECONDS);
 
         if (result) {
-            int cost = taskJob.asMap().entrySet().stream()
-                    .map(Map.Entry::getValue)
-                    .map(Iterables::getLast)
-                    .map(wrapper -> wrapper.getTask().getDuration() + wrapper.getIntVar().value())
-                    .max(Comparator.<Integer>naturalOrder()).get();
-
-            return Optional.of(new JobShopSolution(taskJob, cost));
+            return Optional.of(new JobShopSolution(data, search.getCostValue(), constraintTime, solverTime));
         } else {
             return Optional.empty();
         }
+    }
+
+    private void createGlobalConstraints(JobShopData data, Store store, IntVar[] starts) {
+        IntVar[] durations = data.tasks().stream()
+                .map(Task::getDuration)
+                .map(duration -> new IntVar(store, duration, duration))
+                .toArray(IntVar[]::new);
+
+        IntVar[] machines = data.tasks().stream()
+                .map(Task::getMachineNumber)
+                .map(machine -> new IntVar(store, machine, machine))
+                .toArray(IntVar[]::new);
+
+        IntVar[] machinesEnd = Collections.nCopies(machines.length, new IntVar(store, 0, 0)).toArray(new IntVar[machines.length]);
+
+        //Constraint diff2 = new Diff2(starts, machines, durations, machinesEnd);
+        Constraint diff2 = new Diff2(machines, starts, machinesEnd, durations);
+        store.impose(diff2);
+    }
+
+    private static <T> void createPrimitiveConstraints(Multimap<T, Task> data, Store store) {
+        data.asMap().values().stream()
+                .filter(tasks -> tasks.size() > 1)
+                .forEach(tasks -> {
+                    Iterator<Task> iterator = tasks.iterator();
+                    IntVar y = iterator.next().getStartTimeVar().get();
+                    while (iterator.hasNext()) {
+                        IntVar x = iterator.next().getStartTimeVar().get();
+                        Constraint xgty = new XgtY(x, y);
+                        store.impose(xgty);
+                        y = x;
+                    }
+                });
+    }
+
+    private static IntVar[] createStartIntVariables(JobShopData data, Store store) {
+        int maxTime = data.maxEndTime();
+
+        data.tasks().forEach(task-> {
+            IntVar var = new IntVar(store, task.getJob().get().getStartTime(), maxTime);
+            task.setStartTimeVar(var);
+        });
+
+        IntVar[] starts = data.tasks().stream()
+                .map(Task::getStartTimeVar)
+                .toArray(IntVar[]::new);
+
+        return starts;
     }
 }

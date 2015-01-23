@@ -1,6 +1,10 @@
 package com.po.constraintprogrammingsolver.problems.jobshop;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -13,6 +17,7 @@ public class JobShopData {
 
     public JobShopData(List<Job> jobs) {
         this.jobs = jobs;
+        IntStream.range(1, jobs.size() + 1).forEach(i -> jobs.get(i - 1).setJobNumber(i));
     }
 
     public int numberOfJobs() {
@@ -20,8 +25,9 @@ public class JobShopData {
     }
 
     public Set<Integer> jobsNumbers() {
-        return IntStream.range(1, numberOfJobs() + 1)
-                .mapToObj(Integer::valueOf)
+        return jobs.stream()
+                .map(Job::getJobNumber)
+                .map(Optional::get)
                 .collect(Collectors.toSet());
     }
 
@@ -32,14 +38,22 @@ public class JobShopData {
                 .collect(Collectors.toList());
     }
 
-    public Set<Integer> machines() {
-        return tasks().stream().map(Task::getMachine).collect(Collectors.toSet());
+    public Set<Integer> machinesNumbers() {
+        return tasks().stream()
+                .map(Task::getMachineNumber)
+                .collect(Collectors.toSet());
     }
 
     public List<Task> tasksOnMachine(int machine) {
         return tasks().stream()
-                .filter(task -> task.getMachine() == machine)
+                .filter(task -> task.getMachineNumber() == machine)
                 .collect(Collectors.toList());
+    }
+
+    public Multimap<Integer, Task> tasksOnMachines() {
+        Multimap<Integer, Task> taskMultimap = ArrayListMultimap.create();
+        machinesNumbers().forEach(machine -> taskMultimap.putAll(machine, tasksOnMachine(machine)));
+        return taskMultimap;
     }
 
     public List<Task> tasksOnJob(int number) {
@@ -47,12 +61,30 @@ public class JobShopData {
 
     }
 
+    public Multimap<Job, Task> tasksOnJobs() {
+        Multimap<Job, Task> taskMultimap = ArrayListMultimap.create();
+        jobs.forEach(job -> taskMultimap.putAll(job, job.getTasks()));
+        return taskMultimap;
+    }
+
+    public Multimap<Integer, Task> tasksOnJobsNumbers() {
+        Multimap<Integer, Task> taskMultimap = ArrayListMultimap.create();
+        jobsNumbers().forEach(job -> taskMultimap.putAll(job, tasksOnMachine(job)));
+        return taskMultimap;
+    }
+
     public int maxEndTime() {
         return jobs.stream()
-                .mapToInt(job -> job.getStart() + job.getTasks().stream()
+                .mapToInt(job -> job.getStartTime() + job.getTasks().stream()
                         .mapToInt(Task::getDuration)
                         .sum())
                 .sum();
+    }
+
+    public int minStartTime() {
+        return jobs.stream()
+                .mapToInt(Job::getStartTime)
+                .min().getAsInt();
     }
 
     public List<Job> getJobs() {

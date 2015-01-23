@@ -39,11 +39,11 @@ public class JobShopModelToDataConverter implements Function<JobShopModel, JobSh
             List<Task> tasks = new ArrayList<>();
 
             for (int taskNumber = 1; machineScanner.hasNextLine(); taskNumber++) {
-                Task task = new Task(taskNumber, machineScanner.nextInt(), timeScanner.nextInt());
+                Task task = new Task(machineScanner.nextInt(), timeScanner.nextInt());
                 tasks.add(task);
             }
 
-            Job job = new Job(jobNumber, start, tasks);
+            Job job = new Job(start, tasks);
             jobs.add(job);
         }
 

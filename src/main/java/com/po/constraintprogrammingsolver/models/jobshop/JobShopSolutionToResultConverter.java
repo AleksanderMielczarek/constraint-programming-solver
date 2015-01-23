@@ -33,23 +33,23 @@ public class JobShopSolutionToResultConverter implements Function<JobShopSolutio
         TaskSeriesCollection dataset = new TaskSeriesCollection();
         StringBuilder builder = new StringBuilder();
 
-        solution.getSolution().asMap().entrySet().stream()
+        solution.getJobShopData().tasksOnJobs().asMap().entrySet().stream()
                 .map(entry -> {
                     TaskSeries series = new TaskSeries(resources.getString(CHART_LABEL) + entry.getKey());
                     entry.getValue().stream()
-                            .map(wrapper -> {
-                                builder.append(resources.getString(RESULT_JOB) + COLON + entry.getKey())
+                            .map(task -> {
+                                builder.append(resources.getString(RESULT_JOB) + COLON + task.getJob().get().getJobNumber())
                                         .append(TABULATOR)
-                                        .append(resources.getString(RESULT_TASK) + COLON + wrapper.getTask().getNumber())
+                                        .append(resources.getString(RESULT_TASK) + COLON + task.getTaskNumber().get())
                                         .append(TABULATOR)
-                                        .append(resources.getString(RESULT_MACHINE) + COLON + wrapper.getTask().getMachine())
+                                        .append(resources.getString(RESULT_MACHINE) + COLON + task.getMachineNumber())
                                         .append(TABULATOR)
-                                        .append(resources.getString(RESULT_TIME) + COLON + wrapper.getIntVar().value())
+                                        .append(resources.getString(RESULT_TIME) + COLON + task.startTime().get())
                                         .append(NEW_LINE);
 
-                                String description = Integer.toString(wrapper.getTask().getMachine());
-                                long start = wrapper.getIntVar().value();
-                                long end = start + wrapper.getTask().getDuration();
+                                String description = Integer.toString(task.getMachineNumber());
+                                long start = task.startTime().get();
+                                long end = start + task.getDuration();
                                 return new Task(description, new SimpleTimePeriod(start, end));
                             })
                             .forEach(series::add);

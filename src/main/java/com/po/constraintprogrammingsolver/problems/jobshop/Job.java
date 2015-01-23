@@ -1,6 +1,7 @@
 package com.po.constraintprogrammingsolver.problems.jobshop;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -9,12 +10,16 @@ import java.util.stream.IntStream;
  * Created by Aleksander on 2015-01-01.
  */
 public class Job {
-    private final int start;
+    private final int startTime;
     private final List<Task> tasks;
 
-    public Job(int start, List<Task> tasks) {
-        this.start = start;
+    private int jobNumber;
+
+    public Job(int startTime, List<Task> tasks) {
+        this.startTime = startTime;
         this.tasks = tasks;
+        IntStream.range(1, tasks.size() + 1).forEach(i -> tasks.get(i - 1).setTaskNumber(i));
+        tasks.forEach(task -> task.setJob(this));
     }
 
     public int numberOfTasks() {
@@ -27,11 +32,36 @@ public class Job {
                 .collect(Collectors.toSet());
     }
 
-    public int getStart() {
-        return start;
+    public int getStartTime() {
+        return startTime;
     }
 
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    public Optional<Integer> getJobNumber() {
+        return Optional.of(jobNumber);
+    }
+
+    public void setJobNumber(int jobNumber) {
+        this.jobNumber = jobNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Job job = (Job) o;
+
+        if (jobNumber != job.jobNumber) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return jobNumber;
     }
 }
