@@ -1,6 +1,7 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.util.converter;
 
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
+import com.po.constraintprogrammingsolver.gui.jobshop.util.ValueUpdater;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
 import org.jfree.data.gantt.Task;
 import org.jfree.data.gantt.TaskSeries;
@@ -11,7 +12,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Aleksander on 2015-01-03.
  */
-public class JobShopSolutionToModelConverter {
+public class JobShopSolutionToModelConverter implements ValueUpdater {
     private static final String CHART_LABEL = "chart.label";
     private static final String RESULT_JOB = "result.job";
     private static final String RESULT_TASK = "result.task";
@@ -30,7 +31,6 @@ public class JobShopSolutionToModelConverter {
     }
 
     public void convert(JobShopSolution solution) {
-        //TaskSeriesCollection dataset = new TaskSeriesCollection();
         StringBuilder builder = new StringBuilder();
 
         solution.getJobShopData().tasksOnJobs().asMap().entrySet().stream()
@@ -55,8 +55,15 @@ public class JobShopSolutionToModelConverter {
                             .forEach(series::add);
                     return series;
                 });
-        //.forEach(dataset::add);
 
-        // return new JobShopResult(dataset, String.valueOf(solution.getCost()), builder.toString());
+        valueUpdate(model::setJobShopResult, builder.toString());
+
+        valueUpdate(model::setCost, solution.getCost());
+        valueUpdate(model::setBacktracks, solution.getBacktracks());
+        valueUpdate(model::setDecisions, solution.getDecisions());
+        valueUpdate(model::setMaximumDepth, solution.getMaximumDepth());
+        valueUpdate(model::setNodes, solution.getNodes());
+        valueUpdate(model::setWrongDecisions, solution.getWrongDecisions());
+        valueUpdate(model::setTime, solution.getSolverTime());
     }
 }

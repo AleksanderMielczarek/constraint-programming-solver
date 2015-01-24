@@ -25,7 +25,7 @@ public class JobShopModel {
     private final IntegerProperty wrongDecisions = new SimpleIntegerProperty();
     private final LongProperty time = new SimpleLongProperty();
 
-    private final StringProperty jobSHopResult = new SimpleStringProperty();
+    private final StringProperty jobShopResult = new SimpleStringProperty();
 
     private final StringProperty error = new SimpleStringProperty();
 
@@ -173,16 +173,16 @@ public class JobShopModel {
         this.time.set(time);
     }
 
-    public String getJobSHopResult() {
-        return jobSHopResult.get();
+    public String getJobShopResult() {
+        return jobShopResult.get();
     }
 
-    public StringProperty jobSHopResultProperty() {
-        return jobSHopResult;
+    public StringProperty jobShopResultProperty() {
+        return jobShopResult;
     }
 
-    public void setJobSHopResult(String jobSHopResult) {
-        this.jobSHopResult.set(jobSHopResult);
+    public void setJobShopResult(String jobShopResult) {
+        this.jobShopResult.set(jobShopResult);
     }
 
     public String getError() {

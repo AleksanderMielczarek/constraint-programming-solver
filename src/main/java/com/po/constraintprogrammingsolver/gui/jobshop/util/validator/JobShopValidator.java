@@ -1,8 +1,9 @@
-package com.po.constraintprogrammingsolver.gui.jobshop.util;
+package com.po.constraintprogrammingsolver.gui.jobshop.util.validator;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
+import com.po.constraintprogrammingsolver.gui.jobshop.util.ValueUpdater;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.converter.JobShopModelToDataConverter;
 
 import java.text.MessageFormat;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 /**
  * Created by Aleksander on 2015-01-03.
  */
-public class JobShopValidator {
+public class JobShopValidator implements ValueUpdater {
     private static final String ERROR_EMPTY = "label.jobshop.error.empty";
     private static final String ERROR_LINE = "label.jobshop.error.line";
     private static final String ERROR_MACHINES = "label.jobshop.error.more.machines";
@@ -31,7 +32,7 @@ public class JobShopValidator {
 
     public boolean validate() {
         if (Strings.isNullOrEmpty(model.getJobShopData())) {
-            model.setError(resources.getString(ERROR_EMPTY));
+            valueUpdate(model::setError, resources.getString(ERROR_EMPTY));
             return false;
         }
 
@@ -40,7 +41,7 @@ public class JobShopValidator {
             String line = scanner.nextLine();
 
             if (!line.matches(VALIDATION_REGEX)) {
-                model.setError(MessageFormat.format(resources.getString(ERROR_LINE), jobNumber));
+                valueUpdate(model::setError, MessageFormat.format(resources.getString(ERROR_LINE), jobNumber));
                 return false;
             }
 
@@ -49,10 +50,10 @@ public class JobShopValidator {
             long times = Splitter.on(JobShopModelToDataConverter.NUMBER_SEPARATOR).splitToList(lines.get(2)).size();
 
             if (machines > times) {
-                model.setError(MessageFormat.format(resources.getString(ERROR_MACHINES), jobNumber));
+                valueUpdate(model::setError, MessageFormat.format(resources.getString(ERROR_MACHINES), jobNumber));
                 return false;
             } else if (times > machines) {
-                model.setError(MessageFormat.format(resources.getString(ERROR_TIMES), jobNumber));
+                valueUpdate(model::setError, MessageFormat.format(resources.getString(ERROR_TIMES), jobNumber));
                 return false;
             }
         }

@@ -97,7 +97,7 @@ public class JobShopProblemController implements ProblemController {
 
     @FXML
     public void initialize() {
-        jobShopProblemService = new JobShopProblemService();
+        jobShopProblemService = new JobShopProblemService(model, resources);
         bindModel();
 
         comboBoxSelectChoicePoint.valueProperty().addListener((observable, oldValue, newValue) -> model.setComparatorVariableVisible(newValue.isComparatorVariable()));
@@ -144,7 +144,7 @@ public class JobShopProblemController implements ProblemController {
         labelWrongDecisions.textProperty().bindBidirectional(model.wrongDecisionsProperty(), stringConverter);
         labelTime.textProperty().bindBidirectional(model.timeProperty(), stringConverter);
 
-        textAreaJobShopResult.textProperty().bind(model.jobSHopResultProperty());
+        textAreaJobShopResult.textProperty().bind(model.jobShopResultProperty());
 
         labelError.textProperty().bind(model.errorProperty());
     }
