@@ -9,17 +9,17 @@ import java.util.ResourceBundle;
  * Created by Aleksander on 2015-01-04.
  */
 public enum ComparatorVariableTypeWrapper {
-    LARGEST_DOMAIN(ComparatorVariableType.LARGEST_DOMAIN, "combo.comparator.largest.domain"),
-    LARGEST_MAX(ComparatorVariableType.LARGEST_MAX, "combo.comparator.largest.max"),
-    LARGEST_MIN(ComparatorVariableType.LARGEST_MIN, "combo.comparator.largest.min"),
-    MAX_REGRET(ComparatorVariableType.MAX_REGRET, "combo.comparator.max.regret"),
-    MIN_DOMAIN_OVER_DEGREE(ComparatorVariableType.MIN_DOMAIN_OVER_DEGREE, "combo.comparator.min.domain.over.degree"),
-    MOST_CONSTRAINED_DYNAMIC(ComparatorVariableType.MOST_CONSTRAINED_DYNAMIC, "combo.comparator.most.constrained.dynamic"),
-    MOST_CONSTRAINED_STATIC(ComparatorVariableType.MOST_CONSTRAINED_STATIC, "combo.comparator.most.constrained.static"),
-    SMALLEST_DOMAIN(ComparatorVariableType.SMALLEST_DOMAIN, "combo.comparator.smallest.domain"),
-    SMALLEST_MAX(ComparatorVariableType.SMALLEST_MAX, "combo.comparator.smallest.max"),
-    SMALLEST_MIN(ComparatorVariableType.SMALLEST_MIN, "combo.comparator.smallest.min"),
-    WEIGHTED_DEGREE(ComparatorVariableType.WEIGHTED_DEGREE, "combo.comparator.weighted.degree");
+    LARGEST_DOMAIN_WRAPPER(ComparatorVariableType.LARGEST_DOMAIN, "combo.comparator.largest.domain"),
+    LARGEST_MAX_WRAPPER(ComparatorVariableType.LARGEST_MAX, "combo.comparator.largest.max"),
+    LARGEST_MIN_WRAPPER(ComparatorVariableType.LARGEST_MIN, "combo.comparator.largest.min"),
+    MAX_REGRET_WRAPPER(ComparatorVariableType.MAX_REGRET, "combo.comparator.max.regret"),
+    MIN_DOMAIN_OVER_DEGREE_WRAPPER(ComparatorVariableType.MIN_DOMAIN_OVER_DEGREE, "combo.comparator.min.domain.over.degree"),
+    MOST_CONSTRAINED_DYNAMIC_WRAPPER(ComparatorVariableType.MOST_CONSTRAINED_DYNAMIC, "combo.comparator.most.constrained.dynamic"),
+    MOST_CONSTRAINED_STATIC_WRAPPER(ComparatorVariableType.MOST_CONSTRAINED_STATIC, "combo.comparator.most.constrained.static"),
+    SMALLEST_DOMAIN_WRAPPER(ComparatorVariableType.SMALLEST_DOMAIN, "combo.comparator.smallest.domain"),
+    SMALLEST_MAX_WRAPPER(ComparatorVariableType.SMALLEST_MAX, "combo.comparator.smallest.max"),
+    SMALLEST_MIN_WRAPPER(ComparatorVariableType.SMALLEST_MIN, "combo.comparator.smallest.min"),
+    WEIGHTED_DEGREE_WRAPPER(ComparatorVariableType.WEIGHTED_DEGREE, "combo.comparator.weighted.degree");
 
     private final ComparatorVariableType comparatorVariableType;
     private final String key;

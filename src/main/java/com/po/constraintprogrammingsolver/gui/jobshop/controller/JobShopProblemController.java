@@ -1,6 +1,7 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.controller;
 
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
+import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopBenchmarkService;
 import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopProblemService;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultInitValuesSupplier;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultJobShopProblemResultValuesSupplier;
@@ -14,11 +15,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Service;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
+import javafx.scene.chart.LineChart;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
@@ -93,17 +93,23 @@ public class JobShopProblemController implements ProblemController {
     private ComboBox<SelectChoicePointTypeWrapper> comboBoxSelectChoicePoint;
 
     @FXML
+    private TextField textFieldRepetitions;
+
+    @FXML
+    private LineChart<String, Number> lineChartBacktracks;
+
+    @FXML
     private ResourceBundle resources;
 
     private final JobShopModel model = new JobShopModel();
     private Service<Void> jobShopProblemService;
-
-    private final ObjectProperty<TaskSeriesCollection> taskSeriesCollection = new SimpleObjectProperty<>();
+    private Service<Void> jobShopBenchmarkService;
 
     @FXML
     public void initialize() {
         //create model and services
         jobShopProblemService = new JobShopProblemService(model, resources);
+        jobShopBenchmarkService = new JobShopBenchmarkService(model, resources);
         bindModel();
 
         //chart
@@ -115,7 +121,7 @@ public class JobShopProblemController implements ProblemController {
         //set listeners
         comboBoxSelectChoicePoint.valueProperty().addListener((observable, oldValue, newValue) -> model.setComparatorVariableVisible(newValue.isComparatorVariable()));
 
-        Stream.of(jobShopProblemService).forEach(service -> service.setOnRunning(event -> {
+        Stream.of(jobShopProblemService, jobShopBenchmarkService).forEach(service -> service.setOnRunning(event -> {
             progressBarService.progressProperty().bind(service.progressProperty());
             labelUpdateMessage.textProperty().bind(service.messageProperty());
         }));
@@ -135,14 +141,18 @@ public class JobShopProblemController implements ProblemController {
         setDefaultInitValues(model);
     }
 
+    @FXML
+    private void onButtonStartBenchmarkClicked() {
+        jobShopBenchmarkService.restart();
+    }
+
     private void bindModel() {
         model.indomainProperty().bindBidirectional(comboBoxIndomain.valueProperty());
         model.selectChoicePointProperty().bindBidirectional(comboBoxSelectChoicePoint.valueProperty());
         model.comparatorVariableProperty().bindBidirectional(comboBoxComparatorVariable.valueProperty());
-
         comboBoxComparatorVariable.visibleProperty().bind(model.comparatorVariableVisibleProperty());
         labelComparatorVariable.visibleProperty().bind(model.comparatorVariableVisibleProperty());
-
+        model.repetitionsProperty().bindBidirectional(textFieldRepetitions.textProperty());
         model.jobShopDataProperty().bindBidirectional(textAreaJobShopData.textProperty());
 
         StringConverter<Number> stringConverter = new NumberStringConverter();

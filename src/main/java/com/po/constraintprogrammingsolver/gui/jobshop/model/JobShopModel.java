@@ -15,9 +15,8 @@ public class JobShopModel {
     private final ObjectProperty<IndomainTypeWrapper> indomain = new SimpleObjectProperty<>();
     private final ObjectProperty<SelectChoicePointTypeWrapper> selectChoicePoint = new SimpleObjectProperty<>();
     private final ObjectProperty<ComparatorVariableTypeWrapper> comparatorVariable = new SimpleObjectProperty<>();
-
     private final BooleanProperty comparatorVariableVisible = new SimpleBooleanProperty();
-
+    private final StringProperty repetitions = new SimpleStringProperty();
     private final StringProperty jobShopData = new SimpleStringProperty();
 
     private final IntegerProperty cost = new SimpleIntegerProperty();
@@ -80,6 +79,18 @@ public class JobShopModel {
 
     public void setComparatorVariableVisible(boolean comparatorVariableVisible) {
         this.comparatorVariableVisible.set(comparatorVariableVisible);
+    }
+
+    public String getRepetitions() {
+        return repetitions.get();
+    }
+
+    public StringProperty repetitionsProperty() {
+        return repetitions;
+    }
+
+    public void setRepetitions(String repetitions) {
+        this.repetitions.set(repetitions);
     }
 
     public String getJobShopData() {

@@ -27,6 +27,5 @@ public class DefaultJobShopProblemResultValuesSupplier implements DefaultValuesS
         valueUpdate(model::setTime, 0l);
 
         valueUpdate(() -> model.getTaskSeriesCollection().clear());
-        //valueUpdate(() -> model.getTaskSeriesCollection().remove(0, model.getTaskSeriesCollection().size()));
     }
 }

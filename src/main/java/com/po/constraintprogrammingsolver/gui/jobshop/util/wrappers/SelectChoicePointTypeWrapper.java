@@ -13,9 +13,9 @@ import java.util.ResourceBundle;
  * Created by Aleksander on 2015-01-04.
  */
 public enum SelectChoicePointTypeWrapper {
-    INPUT_ORDER_SELECT(SelectChoicePointStoreType.INPUT_ORDER_SELECT, "combo.select.input.order.select"),
-    SIMPLE_SELECT(SelectChoicePointComparatorVariableType.SIMPLE_SELECT, "combo.select.simple.select"),
-    SPLIT_SELECT(SelectChoicePointComparatorVariableType.SPLIT_SELECT, "combo.select.split.select");
+    INPUT_ORDER_SELECT_WRAPPER(SelectChoicePointStoreType.INPUT_ORDER_SELECT, "combo.select.input.order.select"),
+    SIMPLE_SELECT_WRAPPER(SelectChoicePointComparatorVariableType.SIMPLE_SELECT, "combo.select.simple.select"),
+    SPLIT_SELECT_WRAPPER(SelectChoicePointComparatorVariableType.SPLIT_SELECT, "combo.select.split.select");
 
     private final Optional<SelectChoicePointStoreType> selectChoicePointStoreType;
     private final Optional<SelectChoicePointComparatorVariableType> selectChoicePointComparatorVariableType;

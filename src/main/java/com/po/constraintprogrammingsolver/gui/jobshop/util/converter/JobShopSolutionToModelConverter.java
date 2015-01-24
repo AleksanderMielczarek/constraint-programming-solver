@@ -4,6 +4,7 @@ import com.google.common.collect.Iterables;
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.ValueUpdater;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
+import com.po.constraintprogrammingsolver.problems.jobshop.Parameter;
 import org.jfree.data.gantt.Task;
 import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.time.SimpleTimePeriod;
@@ -47,7 +48,7 @@ public class JobShopSolutionToModelConverter implements ValueUpdater {
                 );
 
         valueUpdate(() -> model.getTaskSeriesCollection().clear());
-        
+
         solution.getJobShopData().tasksOnJobs().asMap().values().stream()
                 .map(tasks -> {
                     TaskSeries series = new TaskSeries(resources.getString(CHART_LABEL) + Iterables.getLast(tasks).getJob().get().getJobNumber().get());
@@ -68,11 +69,11 @@ public class JobShopSolutionToModelConverter implements ValueUpdater {
         valueUpdate(model::setJobShopResult, builder.toString());
 
         valueUpdate(model::setCost, solution.getCost());
-        valueUpdate(model::setBacktracks, solution.getBacktracks());
-        valueUpdate(model::setDecisions, solution.getDecisions());
-        valueUpdate(model::setMaximumDepth, solution.getMaximumDepth());
-        valueUpdate(model::setNodes, solution.getNodes());
-        valueUpdate(model::setWrongDecisions, solution.getWrongDecisions());
-        valueUpdate(model::setTime, solution.getSolverTime());
+        valueUpdate(model::setBacktracks, solution.getParameters().get(Parameter.BACKTRACKS));
+        valueUpdate(model::setDecisions, solution.getParameters().get(Parameter.DECISIONS));
+        valueUpdate(model::setMaximumDepth, solution.getParameters().get(Parameter.MAXIMUM_DEPTH));
+        valueUpdate(model::setNodes, solution.getParameters().get(Parameter.NODES));
+        valueUpdate(model::setWrongDecisions, solution.getParameters().get(Parameter.WRONG_DECISIONS));
+        valueUpdate(model::setTime, solution.getTime());
     }
 }

@@ -5,7 +5,6 @@ import com.po.constraintprogrammingsolver.gui.jobshop.util.converter.JobShopMode
 import com.po.constraintprogrammingsolver.gui.jobshop.util.converter.JobShopModelToJacopProviderConverter;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.converter.JobShopSolutionToModelConverter;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultJobShopProblemResultValuesSupplier;
-import com.po.constraintprogrammingsolver.problems.JacopStrategyProblemSolver;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopProblemSolver;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
@@ -20,23 +19,24 @@ import java.util.ResourceBundle;
  * Created by Aleksander on 2015-01-23.
  */
 public class JobShopProblemService extends AbstractJobShopService {
-    private static final String SOLUTION_NOT_FOUND = "label.solution.not.found";
-    private static final String MESSAGE_CONVERSION = "message.conversion";
-    private static final String MESSAGE_SOLVING = "message.solving";
-    private static final String MESSAGE_CHECKING = "message.checking";
-    private static final String MESSAGE_UPDATING = "message.updating";
-    private static final String MESSAGE_READY = "message.ready";
+    protected static final String SOLUTION_NOT_FOUND = "label.solution.not.found";
+    protected static final String MESSAGE_CONVERSION = "message.conversion";
+    protected static final String MESSAGE_SOLVING = "message.solving";
+    protected static final String MESSAGE_CHECKING = "message.checking";
+    protected static final String MESSAGE_UPDATING = "message.updating";
+    protected static final String MESSAGE_READY = "message.ready";
 
-    private final JobShopModelToDataConverter modelToDataConverter;
-    private final JobShopModelToJacopProviderConverter modelToJacopProviderConverter;
-    private final JacopStrategyProblemSolver solver = new JobShopProblemSolver();
-    private final JobShopSolutionToModelConverter solutionToModelConverter;
+    protected final JobShopModelToDataConverter modelToDataConverter;
+    protected final JobShopModelToJacopProviderConverter modelToJacopProviderConverter;
+    protected final JobShopProblemSolver solver = new JobShopProblemSolver();
+    protected final JobShopSolutionToModelConverter solutionToModelConverter;
 
     public JobShopProblemService(JobShopModel model, ResourceBundle resources) {
-        super(model, resources, new DefaultJobShopProblemResultValuesSupplier(model), 5);
+        super(model, resources, new DefaultJobShopProblemResultValuesSupplier(model));
         this.modelToDataConverter = new JobShopModelToDataConverter(model);
         this.modelToJacopProviderConverter = new JobShopModelToJacopProviderConverter(model);
         this.solutionToModelConverter = new JobShopSolutionToModelConverter(model, resources);
+        setNumberOfSteps(5);
     }
 
     @Override

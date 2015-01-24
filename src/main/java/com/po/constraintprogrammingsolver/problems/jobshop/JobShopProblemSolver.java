@@ -11,9 +11,7 @@ import org.jacop.search.DepthFirstSearch;
 import org.jacop.search.Search;
 import org.jacop.search.SelectChoicePoint;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -22,8 +20,6 @@ import java.util.concurrent.TimeUnit;
 public class JobShopProblemSolver implements JacopStrategyProblemSolver<JobShopData, JobShopSolution> {
     @Override
     public Optional<JobShopSolution> solveProblem(JobShopData data, JacopStrategyProvider jacopStrategyProvider) {
-        Stopwatch constraintStopwatch = Stopwatch.createStarted();
-
         Store store = new Store();
 
         int totalEndTime = data.totalEndTime();
@@ -39,14 +35,19 @@ public class JobShopProblemSolver implements JacopStrategyProblemSolver<JobShopD
 
         search.setPrintInfo(false);
 
-        long constraintTime = constraintStopwatch.elapsed(TimeUnit.MILLISECONDS);
-
         Stopwatch solverStopwatch = Stopwatch.createStarted();
         boolean result = search.labeling(store, select, cost);
         long solverTime = solverStopwatch.elapsed(TimeUnit.MILLISECONDS);
 
         if (result) {
-            return Optional.of(new JobShopSolution(data, search.getCostValue(), search.getBacktracks(), search.getDecisions(), search.getMaximumDepth(), search.getNodes(), search.getWrongDecisions(), constraintTime, solverTime));
+            Map<Parameter, Integer> parameters = new EnumMap<>(Parameter.class);
+            parameters.put(Parameter.BACKTRACKS, search.getBacktracks());
+            parameters.put(Parameter.DECISIONS, search.getDecisions());
+            parameters.put(Parameter.MAXIMUM_DEPTH, search.getMaximumDepth());
+            parameters.put(Parameter.NODES, search.getNodes());
+            parameters.put(Parameter.WRONG_DECISIONS, search.getWrongDecisions());
+
+            return Optional.of(new JobShopSolution(data, search.getCostValue(), solverTime, parameters));
         }
         return Optional.empty();
     }

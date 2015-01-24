@@ -9,12 +9,12 @@ import java.util.ResourceBundle;
  * Created by Aleksander on 2015-01-03.
  */
 public enum IndomainTypeWrapper {
-    INDOMAIN_MIN(IndomainType.INDOMAIN_MIN, "combo.indomain.min"),
-    INDOMAIN_MAX(IndomainType.INDOMAIN_MAX, "combo.indomain.max"),
-    INDOMAIN_MIDDLE(IndomainType.INDOMAIN_MIDDLE, "combo.indomain.middle"),
-    INDOMAIN_RANDOM(IndomainType.INDOMAIN_RANDOM, "combo.indomain.random"),
-    INDOMAIN_MEDIAN(IndomainType.INDOMAIN_MEDIAN, "combo.indomain.median"),
-    INDOMAIN_SIMPLE_RANDOM(IndomainType.INDOMAIN_SIMPLE_RANDOM, "combo.indomain.simple.random");
+    INDOMAIN_MIN_WRAPPER(IndomainType.INDOMAIN_MIN, "combo.indomain.min"),
+    INDOMAIN_MAX_WRAPPER(IndomainType.INDOMAIN_MAX, "combo.indomain.max"),
+    INDOMAIN_MIDDLE_WRAPPER(IndomainType.INDOMAIN_MIDDLE, "combo.indomain.middle"),
+    INDOMAIN_RANDOM_WRAPPER(IndomainType.INDOMAIN_RANDOM, "combo.indomain.random"),
+    INDOMAIN_MEDIAN_WRAPPER(IndomainType.INDOMAIN_MEDIAN, "combo.indomain.median"),
+    INDOMAIN_SIMPLE_RANDOM_WRAPPER(IndomainType.INDOMAIN_SIMPLE_RANDOM, "combo.indomain.simple.random");
 
     private final IndomainType indomainType;
     private final String key;

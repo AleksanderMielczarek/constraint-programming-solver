@@ -18,9 +18,10 @@ public class DefaultInitValuesSupplier implements DefaultValuesSupplier, ValueUp
             .append(System.getProperty("line.separator"))
             .append("5;3 2 4;5 10 15")
             .toString();
-    private static final IndomainTypeWrapper DEFAULT_INDOMAIN = IndomainTypeWrapper.INDOMAIN_MIN;
-    private static final SelectChoicePointTypeWrapper DEFAULT_SELECT_CHOICE_POINT = SelectChoicePointTypeWrapper.INPUT_ORDER_SELECT;
-    private static final ComparatorVariableTypeWrapper DEFAULT_COMPARATOR_VARIABLE = ComparatorVariableTypeWrapper.SMALLEST_MIN;
+    private static final IndomainTypeWrapper DEFAULT_INDOMAIN = IndomainTypeWrapper.INDOMAIN_MIN_WRAPPER;
+    private static final SelectChoicePointTypeWrapper DEFAULT_SELECT_CHOICE_POINT = SelectChoicePointTypeWrapper.INPUT_ORDER_SELECT_WRAPPER;
+    private static final ComparatorVariableTypeWrapper DEFAULT_COMPARATOR_VARIABLE = ComparatorVariableTypeWrapper.SMALLEST_MIN_WRAPPER;
+    private static final String DEFAULT_REPETITIONS = "10";
 
     private final JobShopModel model;
 
@@ -34,5 +35,6 @@ public class DefaultInitValuesSupplier implements DefaultValuesSupplier, ValueUp
         valueUpdate(model::setIndomain, DEFAULT_INDOMAIN);
         valueUpdate(model::setSelectChoicePoint, DEFAULT_SELECT_CHOICE_POINT);
         valueUpdate(model::setComparatorVariable, DEFAULT_COMPARATOR_VARIABLE);
+        valueUpdate(model::setRepetitions, DEFAULT_REPETITIONS);
     }
 }
