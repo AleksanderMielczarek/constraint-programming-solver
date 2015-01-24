@@ -15,4 +15,13 @@ public interface ValueUpdater {
             Platform.runLater(() -> consumer.accept(value));
         }
     }
+
+    public default void valueUpdate(Runnable action){
+        if (Platform.isFxApplicationThread()) {
+            action.run();
+        } else {
+            Platform.runLater(action);
+        }
+    }
+
 }

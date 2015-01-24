@@ -20,6 +20,13 @@ import java.util.ResourceBundle;
  * Created by Aleksander on 2015-01-23.
  */
 public class JobShopProblemService extends AbstractJobShopService {
+    private static final String SOLUTION_NOT_FOUND = "label.solution.not.found";
+    private static final String MESSAGE_CONVERSION = "message.conversion";
+    private static final String MESSAGE_SOLVING = "message.solving";
+    private static final String MESSAGE_CHECKING = "message.checking";
+    private static final String MESSAGE_UPDATING = "message.updating";
+    private static final String MESSAGE_READY = "message.ready";
+
     private final JobShopModelToDataConverter modelToDataConverter;
     private final JobShopModelToJacopProviderConverter modelToJacopProviderConverter;
     private final JacopStrategyProblemSolver solver = new JobShopProblemSolver();
@@ -52,16 +59,20 @@ public class JobShopProblemService extends AbstractJobShopService {
                 updateProgress(step++, numberOfSteps);
 
                 //convert model to data
+                updateMessage(resources.getString(MESSAGE_CONVERSION));
                 JobShopData data = modelToDataConverter.convert();
                 JacopStrategyProvider jacopStrategyProvider = modelToJacopProviderConverter.convert();
                 updateProgress(step++, numberOfSteps);
 
                 //find solution
+                updateMessage(resources.getString(MESSAGE_SOLVING));
                 Optional<JobShopSolution> solution = solver.solveProblem(data, jacopStrategyProvider);
                 updateProgress(step++, numberOfSteps);
 
                 //check if solution is present
+                updateMessage(resources.getString(MESSAGE_CHECKING));
                 if (!solution.isPresent()) {
+                    valueUpdate(model::setError, resources.getString(SOLUTION_NOT_FOUND));
                     defaultValuesSupplier.supplyDefaultValues();
                     updateProgress(1, 1);
                     return null;
@@ -69,7 +80,10 @@ public class JobShopProblemService extends AbstractJobShopService {
                 updateProgress(step++, numberOfSteps);
 
                 //convert solution to result
+                updateMessage(resources.getString(MESSAGE_UPDATING));
                 solutionToModelConverter.convert(solution.get());
+
+                updateMessage(resources.getString(MESSAGE_READY));
                 updateProgress(1, 1);
 
                 return null;

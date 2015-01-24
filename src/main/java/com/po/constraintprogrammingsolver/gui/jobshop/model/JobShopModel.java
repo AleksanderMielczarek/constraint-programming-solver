@@ -4,6 +4,9 @@ import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ComparatorVa
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.IndomainTypeWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.SelectChoicePointTypeWrapper;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.jfree.data.gantt.TaskSeries;
 
 /**
  * Created by Aleksander on 2015-01-23.
@@ -26,6 +29,8 @@ public class JobShopModel {
     private final LongProperty time = new SimpleLongProperty();
 
     private final StringProperty jobShopResult = new SimpleStringProperty();
+
+    private final ObservableList<TaskSeries> taskSeriesCollection = FXCollections.observableArrayList();
 
     private final StringProperty error = new SimpleStringProperty();
 
@@ -183,6 +188,10 @@ public class JobShopModel {
 
     public void setJobShopResult(String jobShopResult) {
         this.jobShopResult.set(jobShopResult);
+    }
+
+    public ObservableList<TaskSeries> getTaskSeriesCollection() {
+        return taskSeriesCollection;
     }
 
     public String getError() {

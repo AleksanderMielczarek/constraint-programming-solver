@@ -1,5 +1,6 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.util.converter;
 
+import com.google.common.collect.Iterables;
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.ValueUpdater;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
@@ -33,28 +34,36 @@ public class JobShopSolutionToModelConverter implements ValueUpdater {
     public void convert(JobShopSolution solution) {
         StringBuilder builder = new StringBuilder();
 
-        solution.getJobShopData().tasksOnJobs().asMap().entrySet().stream()
-                .map(entry -> {
-                    TaskSeries series = new TaskSeries(resources.getString(CHART_LABEL) + entry.getKey());
-                    entry.getValue().stream()
-                            .map(task -> {
-                                builder.append(resources.getString(RESULT_JOB) + COLON + task.getJob().get().getJobNumber())
+        solution.getJobShopData().tasksOnJobs().values().stream()
+                .forEach(task ->
+                                builder.append(resources.getString(RESULT_JOB) + COLON + task.getJob().get().getJobNumber().get())
                                         .append(TABULATOR)
                                         .append(resources.getString(RESULT_TASK) + COLON + task.getTaskNumber().get())
                                         .append(TABULATOR)
                                         .append(resources.getString(RESULT_MACHINE) + COLON + task.getMachineNumber())
                                         .append(TABULATOR)
                                         .append(resources.getString(RESULT_TIME) + COLON + task.startTime().get())
-                                        .append(NEW_LINE);
+                                        .append(NEW_LINE)
+                );
 
+        valueUpdate(() -> model.getTaskSeriesCollection().clear());
+        
+        solution.getJobShopData().tasksOnJobs().asMap().values().stream()
+                .map(tasks -> {
+                    TaskSeries series = new TaskSeries(resources.getString(CHART_LABEL) + Iterables.getLast(tasks).getJob().get().getJobNumber().get());
+
+                    tasks.stream()
+                            .map(task -> {
                                 String description = Integer.toString(task.getMachineNumber());
                                 long start = task.startTime().get();
                                 long end = start + task.getDuration();
                                 return new Task(description, new SimpleTimePeriod(start, end));
                             })
                             .forEach(series::add);
+
                     return series;
-                });
+                })
+                .forEach(series -> valueUpdate(() -> model.getTaskSeriesCollection().add(series)));
 
         valueUpdate(model::setJobShopResult, builder.toString());
 

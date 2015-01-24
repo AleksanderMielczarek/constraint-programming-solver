@@ -3,6 +3,8 @@ package com.po.constraintprogrammingsolver.gui.jobshop.controller;
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
 import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopProblemService;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultInitValuesSupplier;
+import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultJobShopProblemResultValuesSupplier;
+import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultValuesSupplier;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ComparatorVariableTypeWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.IndomainTypeWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.SelectChoicePointTypeWrapper;
@@ -10,6 +12,7 @@ import com.po.constraintprogrammingsolver.gui.main.ProblemController;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -21,7 +24,9 @@ import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.fx.ChartViewer;
 import org.jfree.data.category.IntervalCategoryDataset;
+import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
 
 import java.util.Arrays;
@@ -97,32 +102,37 @@ public class JobShopProblemController implements ProblemController {
 
     @FXML
     public void initialize() {
+        //create model and services
         jobShopProblemService = new JobShopProblemService(model, resources);
         bindModel();
 
-        comboBoxSelectChoicePoint.valueProperty().addListener((observable, oldValue, newValue) -> model.setComparatorVariableVisible(newValue.isComparatorVariable()));
+        //chart
+        TaskSeriesCollection taskSeriesCollection = new TaskSeriesCollection();
+        JFreeChart jFreeChart = createChart(taskSeriesCollection, resources);
+        ChartViewer chartViewer = new ChartViewer(jFreeChart);
+        borderPane.setCenter(chartViewer);
 
-        setValuesInComboBox();
-        setDefaultInitValues(model);
+        //set listeners
+        comboBoxSelectChoicePoint.valueProperty().addListener((observable, oldValue, newValue) -> model.setComparatorVariableVisible(newValue.isComparatorVariable()));
 
         Stream.of(jobShopProblemService).forEach(service -> service.setOnRunning(event -> {
             progressBarService.progressProperty().bind(service.progressProperty());
             labelUpdateMessage.textProperty().bind(service.messageProperty());
         }));
 
+        model.getTaskSeriesCollection().addListener((ListChangeListener<TaskSeries>) c -> {
+            while (c.next()) {
+                if (c.wasAdded()) {
+                    c.getAddedSubList().forEach(taskSeriesCollection::add);
+                } else if (c.wasRemoved()) {
+                    c.getRemoved().forEach(taskSeriesCollection::remove);
+                }
+            }
+        });
 
-        /*//chart
-        TaskSeriesCollection taskSeriesCollection = defaultResultSupplier.get().getTaskSeriesCollection();
-        JFreeChart jFreeChart = createChart(taskSeriesCollection);
-        ChartViewer chartViewer = new ChartViewer(jFreeChart);
-        borderPane.setCenter(chartViewer);
-
-        //extra consumer
-        resultConsumer = new JobShopResultConsumer(taskSeriesCollection);
-
-        jobs.textProperty().set(DEFAULT_JOBS);
-        cost.textProperty().set(defaultResultSupplier.get().getCost());
-        result.textProperty().set(defaultResultSupplier.get().getResult());*/
+        //set init values
+        setValuesInComboBox();
+        setDefaultInitValues(model);
     }
 
     private void bindModel() {
@@ -161,8 +171,11 @@ public class JobShopProblemController implements ProblemController {
     }
 
     private static void setDefaultInitValues(JobShopModel model) {
-        DefaultInitValuesSupplier initValuesSupplier = new DefaultInitValuesSupplier(model);
+        DefaultValuesSupplier initValuesSupplier = new DefaultInitValuesSupplier(model);
         initValuesSupplier.supplyDefaultValues();
+
+        DefaultValuesSupplier jobShopProblemResultValuesSupplier = new DefaultJobShopProblemResultValuesSupplier(model);
+        jobShopProblemResultValuesSupplier.supplyDefaultValues();
     }
 
     private static JFreeChart createChart(IntervalCategoryDataset dataset, ResourceBundle resources) {
