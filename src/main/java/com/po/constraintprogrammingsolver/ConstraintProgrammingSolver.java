@@ -1,6 +1,6 @@
 package com.po.constraintprogrammingsolver;
 
-import com.po.constraintprogrammingsolver.gui.controllers.ConstraintProgrammingSolverController;
+import com.po.constraintprogrammingsolver.gui.main.controller.ConstraintProgrammingSolverController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

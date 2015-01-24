@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.gui.controllers.jobshop.JobShopProblemController">
+<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.gui.jobshop.controller.JobShopProblemController">
     <top>
         <Accordion maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <panes>
@@ -27,7 +27,7 @@
                                     <children>
                                         <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.indomain" />
                                         <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.choice.point.select" GridPane.rowIndex="1" />
-                                        <Label fx:id="comparatorVariableLabel" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.comparator.variable" GridPane.rowIndex="2" />
+                                        <Label fx:id="labelComparatorVariable" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.comparator.variable" GridPane.rowIndex="2" />
                                         <ComboBox fx:id="comboBoxIndomain" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" />
                                         <ComboBox fx:id="comboBoxSelectChoicePoint" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <ComboBox fx:id="comboBoxComparatorVariable" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />

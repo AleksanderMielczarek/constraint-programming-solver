@@ -19,7 +19,7 @@
     </top>
 
     <center>
-        <TabPane fx:id="problemsTabPane" side="LEFT">
+        <TabPane fx:id="tabPaneProblems" side="LEFT">
             <tabs>
                 <Tab fx:id="trucks" closable="false" text="%tab.trucks">
                     <content>
