@@ -15,17 +15,17 @@
                             <children>
                                 <AnchorPane prefWidth="200.0" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <fx:include fx:id="vehicles" source="trucksdetails2/Vehicles.fxml" />
+                                        <fx:include fx:id="vehicles" source="trucksdetails/Vehicles.fxml" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefWidth="200.0" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <fx:include fx:id="packages" source="trucksdetails2/Packages.fxml" />
+                                        <fx:include fx:id="packages" source="trucksdetails/Packages.fxml" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefWidth="200.0" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <fx:include fx:id="others" source="trucksdetails2/Others.fxml" />
+                                        <fx:include fx:id="others" source="trucksdetails/Others.fxml" />
                                     </children>
                                 </AnchorPane>
                             </children>
@@ -40,7 +40,7 @@
                     <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <fx:include fx:id="result" source="trucksdetails2/Result.fxml" />
+                                <fx:include fx:id="result" source="trucksdetails/Result.fxml" />
                             </children>
                         </AnchorPane>
                     </content>

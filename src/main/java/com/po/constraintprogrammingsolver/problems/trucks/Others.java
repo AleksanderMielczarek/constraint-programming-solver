@@ -1,7 +1,6 @@
-package com.po.constraintprogrammingsolver.problems.trucks2;
+package com.po.constraintprogrammingsolver.problems.trucks;
 
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ObservableDoubleValue;
 
 /**
  * Created by Janek on 2014-12-28.

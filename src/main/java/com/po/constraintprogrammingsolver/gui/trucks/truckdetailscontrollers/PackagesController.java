@@ -1,6 +1,6 @@
-package com.po.constraintprogrammingsolver.gui.trucks.truckdetailscontrollers2;
+package com.po.constraintprogrammingsolver.gui.trucks.truckdetailscontrollers;
 
-import com.po.constraintprogrammingsolver.problems.trucks2.Package;
+import com.po.constraintprogrammingsolver.problems.trucks.Package;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;

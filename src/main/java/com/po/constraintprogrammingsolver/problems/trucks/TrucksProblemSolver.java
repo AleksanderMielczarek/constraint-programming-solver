@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.problems.trucks2;
+package com.po.constraintprogrammingsolver.problems.trucks;
 
 import com.po.constraintprogrammingsolver.problems.ProblemSolver;
 import org.apache.commons.lang3.ArrayUtils;

@@ -1,13 +1,13 @@
 package com.po.constraintprogrammingsolver.gui.trucks;
 
-import com.po.constraintprogrammingsolver.gui.trucks.truckdetailscontrollers2.OthersController;
-import com.po.constraintprogrammingsolver.gui.trucks.truckdetailscontrollers2.PackagesController;
-import com.po.constraintprogrammingsolver.gui.trucks.truckdetailscontrollers2.ResultController;
-import com.po.constraintprogrammingsolver.gui.trucks.truckdetailscontrollers2.VehiclesController;
-import com.po.constraintprogrammingsolver.problems.trucks2.InitData;
-import com.po.constraintprogrammingsolver.problems.trucks2.TrucksProblemData;
-import com.po.constraintprogrammingsolver.problems.trucks2.TrucksProblemSolver;
-import com.po.constraintprogrammingsolver.problems.trucks2.TrucksResult;
+import com.po.constraintprogrammingsolver.gui.trucks.truckdetailscontrollers.OthersController;
+import com.po.constraintprogrammingsolver.gui.trucks.truckdetailscontrollers.PackagesController;
+import com.po.constraintprogrammingsolver.gui.trucks.truckdetailscontrollers.ResultController;
+import com.po.constraintprogrammingsolver.gui.trucks.truckdetailscontrollers.VehiclesController;
+import com.po.constraintprogrammingsolver.problems.trucks.InitData;
+import com.po.constraintprogrammingsolver.problems.trucks.TrucksProblemData;
+import com.po.constraintprogrammingsolver.problems.trucks.TrucksProblemSolver;
+import com.po.constraintprogrammingsolver.problems.trucks.TrucksResult;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
