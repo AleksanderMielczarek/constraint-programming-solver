@@ -110,7 +110,7 @@
             </TitledPane>
                 <TitledPane id="titled-pane-high" fx:id="titledPaneBenchmark" animated="false" text="%accordion.benchmark">
                <content>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                  <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
