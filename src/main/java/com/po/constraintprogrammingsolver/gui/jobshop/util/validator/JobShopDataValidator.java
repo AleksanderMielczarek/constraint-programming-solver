@@ -6,9 +6,11 @@ import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.converter.JobShopModelToDataConverter;
 
 import java.text.MessageFormat;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Created by Aleksander on 2015-01-03.
@@ -16,6 +18,7 @@ import java.util.Scanner;
 public class JobShopDataValidator implements JobShopValidator {
     private static final String ERROR_EMPTY = "label.jobshop.error.empty";
     private static final String ERROR_LINE = "label.jobshop.error.line";
+    private static final String ERROR_REPEATED = "label.jobshop.error.repeated.machine";
     private static final String ERROR_MACHINES = "label.jobshop.error.more.machines";
     private static final String ERROR_TIMES = "label.jobshop.error.more.times";
 
@@ -46,13 +49,24 @@ public class JobShopDataValidator implements JobShopValidator {
             }
 
             List<String> lines = Splitter.on(JobShopModelToDataConverter.PART_SEPARATOR).splitToList(line);
-            long machines = Splitter.on(JobShopModelToDataConverter.NUMBER_SEPARATOR).splitToList(lines.get(1)).size();
-            long times = Splitter.on(JobShopModelToDataConverter.NUMBER_SEPARATOR).splitToList(lines.get(2)).size();
 
-            if (machines > times) {
+            List<Integer> machines = Splitter.on(JobShopModelToDataConverter.NUMBER_SEPARATOR).splitToList(lines.get(1)).stream()
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+            long machinesNumber = machines.size();
+
+            if (machinesNumber != new HashSet<>(machines).size()) {
+                valueUpdate(model::setError, MessageFormat.format(resources.getString(ERROR_REPEATED), jobNumber));
+                return false;
+            }
+
+            long timesNumber = Splitter.on(JobShopModelToDataConverter.NUMBER_SEPARATOR).splitToList(lines.get(2)).size();
+
+            if (machinesNumber > timesNumber) {
                 valueUpdate(model::setError, MessageFormat.format(resources.getString(ERROR_MACHINES), jobNumber));
                 return false;
-            } else if (times > machines) {
+            }
+            if (timesNumber > machinesNumber) {
                 valueUpdate(model::setError, MessageFormat.format(resources.getString(ERROR_TIMES), jobNumber));
                 return false;
             }
