@@ -20,7 +20,7 @@ import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 import org.jfree.chart.ChartFactory;
@@ -96,7 +96,7 @@ public class JobShopProblemController implements ProblemController {
     private TextField textFieldRepetitions;
 
     @FXML
-    private VBox vBoxSolution;
+    private BorderPane borderPaneSolution;
 
     @FXML
     private LineChart<String, Number> lineChartBacktracks;
@@ -152,7 +152,7 @@ public class JobShopProblemController implements ProblemController {
         TaskSeriesCollection taskSeriesCollection = new TaskSeriesCollection();
         JFreeChart jFreeChart = createChart(taskSeriesCollection, resources);
         ChartViewer chartViewer = new ChartViewer(jFreeChart);
-        vBoxSolution.getChildren().add(chartViewer);
+        borderPaneSolution.setCenter(chartViewer);
 
         //set listeners
         comboBoxSelectChoicePoint.valueProperty().addListener((observable, oldValue, newValue) -> model.setComparatorVariableVisible(newValue.isComparatorVariable()));

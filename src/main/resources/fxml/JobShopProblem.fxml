@@ -63,11 +63,11 @@
                   </VBox>
                     </content>
                 </TitledPane>
-                <TitledPane id="titled-pane-high" fx:id="titledPaneSolution" animated="false" text="%accordion.result">
-                    <content>
-                  <VBox fx:id="vBoxSolution">
-                     <children>
-                              <HBox spacing="10.0">
+            <TitledPane fx:id="titledPaneSolution" animated="false" text="%accordion.result">
+               <content>
+                  <BorderPane fx:id="borderPaneSolution" prefHeight="200.0" prefWidth="200.0">
+                     <top>
+                              <HBox spacing="10.0" BorderPane.alignment="CENTER">
                                   <children>
                                       <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
                                           <columnConstraints>
@@ -104,10 +104,10 @@
                                       <TextArea fx:id="textAreaJobShopResult" editable="false" HBox.hgrow="ALWAYS" />
                                   </children>
                               </HBox>
-                     </children>
-                  </VBox>
-                    </content>
-                </TitledPane>
+                     </top>
+                  </BorderPane>
+               </content>
+            </TitledPane>
                 <TitledPane id="titled-pane-high" fx:id="titledPaneBenchmark" animated="false" text="%accordion.benchmark">
                <content>
                   <ScrollPane prefHeight="200.0" prefWidth="200.0">
