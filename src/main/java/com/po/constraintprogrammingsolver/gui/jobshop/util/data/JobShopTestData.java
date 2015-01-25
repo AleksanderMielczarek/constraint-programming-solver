@@ -17,7 +17,14 @@ public enum JobShopTestData {
             .append(System.getProperty("line.separator"))
             .append("5;3 2 4;5 10 15")
             .toString()),
-    DATA_2("test");
+    DATA_2(new StringBuilder("10;2 1 3 4;10 5 15 5")
+            .append(System.getProperty("line.separator"))
+            .append("5;3 2 1 4;10 5 5 10")
+            .append(System.getProperty("line.separator"))
+            .append("15;1 3 4 2;5 5 5 5")
+            .append(System.getProperty("line.separator"))
+            .append("5;3 2 4 1;5 10 15 10")
+            .toString());
 
     private static final String KEY = "combo.test.data";
 
