@@ -149,6 +149,7 @@ public class JobShopProblemController implements ProblemController {
         jobShopBenchmarkService.setExecutor(Context.INSTANCE.getExecutor());
         jobShopLoaderService = new JobShopLoaderService(model, resources);
         jobShopGeneratorService = new JobShopGeneratorService(model, resources);
+        jobShopGeneratorService.setExecutor(Context.INSTANCE.getExecutor());
         bindModel();
 
         //chart
@@ -162,7 +163,7 @@ public class JobShopProblemController implements ProblemController {
 
         comboBoxTestData.valueProperty().addListener((observable, oldValue, newValue) -> model.setJobShopData(newValue.getData()));
 
-        Stream.of(jobShopProblemService, jobShopBenchmarkService).forEach(service -> service.setOnRunning(event -> {
+        Stream.of(jobShopProblemService, jobShopBenchmarkService, jobShopGeneratorService).forEach(service -> service.setOnRunning(event -> {
             progressBarService.progressProperty().bind(service.progressProperty());
             labelUpdateMessage.textProperty().bind(service.messageProperty());
         }));
