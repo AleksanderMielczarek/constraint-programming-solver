@@ -2,11 +2,17 @@ package com.po.constraintprogrammingsolver.gui.jobshop.model;
 
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ComparatorVariableTypeWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.IndomainTypeWrapper;
+import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ParameterWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.SelectChoicePointTypeWrapper;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import org.jfree.data.gantt.TaskSeries;
+
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * Created by Aleksander on 2015-01-23.
@@ -32,6 +38,13 @@ public class JobShopModel {
     private final ObservableList<TaskSeries> taskSeriesCollection = FXCollections.observableArrayList();
 
     private final StringProperty error = new SimpleStringProperty();
+
+    private final Map<ParameterWrapper, ObjectProperty<ObservableList<XYChart.Series<String, Number>>>> lineChartDataMap = new EnumMap<>(ParameterWrapper.class);
+
+    public JobShopModel() {
+        Arrays.stream(ParameterWrapper.values())
+                .forEach(wrapper -> lineChartDataMap.put(wrapper, new SimpleObjectProperty<>(FXCollections.observableArrayList(new XYChart.Series<>()))));
+    }
 
     public IndomainTypeWrapper getIndomain() {
         return indomain.get();
@@ -215,5 +228,9 @@ public class JobShopModel {
 
     public void setError(String error) {
         this.error.set(error);
+    }
+
+    public Map<ParameterWrapper, ObjectProperty<ObservableList<XYChart.Series<String, Number>>>> getLineChartDataMap() {
+        return lineChartDataMap;
     }
 }

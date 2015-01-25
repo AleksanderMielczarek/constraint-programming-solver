@@ -8,18 +8,16 @@ import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultJ
 import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultValuesSupplier;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ComparatorVariableTypeWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.IndomainTypeWrapper;
+import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ParameterWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.SelectChoicePointTypeWrapper;
 import com.po.constraintprogrammingsolver.gui.main.ProblemController;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Service;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 import org.jfree.chart.ChartFactory;
@@ -30,6 +28,8 @@ import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
 
 import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
@@ -75,9 +75,6 @@ public class JobShopProblemController implements ProblemController {
     private Label labelDecisions;
 
     @FXML
-    private BorderPane borderPane;
-
-    @FXML
     private ProgressBar progressBarService;
 
     @FXML
@@ -96,7 +93,25 @@ public class JobShopProblemController implements ProblemController {
     private TextField textFieldRepetitions;
 
     @FXML
+    private VBox vBoxSolution;
+
+    @FXML
     private LineChart<String, Number> lineChartBacktracks;
+
+    @FXML
+    private LineChart<String, Number> lineChartDecisions;
+
+    @FXML
+    private LineChart<String, Number> lineChartMaximumDepth;
+
+    @FXML
+    private LineChart<String, Number> lineChartNodes;
+
+    @FXML
+    private LineChart<String, Number> lineChartWrongDecisions;
+
+    @FXML
+    private LineChart<String, Number> lineChartTime;
 
     @FXML
     private ResourceBundle resources;
@@ -116,7 +131,7 @@ public class JobShopProblemController implements ProblemController {
         TaskSeriesCollection taskSeriesCollection = new TaskSeriesCollection();
         JFreeChart jFreeChart = createChart(taskSeriesCollection, resources);
         ChartViewer chartViewer = new ChartViewer(jFreeChart);
-        borderPane.setCenter(chartViewer);
+        vBoxSolution.getChildren().add(chartViewer);
 
         //set listeners
         comboBoxSelectChoicePoint.valueProperty().addListener((observable, oldValue, newValue) -> model.setComparatorVariableVisible(newValue.isComparatorVariable()));
@@ -167,6 +182,17 @@ public class JobShopProblemController implements ProblemController {
         textAreaJobShopResult.textProperty().bind(model.jobShopResultProperty());
 
         labelError.textProperty().bind(model.errorProperty());
+
+        Map<ParameterWrapper, LineChart<String, Number>> lineChartMap = new EnumMap<>(ParameterWrapper.class);
+        lineChartMap.put(ParameterWrapper.BACKTRACKS_WRAPPER, lineChartBacktracks);
+        lineChartMap.put(ParameterWrapper.DECISIONS_WRAPPER, lineChartDecisions);
+        lineChartMap.put(ParameterWrapper.MAXIMUM_DEPTH_WRAPPER, lineChartMaximumDepth);
+        lineChartMap.put(ParameterWrapper.NODES_WRAPPER, lineChartNodes);
+        lineChartMap.put(ParameterWrapper.WRONG_DECISIONS_WRAPPER, lineChartWrongDecisions);
+        lineChartMap.put(ParameterWrapper.TIME_WRAPPER, lineChartTime);
+
+        lineChartMap.entrySet().stream()
+                .forEach(entry -> entry.getValue().dataProperty().bindBidirectional(model.getLineChartDataMap().get(entry.getKey())));
     }
 
     private void setValuesInComboBox() {

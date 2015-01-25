@@ -13,3 +13,7 @@
     -fx-font-size: 12pt;
     -fx-text-fill: red;
 }
+
+#titled-pane-high {
+    -fx-padding: 0;
+}

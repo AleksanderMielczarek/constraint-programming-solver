@@ -9,15 +9,13 @@ import com.po.constraintprogrammingsolver.gui.jobshop.util.validator.JobShopRepe
 import com.po.constraintprogrammingsolver.gui.jobshop.util.validator.JobShopValidator;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
+import com.po.constraintprogrammingsolver.problems.jobshop.Parameter;
 import com.po.constraintprogrammingsolver.problems.strategy.JacopStrategyProvider;
 import javafx.concurrent.Task;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Created by Aleksander on 2015-01-24.
@@ -33,7 +31,7 @@ public class JobShopBenchmarkService extends JobShopProblemService {
         super(model, resources);
         validator = new JobShopRepetitionsValidator(super.validator, model, resources);
         this.defaultBenchmarkValuesSupplier = new DefaultJobShopBenchmarkValuesSupplier(model);
-        benchmarkSolutionToModelConverter = new JobShopBenchmarkSolutionToModelConverter(model);
+        benchmarkSolutionToModelConverter = new JobShopBenchmarkSolutionToModelConverter(model, resources);
     }
 
     @Override
@@ -66,6 +64,7 @@ public class JobShopBenchmarkService extends JobShopProblemService {
                 for (BenchmarkCombinations benchmark : BenchmarkCombinations.values()) {
                     JacopStrategyProvider jacopStrategyProvider = benchmark.getJacopStrategyProvider();
                     List<JobShopSolution> solutions = new ArrayList<>(repetitions);
+                    boolean noSolution = false;
 
                     for (int i = 1; i <= repetitions; i++) {
                         //solving
@@ -78,13 +77,24 @@ public class JobShopBenchmarkService extends JobShopProblemService {
                         if (!solution.isPresent()) {
                             step += (repetitions - i) * 2;
                             updateProgress(step++, numberOfSteps);
+                            noSolution = true;
                             break;
                         }
                         updateProgress(step++, numberOfSteps);
 
                         solutions.add(solution.get());
                     }
+
                     //convert solution
+                    if (noSolution) {
+                        Map<Parameter, Integer> parameters = new EnumMap<>(Parameter.class);
+                        parameters.put(Parameter.BACKTRACKS, 0);
+                        parameters.put(Parameter.DECISIONS, 0);
+                        parameters.put(Parameter.MAXIMUM_DEPTH, 0);
+                        parameters.put(Parameter.NODES, 0);
+                        parameters.put(Parameter.WRONG_DECISIONS, 0);
+                        solutions = Collections.nCopies(repetitions, new JobShopSolution(null, 0, 0, parameters));
+                    }
                     updateMessage(resources.getString(MESSAGE_UPDATING));
                     benchmarkSolutionToModelConverter.convert(solutions, benchmark);
                     updateProgress(step++, numberOfSteps);
