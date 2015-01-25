@@ -3,6 +3,7 @@ package com.po.constraintprogrammingsolver.gui.jobshop.controller;
 import com.po.constraintprogrammingsolver.Context;
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
 import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopBenchmarkService;
+import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopGeneratorService;
 import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopLoaderService;
 import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopProblemService;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.data.JobShopTestData;
@@ -137,6 +138,7 @@ public class JobShopProblemController implements ProblemController {
     private Service<Void> jobShopProblemService;
     private Service<Void> jobShopBenchmarkService;
     private Service<Void> jobShopLoaderService;
+    private Service<Void> jobShopGeneratorService;
 
     @FXML
     public void initialize() {
@@ -146,6 +148,7 @@ public class JobShopProblemController implements ProblemController {
         jobShopBenchmarkService = new JobShopBenchmarkService(model, resources);
         jobShopBenchmarkService.setExecutor(Context.INSTANCE.getExecutor());
         jobShopLoaderService = new JobShopLoaderService(model, resources);
+        jobShopGeneratorService = new JobShopGeneratorService(model, resources);
         bindModel();
 
         //chart
@@ -188,6 +191,12 @@ public class JobShopProblemController implements ProblemController {
     @FXML
     private void onButtonLoadFileClicked() {
         jobShopLoaderService.restart();
+    }
+
+
+    @FXML
+    private void onButtonGenerateDataClicked() {
+        jobShopGeneratorService.restart();
     }
 
     private void bindModel() {
