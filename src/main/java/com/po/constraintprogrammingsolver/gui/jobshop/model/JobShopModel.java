@@ -41,6 +41,9 @@ public class JobShopModel {
 
     private final Map<ParameterWrapper, ObjectProperty<ObservableList<XYChart.Series<String, Number>>>> lineChartDataMap = new EnumMap<>(ParameterWrapper.class);
 
+    private final BooleanProperty solutionExpanded = new SimpleBooleanProperty();
+    private final BooleanProperty benchmarkExpanded = new SimpleBooleanProperty();
+
     public JobShopModel() {
         Arrays.stream(ParameterWrapper.values())
                 .forEach(wrapper -> lineChartDataMap.put(wrapper, new SimpleObjectProperty<>(FXCollections.observableArrayList(new XYChart.Series<>()))));
@@ -232,5 +235,29 @@ public class JobShopModel {
 
     public Map<ParameterWrapper, ObjectProperty<ObservableList<XYChart.Series<String, Number>>>> getLineChartDataMap() {
         return lineChartDataMap;
+    }
+
+    public boolean getSolutionExpanded() {
+        return solutionExpanded.get();
+    }
+
+    public BooleanProperty solutionExpandedProperty() {
+        return solutionExpanded;
+    }
+
+    public void setSolutionExpanded(boolean solutionExpanded) {
+        this.solutionExpanded.set(solutionExpanded);
+    }
+
+    public boolean getBenchmarkExpanded() {
+        return benchmarkExpanded.get();
+    }
+
+    public BooleanProperty benchmarkExpandedProperty() {
+        return benchmarkExpanded;
+    }
+
+    public void setBenchmarkExpanded(boolean benchmarkExpanded) {
+        this.benchmarkExpanded.set(benchmarkExpanded);
     }
 }

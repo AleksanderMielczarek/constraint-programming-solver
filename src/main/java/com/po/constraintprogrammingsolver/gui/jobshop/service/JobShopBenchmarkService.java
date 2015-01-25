@@ -40,7 +40,7 @@ public class JobShopBenchmarkService extends JobShopProblemService {
             @Override
             protected Void call() throws Exception {
                 int repetitions = Integer.parseInt(model.getRepetitions());
-                setNumberOfSteps(3 + repetitions + 2 * repetitions * BenchmarkCombinations.values().length);
+                setNumberOfSteps(3 + BenchmarkCombinations.values().length + 2 * repetitions * BenchmarkCombinations.values().length);
                 step = 1;
                 valueUpdate(model::setError, StringUtils.EMPTY);
                 updateMessage(StringUtils.EMPTY);
@@ -55,12 +55,15 @@ public class JobShopBenchmarkService extends JobShopProblemService {
                 }
                 updateProgress(step++, numberOfSteps);
 
+                valueUpdate(model::setBenchmarkExpanded, true);
+
                 //convert model to data
                 updateMessage(resources.getString(MESSAGE_CONVERSION));
                 JobShopData data = modelToDataConverter.convert();
                 updateProgress(step++, numberOfSteps);
 
                 //combinations
+                defaultBenchmarkValuesSupplier.supplyDefaultValues();
                 for (BenchmarkCombinations benchmark : BenchmarkCombinations.values()) {
                     JacopStrategyProvider jacopStrategyProvider = benchmark.getJacopStrategyProvider();
                     List<JobShopSolution> solutions = new ArrayList<>(repetitions);
@@ -101,9 +104,8 @@ public class JobShopBenchmarkService extends JobShopProblemService {
                 }
 
                 updateMessage(resources.getString(MESSAGE_READY));
-                System.out.println(step);
                 updateProgress(1, 1);
-
+                System.out.println(step);
                 return null;
             }
         };

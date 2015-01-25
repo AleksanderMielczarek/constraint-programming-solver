@@ -35,13 +35,9 @@ public class JobShopBenchmarkSolutionToModelConverter implements ValueUpdater {
                         .average().getAsDouble();
             } else {
                 average = solutions.stream()
-                        .mapToLong(JobShopSolution::getTime)
-                        .average().getAsDouble();
-                /*OptionalDouble average2 = solutions.stream()
                         .map(JobShopSolution::getParameters)
-                        .mapToInt(parameters -> parameters.get(wrapper))
-                        .average();
-                System.out.println(average2.isPresent());*/
+                        .mapToInt(parameters -> parameters.get(wrapper.getParameter().get()))
+                        .average().getAsDouble();
             }
 
             valueUpdate(() -> model.getLineChartDataMap().get(wrapper).get().get(0).getData().add(new XYChart.Data<>(benchmarkCombinations.label(resources), average)));

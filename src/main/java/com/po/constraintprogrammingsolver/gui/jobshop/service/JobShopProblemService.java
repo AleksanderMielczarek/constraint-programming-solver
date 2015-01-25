@@ -79,6 +79,8 @@ public class JobShopProblemService extends AbstractJobShopService {
                 }
                 updateProgress(step++, numberOfSteps);
 
+                valueUpdate(model::setSolutionExpanded, true);
+
                 //convert solution to result
                 updateMessage(resources.getString(MESSAGE_UPDATING));
                 solutionToModelConverter.convert(solution.get());

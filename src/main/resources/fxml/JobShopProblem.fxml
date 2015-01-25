@@ -18,9 +18,9 @@
         </VBox>
     </bottom>
    <center>
-        <Accordion maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+        <Accordion fx:id="accordionMenu" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <panes>
-                <TitledPane id="titled-pane-high" animated="false" text="%accordion.options">
+                <TitledPane id="titled-pane-high" fx:id="titledPaneOptions" animated="false" text="%accordion.options">
                     <content>
                   <VBox>
                      <children>
@@ -60,7 +60,7 @@
                   </VBox>
                     </content>
                 </TitledPane>
-                <TitledPane id="titled-pane-high" animated="false" text="%accordion.result">
+                <TitledPane id="titled-pane-high" fx:id="titledPaneSolution" animated="false" text="%accordion.result">
                     <content>
                   <VBox fx:id="vBoxSolution">
                      <children>
@@ -105,13 +105,13 @@
                   </VBox>
                     </content>
                 </TitledPane>
-                <TitledPane id="titled-pane-high" animated="false" text="%accordion.benchmark">
+                <TitledPane id="titled-pane-high" fx:id="titledPaneBenchmark" animated="false" text="%accordion.benchmark">
                <content>
                   <ScrollPane prefHeight="200.0" prefWidth="200.0">
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <LineChart fx:id="lineChartBacktracks" title="%label.backtracks">
+                              <LineChart fx:id="lineChartBacktracks" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.backtracks">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -119,7 +119,7 @@
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <LineChart fx:id="lineChartDecisions" title="%label.decisions">
+                              <LineChart fx:id="lineChartDecisions" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.decisions">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -127,7 +127,7 @@
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <LineChart fx:id="lineChartMaximumDepth" title="%label.maximum.depth">
+                              <LineChart fx:id="lineChartMaximumDepth" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.maximum.depth">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -135,7 +135,7 @@
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <LineChart fx:id="lineChartNodes" title="%label.nodes">
+                              <LineChart fx:id="lineChartNodes" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.nodes">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -143,7 +143,7 @@
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <LineChart fx:id="lineChartWrongDecisions" title="%label.wrong.decisions">
+                              <LineChart fx:id="lineChartWrongDecisions" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.wrong.decisions">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -151,7 +151,7 @@
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <LineChart fx:id="lineChartTime" title="%label.time">
+                              <LineChart fx:id="lineChartTime" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.time">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>

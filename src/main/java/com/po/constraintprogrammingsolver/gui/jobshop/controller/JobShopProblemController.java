@@ -114,6 +114,18 @@ public class JobShopProblemController implements ProblemController {
     private LineChart<String, Number> lineChartTime;
 
     @FXML
+    private TitledPane titledPaneOptions;
+
+    @FXML
+    private TitledPane titledPaneSolution;
+
+    @FXML
+    private TitledPane titledPaneBenchmark;
+
+    @FXML
+    private Accordion accordionMenu;
+
+    @FXML
     private ResourceBundle resources;
 
     private final JobShopModel model = new JobShopModel();
@@ -152,6 +164,7 @@ public class JobShopProblemController implements ProblemController {
         });
 
         //set init values
+        accordionMenu.setExpandedPane(titledPaneOptions);
         setValuesInComboBox();
         setDefaultInitValues(model);
     }
@@ -193,6 +206,9 @@ public class JobShopProblemController implements ProblemController {
 
         lineChartMap.entrySet().stream()
                 .forEach(entry -> entry.getValue().dataProperty().bindBidirectional(model.getLineChartDataMap().get(entry.getKey())));
+
+        titledPaneSolution.expandedProperty().bindBidirectional(model.solutionExpandedProperty());
+        titledPaneBenchmark.expandedProperty().bindBidirectional(model.benchmarkExpandedProperty());
     }
 
     private void setValuesInComboBox() {
