@@ -39,8 +39,6 @@ public class JobShopBenchmarkService extends JobShopProblemService {
         return new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                int repetitions = Integer.parseInt(model.getRepetitions());
-                setNumberOfSteps(3 + BenchmarkCombination.values().length + 2 * repetitions * BenchmarkCombination.values().length);
                 step = 1;
                 valueUpdate(model::setError, StringUtils.EMPTY);
                 updateMessage(StringUtils.EMPTY);
@@ -50,10 +48,14 @@ public class JobShopBenchmarkService extends JobShopProblemService {
                 updateMessage(resources.getString(MESSAGE_VALIDATION));
                 if (!validator.validate()) {
                     defaultBenchmarkValuesSupplier.supplyDefaultValues();
+                    updateMessage(resources.getString(MESSAGE_READY));
                     updateProgress(1, 1);
                     return null;
                 }
+                int repetitions = Integer.parseInt(model.getRepetitions());
+                setNumberOfSteps(3 + BenchmarkCombination.values().length + 2 * repetitions * BenchmarkCombination.values().length);
                 updateProgress(step++, numberOfSteps);
+
 
                 valueUpdate(model::setBenchmarkExpanded, true);
 

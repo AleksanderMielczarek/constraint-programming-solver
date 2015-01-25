@@ -53,6 +53,7 @@ public class JobShopProblemService extends AbstractJobShopService {
                 updateMessage(resources.getString(MESSAGE_VALIDATION));
                 if (!validator.validate()) {
                     defaultValuesSupplier.supplyDefaultValues();
+                    updateMessage(resources.getString(MESSAGE_READY));
                     updateProgress(1, 1);
                     return null;
                 }
@@ -74,6 +75,7 @@ public class JobShopProblemService extends AbstractJobShopService {
                 if (!solution.isPresent()) {
                     valueUpdate(model::setError, resources.getString(SOLUTION_NOT_FOUND));
                     defaultValuesSupplier.supplyDefaultValues();
+                    updateMessage(resources.getString(MESSAGE_READY));
                     updateProgress(1, 1);
                     return null;
                 }
