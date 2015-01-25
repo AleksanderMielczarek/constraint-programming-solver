@@ -1,7 +1,7 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.service;
 
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
-import com.po.constraintprogrammingsolver.gui.jobshop.util.combination.BenchmarkCombinations;
+import com.po.constraintprogrammingsolver.gui.jobshop.util.data.BenchmarkCombination;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.converter.JobShopBenchmarkSolutionToModelConverter;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultJobShopBenchmarkValuesSupplier;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultValuesSupplier;
@@ -40,7 +40,7 @@ public class JobShopBenchmarkService extends JobShopProblemService {
             @Override
             protected Void call() throws Exception {
                 int repetitions = Integer.parseInt(model.getRepetitions());
-                setNumberOfSteps(3 + BenchmarkCombinations.values().length + 2 * repetitions * BenchmarkCombinations.values().length);
+                setNumberOfSteps(3 + BenchmarkCombination.values().length + 2 * repetitions * BenchmarkCombination.values().length);
                 step = 1;
                 valueUpdate(model::setError, StringUtils.EMPTY);
                 updateMessage(StringUtils.EMPTY);
@@ -64,7 +64,7 @@ public class JobShopBenchmarkService extends JobShopProblemService {
 
                 //combinations
                 defaultBenchmarkValuesSupplier.supplyDefaultValues();
-                for (BenchmarkCombinations benchmark : BenchmarkCombinations.values()) {
+                for (BenchmarkCombination benchmark : BenchmarkCombination.values()) {
                     JacopStrategyProvider jacopStrategyProvider = benchmark.getJacopStrategyProvider();
                     List<JobShopSolution> solutions = new ArrayList<>(repetitions);
                     boolean noSolution = false;
@@ -105,7 +105,6 @@ public class JobShopBenchmarkService extends JobShopProblemService {
 
                 updateMessage(resources.getString(MESSAGE_READY));
                 updateProgress(1, 1);
-                System.out.println(step);
                 return null;
             }
         };

@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.gui.jobshop.util.combination;
+package com.po.constraintprogrammingsolver.gui.jobshop.util.data;
 
 import com.po.constraintprogrammingsolver.problems.strategy.JacopStrategyProvider;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +21,7 @@ import static com.po.constraintprogrammingsolver.problems.strategy.selectchoicep
 /**
  * Created by Aleksander on 2015-01-24.
  */
-public enum BenchmarkCombinations {
+public enum BenchmarkCombination {
     COMBINATION_1(simpleJacopStrategyProvider(INDOMAIN_MAX, INPUT_ORDER_SELECT), INDOMAIN_MAX_WRAPPER.getKey(), INPUT_ORDER_SELECT_WRAPPER.getKey()),
     COMBINATION_2(simpleJacopStrategyProvider(INDOMAIN_MIN, INPUT_ORDER_SELECT), INDOMAIN_MIN_WRAPPER.getKey(), INPUT_ORDER_SELECT_WRAPPER.getKey()),
     COMBINATION_3(simpleJacopStrategyProvider(INDOMAIN_MEDIAN, INPUT_ORDER_SELECT), INDOMAIN_MEDIAN_WRAPPER.getKey(), INPUT_ORDER_SELECT_WRAPPER.getKey()),
@@ -34,7 +34,7 @@ public enum BenchmarkCombinations {
     private final JacopStrategyProvider jacopStrategyProvider;
     private final String[] keys;
 
-    BenchmarkCombinations(JacopStrategyProvider jacopStrategyProvider, String... keys) {
+    BenchmarkCombination(JacopStrategyProvider jacopStrategyProvider, String... keys) {
         this.jacopStrategyProvider = jacopStrategyProvider;
         this.keys = keys;
     }

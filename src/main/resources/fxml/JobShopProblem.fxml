@@ -34,6 +34,7 @@
                                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
                                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
                                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
                                           </columnConstraints>
                                           <rowConstraints>
                                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -49,8 +50,11 @@
                                               <ComboBox fx:id="comboBoxComparatorVariable" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                               <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#onButtonStartBenchmarkClicked" text="%button.benchmark" GridPane.columnIndex="3" GridPane.columnSpan="2" />
                                               <Label text="%label.repetitions" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                              <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="5" />
+                                              <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                                     <TextField fx:id="textFieldRepetitions" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                    <Label text="%label.test.data" GridPane.columnIndex="5" />
+                                    <ComboBox fx:id="comboBoxTestData" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="6" />
+                                    <Label text="Label" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                                           </children>
                                       </GridPane>
                                       <TextArea fx:id="textAreaJobShopData" HBox.hgrow="ALWAYS" />

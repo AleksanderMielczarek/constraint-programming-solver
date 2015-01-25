@@ -3,6 +3,7 @@ package com.po.constraintprogrammingsolver.gui.jobshop.controller;
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
 import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopBenchmarkService;
 import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopProblemService;
+import com.po.constraintprogrammingsolver.gui.jobshop.util.data.JobShopTestData;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultInitValuesSupplier;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultJobShopProblemResultValuesSupplier;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultValuesSupplier;
@@ -126,6 +127,8 @@ public class JobShopProblemController implements ProblemController {
     private Accordion accordionMenu;
 
     @FXML
+    private ComboBox<JobShopTestData> comboBoxTestData;
+    @FXML
     private ResourceBundle resources;
 
     private final JobShopModel model = new JobShopModel();
@@ -147,6 +150,8 @@ public class JobShopProblemController implements ProblemController {
 
         //set listeners
         comboBoxSelectChoicePoint.valueProperty().addListener((observable, oldValue, newValue) -> model.setComparatorVariableVisible(newValue.isComparatorVariable()));
+
+        comboBoxTestData.valueProperty().addListener((observable, oldValue, newValue) -> model.setJobShopData(newValue.getData()));
 
         Stream.of(jobShopProblemService, jobShopBenchmarkService).forEach(service -> service.setOnRunning(event -> {
             progressBarService.progressProperty().bind(service.progressProperty());
@@ -182,6 +187,8 @@ public class JobShopProblemController implements ProblemController {
         labelComparatorVariable.visibleProperty().bind(model.comparatorVariableVisibleProperty());
         model.repetitionsProperty().bindBidirectional(textFieldRepetitions.textProperty());
         model.jobShopDataProperty().bindBidirectional(textAreaJobShopData.textProperty());
+
+        model.jobShopTestDataProperty().bindBidirectional(comboBoxTestData.valueProperty());
 
         StringConverter<Number> stringConverter = new NumberStringConverter();
         labelCost.textProperty().bindBidirectional(model.costProperty(), stringConverter);
@@ -220,6 +227,9 @@ public class JobShopProblemController implements ProblemController {
 
         comboBoxComparatorVariable.setItems(FXCollections.observableList(Arrays.asList(ComparatorVariableTypeWrapper.values())));
         comboBoxComparatorVariable.setConverter(ComparatorVariableTypeWrapper.getStringConverter(resources));
+
+        comboBoxTestData.setItems(FXCollections.observableList(Arrays.asList(JobShopTestData.values())));
+        comboBoxTestData.setConverter(JobShopTestData.getStringConverter(resources));
     }
 
     private static void setDefaultInitValues(JobShopModel model) {

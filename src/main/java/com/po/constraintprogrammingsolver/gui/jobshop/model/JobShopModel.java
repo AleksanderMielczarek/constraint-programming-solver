@@ -1,5 +1,6 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.model;
 
+import com.po.constraintprogrammingsolver.gui.jobshop.util.data.JobShopTestData;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ComparatorVariableTypeWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.IndomainTypeWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ParameterWrapper;
@@ -24,6 +25,8 @@ public class JobShopModel {
     private final BooleanProperty comparatorVariableVisible = new SimpleBooleanProperty();
     private final StringProperty repetitions = new SimpleStringProperty();
     private final StringProperty jobShopData = new SimpleStringProperty();
+
+    private final ObjectProperty<JobShopTestData> jobShopTestData = new SimpleObjectProperty<>();
 
     private final IntegerProperty cost = new SimpleIntegerProperty();
     private final IntegerProperty backtracks = new SimpleIntegerProperty();
@@ -119,6 +122,18 @@ public class JobShopModel {
 
     public void setJobShopData(String jobShopData) {
         this.jobShopData.set(jobShopData);
+    }
+
+    public JobShopTestData getJobShopTestData() {
+        return jobShopTestData.get();
+    }
+
+    public ObjectProperty<JobShopTestData> jobShopTestDataProperty() {
+        return jobShopTestData;
+    }
+
+    public void setJobShopTestData(JobShopTestData jobShopTestData) {
+        this.jobShopTestData.set(jobShopTestData);
     }
 
     public int getCost() {

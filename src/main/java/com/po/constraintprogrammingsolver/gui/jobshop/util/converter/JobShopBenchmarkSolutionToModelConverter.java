@@ -2,14 +2,12 @@ package com.po.constraintprogrammingsolver.gui.jobshop.util.converter;
 
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.ValueUpdater;
-import com.po.constraintprogrammingsolver.gui.jobshop.util.combination.BenchmarkCombinations;
+import com.po.constraintprogrammingsolver.gui.jobshop.util.data.BenchmarkCombination;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ParameterWrapper;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
 import javafx.scene.chart.XYChart;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalDouble;
 import java.util.ResourceBundle;
 
 /**
@@ -24,7 +22,7 @@ public class JobShopBenchmarkSolutionToModelConverter implements ValueUpdater {
         this.resources = resources;
     }
 
-    public void convert(List<JobShopSolution> solutions, BenchmarkCombinations benchmarkCombinations) {
+    public void convert(List<JobShopSolution> solutions, BenchmarkCombination benchmarkCombination) {
 
         for (ParameterWrapper wrapper : ParameterWrapper.values()) {
             double average;
@@ -40,7 +38,7 @@ public class JobShopBenchmarkSolutionToModelConverter implements ValueUpdater {
                         .average().getAsDouble();
             }
 
-            valueUpdate(() -> model.getLineChartDataMap().get(wrapper).get().get(0).getData().add(new XYChart.Data<>(benchmarkCombinations.label(resources), average)));
+            valueUpdate(() -> model.getLineChartDataMap().get(wrapper).get().get(0).getData().add(new XYChart.Data<>(benchmarkCombination.label(resources), average)));
         }
     }
 }
