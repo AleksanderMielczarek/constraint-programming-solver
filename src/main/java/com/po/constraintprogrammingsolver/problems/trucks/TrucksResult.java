@@ -19,7 +19,7 @@ public class TrucksResult {
     private ObservableMap<Integer, String> packagesLocations;
     private ObservableMap<Integer, Integer> capacities;
 
-    private SimpleStringProperty wholeCost;
+    private final SimpleStringProperty wholeCost;
 
     /**
      * Constructs class containing final, calculating, optimal solution.
@@ -41,16 +41,11 @@ public class TrucksResult {
         return wholeCost;
     }
 
-
     /**
-     * Returns final cost value.
-     * @return wholeCost the result cost value
+     * Calculate and set final cost.
+     * @param trucksProblemData the data contains all trucks, packages and parameters to solver
+     * @param costWithSolver the resultant cost with solver
      */
-    public String getWholeCost() {
-        return wholeCost.get();
-    }
-
-
     public void setWholeCost(TrucksProblemData trucksProblemData, double costWithSolver) {
         double finalCost;
         double distance = trucksProblemData.getOthersData().getDistanceValue();
@@ -60,11 +55,18 @@ public class TrucksResult {
         this.wholeCost.set(Double.toString(finalCost));
     }
 
+    /**
+     * Returns map with packages and theirs location.
+     * @return the map with packages and theirs location
+     */
     public ObservableMap<Integer, String> getPackagesLocations() {
         return packagesLocations;
     }
 
-
+    /**
+     * Sets final packages location.
+     * @param packagesLocationsArray the array from solver containing packages location
+     */
     public void setPackageLocations(int[] packagesLocationsArray) {
         Map<Integer, ArrayList<Integer>> tempMapPackagesLocations = new HashMap<>();
         for (int i = 0; i < packagesLocationsArray.length; i++) {
@@ -78,10 +80,18 @@ public class TrucksResult {
         packagesLocations = valuesSplitToString(tempMapPackagesLocations);
     }
 
+    /**
+     * Returns map with trucks and theirs capacity.
+     * @return the map with trucks and theirs capacity
+     */
     public ObservableMap<Integer, Integer> getCapacities() {
         return capacities;
     }
 
+    /**
+     * Sets final trucks capacity.
+     * @param capacitiesArray the array from solver containing trucks capacity
+     */
     public void setCapacities(int[] capacitiesArray) {
         Map<Integer, Integer> tempMapCapacities = new HashMap<>();
         for (int i=0; i<capacitiesArray.length; i++) {
@@ -90,18 +100,18 @@ public class TrucksResult {
         capacities = changeIDInMapCapacities(tempMapCapacities);
     }
 
-    public Map<Integer, Integer> getMapVehicleID() {
-        return mapVehicleID;
-    }
-
+    /**
+     * Sets map with vehicle numbers in solver and theirs ID value.
+     * @param mapVehicleID the map with vehicles number in solver and its ID value
+     */
     public void setMapVehicleID(Map<Integer, Integer> mapVehicleID) {
         this.mapVehicleID = mapVehicleID;
     }
 
-    public Map<Integer, Integer> getMapPackageID() {
-        return mapPackageID;
-    }
-
+    /**
+     * Sets map with package numbers in solver and theirs ID value.
+     * @param mapPackageID the map with package numbers in solver and theirs ID value
+     */
     public void setMapPackageID(Map<Integer, Integer> mapPackageID) {
         this.mapPackageID = mapPackageID;
     }
@@ -111,10 +121,8 @@ public class TrucksResult {
 
         tempMapPackagesLocations.entrySet().forEach(packageLoc -> {
             int newKey = mapVehicleID.get(packageLoc.getKey());
-            ArrayList<Integer> newValues = new ArrayList<Integer>();
-            packageLoc.getValue().forEach(oldValue -> {
-                newValues.add(mapPackageID.get(oldValue));
-            });
+            ArrayList<Integer> newValues = new ArrayList<>();
+            packageLoc.getValue().forEach(oldValue -> newValues.add(mapPackageID.get(oldValue)));
             helpMap.put(newKey, newValues);
         });
 
@@ -125,11 +133,8 @@ public class TrucksResult {
         ObservableMap<Integer, String> packagesLocations = FXCollections.observableHashMap();
         tempMapPackagesLocations.keySet().forEach(key -> {
             StringBuilder stringBuilder = new StringBuilder();
-            tempMapPackagesLocations.get(key).forEach(pack -> {
-                stringBuilder.append(pack.toString())
-                             .append("; ")
-                             .toString();
-            });
+            tempMapPackagesLocations.get(key).forEach(pack -> stringBuilder.append(pack.toString())
+                         .append("; "));
             String packagesString = stringBuilder.toString();
             packagesLocations.put(key, packagesString);
         });
