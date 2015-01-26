@@ -1,7 +1,7 @@
 package com.po.constraintprogrammingsolver.problems.trucks;
 
 /**
- * Contains constans used in problem solvers.
+ * Contains constants used in problem solvers.
  */
 public class Constants {
     /**
