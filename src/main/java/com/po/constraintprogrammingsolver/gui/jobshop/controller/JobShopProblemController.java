@@ -1,6 +1,7 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.controller;
 
 import com.po.constraintprogrammingsolver.Context;
+import com.po.constraintprogrammingsolver.gui.ProblemController;
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
 import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopBenchmarkService;
 import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopGeneratorService;
@@ -14,14 +15,14 @@ import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ComparatorVa
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.IndomainTypeWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ParameterWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.SelectChoicePointTypeWrapper;
-import com.po.constraintprogrammingsolver.gui.ProblemController;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 import org.jfree.chart.ChartFactory;
@@ -97,9 +98,6 @@ public class JobShopProblemController implements ProblemController {
     private TextField textFieldRepetitions;
 
     @FXML
-    private BorderPane borderPaneSolution;
-
-    @FXML
     private LineChart<String, Number> lineChartBacktracks;
 
     @FXML
@@ -131,6 +129,10 @@ public class JobShopProblemController implements ProblemController {
 
     @FXML
     private ComboBox<JobShopTestData> comboBoxTestData;
+
+    @FXML
+    private VBox vBoxSolution;
+
     @FXML
     private ResourceBundle resources;
 
@@ -156,7 +158,10 @@ public class JobShopProblemController implements ProblemController {
         TaskSeriesCollection taskSeriesCollection = new TaskSeriesCollection();
         JFreeChart jFreeChart = createChart(taskSeriesCollection, resources);
         ChartViewer chartViewer = new ChartViewer(jFreeChart);
-        borderPaneSolution.setCenter(chartViewer);
+        chartViewer.setMinHeight(Region.USE_PREF_SIZE);
+        chartViewer.setPrefHeight(800);
+        chartViewer.setMaxHeight(Double.MAX_VALUE);
+        vBoxSolution.getChildren().add(chartViewer);
 
         //set listeners
         comboBoxSelectChoicePoint.valueProperty().addListener((observable, oldValue, newValue) -> model.setComparatorVariableVisible(newValue.isComparatorVariable()));
@@ -193,7 +198,6 @@ public class JobShopProblemController implements ProblemController {
     private void onButtonLoadFileClicked() {
         jobShopLoaderService.restart();
     }
-
 
     @FXML
     private void onButtonGenerateDataClicked() {
