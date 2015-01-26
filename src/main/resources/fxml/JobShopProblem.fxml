@@ -19,105 +19,178 @@
             <panes>
                 <TitledPane id="titled-pane-high" fx:id="titledPaneOptions" animated="false" text="%accordion.options">
                     <content>
-                        <VBox>
-                            <children>
-                                <HBox spacing="10.0">
+                        <ScrollPane fitToWidth="true" prefViewportHeight="526.0" prefViewportWidth="485.0">
+                            <content>
+                                <VBox>
                                     <children>
-                                        <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                  HBox.hgrow="NEVER">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                            </rowConstraints>
+                                        <VBox>
                                             <children>
-                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.indomain"/>
-                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.choice.point.select"
-                                                       GridPane.rowIndex="1"/>
-                                                <Label fx:id="labelComparatorVariable" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                       text="%label.comparator.variable" GridPane.rowIndex="2"/>
-                                                <ComboBox fx:id="comboBoxIndomain" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                          GridPane.columnIndex="1"/>
-                                                <ComboBox fx:id="comboBoxSelectChoicePoint" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                          GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                                <ComboBox fx:id="comboBoxComparatorVariable" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                          GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false"
-                                                        onMouseClicked="#onButtonStartBenchmarkClicked" text="%button.benchmark" GridPane.columnIndex="3"
-                                                        GridPane.columnSpan="2"/>
-                                                <Label text="%label.repetitions" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false"
-                                                        onMouseClicked="#onButtonLoadFileClicked" text="%button.load" GridPane.columnIndex="5"
-                                                        GridPane.columnSpan="2" GridPane.rowIndex="1"/>
-                                                <TextField fx:id="textFieldRepetitions" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                           GridPane.columnIndex="4" GridPane.rowIndex="1"/>
-                                                <Label text="%label.test.data" GridPane.columnIndex="5"/>
-                                                <ComboBox fx:id="comboBoxTestData" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                          GridPane.columnIndex="6"/>
-                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false"
-                                                        onMouseClicked="#onButtonGenerateDataClicked" text="%button.generate" GridPane.columnIndex="5"
-                                                        GridPane.columnSpan="2" GridPane.rowIndex="2"/>
+                                                <Label id="label-bold" text="%label.options.jobs"/>
+                                                <TextArea fx:id="textAreaJobShopData"/>
                                             </children>
-                                        </GridPane>
-                                        <TextArea fx:id="textAreaJobShopData" HBox.hgrow="ALWAYS"/>
+                                        </VBox>
+                                        <VBox>
+                                            <children>
+                                                <Label id="label-bold" text="%label.options.settings"/>
+                                                <HBox spacing="10.0">
+                                                    <children>
+                                                        <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                                                  minWidth="-Infinity" HBox.hgrow="NEVER">
+                                                            <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                            </columnConstraints>
+                                                            <rowConstraints>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                            </rowConstraints>
+                                                            <children>
+                                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.indomain"/>
+                                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.choice.point.select"
+                                                                       GridPane.rowIndex="1"/>
+                                                                <Label fx:id="labelComparatorVariable" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
+                                                                       text="%label.comparator.variable" GridPane.rowIndex="2"/>
+                                                                <ComboBox fx:id="comboBoxIndomain" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
+                                                                          GridPane.columnIndex="1"/>
+                                                                <ComboBox fx:id="comboBoxSelectChoicePoint" maxWidth="1.7976931348623157E308"
+                                                                          minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                                                <ComboBox fx:id="comboBoxComparatorVariable" maxWidth="1.7976931348623157E308"
+                                                                          minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                                            </children>
+                                                        </GridPane>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox>
+                                            <children>
+                                                <Label id="label-bold" text="%label.options.data"/>
+                                                <HBox spacing="10.0">
+                                                    <children>
+                                                        <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                                                  minWidth="-Infinity" HBox.hgrow="NEVER">
+                                                            <children>
+                                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false"
+                                                                        onMouseClicked="#onButtonLoadFileClicked" text="%button.load" GridPane.columnSpan="2"
+                                                                        GridPane.rowIndex="1"/>
+                                                                <Label text="%label.test.data"/>
+                                                                <ComboBox fx:id="comboBoxTestData" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
+                                                                          GridPane.columnIndex="1"/>
+                                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false"
+                                                                        onMouseClicked="#onButtonGenerateDataClicked" text="%button.generate"
+                                                                        GridPane.columnSpan="2" GridPane.rowIndex="2"/>
+                                                            </children>
+                                                            <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                            </columnConstraints>
+                                                            <rowConstraints>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                            </rowConstraints>
+                                                        </GridPane>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox>
+                                            <children>
+                                                <Label id="label-bold" text="%label.options.benchmark"/>
+                                                <HBox spacing="10.0">
+                                                    <children>
+                                                        <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                                                  minWidth="-Infinity" HBox.hgrow="NEVER">
+                                                            <children>
+                                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false"
+                                                                        onMouseClicked="#onButtonStartBenchmarkClicked" text="%button.benchmark"
+                                                                        GridPane.columnSpan="2"/>
+                                                                <Label text="%label.repetitions" GridPane.rowIndex="1"/>
+                                                                <TextField fx:id="textFieldRepetitions" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
+                                                                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                                            </children>
+                                                            <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0"
+                                                                                   prefWidth="100.0"/>
+                                                            </columnConstraints>
+                                                            <rowConstraints>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                            </rowConstraints>
+                                                        </GridPane>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
                                     </children>
-                                </HBox>
-                            </children>
-                        </VBox>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
                     </content>
                 </TitledPane>
                 <TitledPane fx:id="titledPaneSolution" animated="false" text="%accordion.result">
                     <content>
-                        <BorderPane fx:id="borderPaneSolution" prefHeight="200.0" prefWidth="200.0">
-                            <top>
-                                <HBox spacing="10.0" BorderPane.alignment="CENTER">
+                        <ScrollPane fitToWidth="true" prefViewportHeight="230.0" prefViewportWidth="485.0">
+                            <content>
+                                <VBox fx:id="vBoxSolution" maxHeight="1.7976931348623157E308" minWidth="-Infinity">
                                     <children>
-                                        <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                            </rowConstraints>
+                                        <HBox spacing="10.0">
                                             <children>
-                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.cost"/>
-                                                <Label text="%label.backtracks" GridPane.rowIndex="1"/>
-                                                <Label text="%label.decisions" GridPane.rowIndex="2"/>
-                                                <Label text="%label.maximum.depth" GridPane.rowIndex="3"/>
-                                                <Label text="%label.nodes" GridPane.rowIndex="4"/>
-                                                <Label text="%label.wrong.decisions" GridPane.rowIndex="5"/>
-                                                <Label text="%label.time" GridPane.rowIndex="6"/>
-                                                <Label fx:id="labelBacktracks" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                                <Label fx:id="labelDecisions" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                                <Label fx:id="labelMaximumDepth" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                                <Label fx:id="labelNodes" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                                                <Label fx:id="labelWrongDecisions" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                                                <Label fx:id="labelTime" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                                                <Label fx:id="labelCost" GridPane.columnIndex="1"/>
+                                                <VBox>
+                                                    <children>
+                                                        <Label id="label-bold" text="%label.solution.statistics"/>
+                                                        <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                                                  minWidth="-Infinity">
+                                                            <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                            </columnConstraints>
+                                                            <rowConstraints>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                            </rowConstraints>
+                                                            <children>
+                                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.cost"/>
+                                                                <Label text="%label.backtracks" GridPane.rowIndex="1"/>
+                                                                <Label text="%label.decisions" GridPane.rowIndex="2"/>
+                                                                <Label text="%label.maximum.depth" GridPane.rowIndex="3"/>
+                                                                <Label text="%label.nodes" GridPane.rowIndex="4"/>
+                                                                <Label text="%label.wrong.decisions" GridPane.rowIndex="5"/>
+                                                                <Label text="%label.time" GridPane.rowIndex="6"/>
+                                                                <Label fx:id="labelBacktracks" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                                                <Label fx:id="labelDecisions" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                                                <Label fx:id="labelMaximumDepth" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                                                                <Label fx:id="labelNodes" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                                                <Label fx:id="labelWrongDecisions" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                                                                <Label fx:id="labelTime" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                                                                <Label fx:id="labelCost" GridPane.columnIndex="1"/>
+                                                            </children>
+                                                        </GridPane>
+                                                    </children>
+                                                </VBox>
+                                                <VBox HBox.hgrow="ALWAYS">
+                                                    <children>
+                                                        <Label id="label-bold" text="%label.solution.jobs"/>
+                                                        <TextArea fx:id="textAreaJobShopResult" editable="false" HBox.hgrow="ALWAYS"/>
+                                                    </children>
+                                                </VBox>
                                             </children>
-                                        </GridPane>
-                                        <TextArea fx:id="textAreaJobShopResult" editable="false" HBox.hgrow="ALWAYS"/>
+                                        </HBox>
                                     </children>
-                                </HBox>
-                            </top>
-                        </BorderPane>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
                     </content>
                 </TitledPane>
                 <TitledPane id="titled-pane-high" fx:id="titledPaneBenchmark" animated="false" text="%accordion.benchmark">
