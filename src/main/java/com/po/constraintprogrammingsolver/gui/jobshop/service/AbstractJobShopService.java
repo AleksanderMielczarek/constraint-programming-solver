@@ -1,7 +1,7 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.service;
 
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
-import com.po.constraintprogrammingsolver.gui.jobshop.util.ValueUpdater;
+import com.po.constraintprogrammingsolver.gui.ValueUpdater;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue.DefaultValuesSupplier;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.validator.JobShopDataValidator;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.validator.JobShopValidator;

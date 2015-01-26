@@ -1,7 +1,7 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.util.converter;
 
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
-import com.po.constraintprogrammingsolver.gui.jobshop.util.ValueUpdater;
+import com.po.constraintprogrammingsolver.gui.ValueUpdater;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.data.BenchmarkCombination;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ParameterWrapper;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;

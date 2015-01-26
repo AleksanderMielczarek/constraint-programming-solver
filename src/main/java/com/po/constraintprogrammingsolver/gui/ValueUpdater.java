@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.gui.jobshop.util;
+package com.po.constraintprogrammingsolver.gui;
 
 import javafx.application.Platform;
 

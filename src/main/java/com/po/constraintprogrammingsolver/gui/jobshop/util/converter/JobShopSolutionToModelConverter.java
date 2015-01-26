@@ -2,7 +2,7 @@ package com.po.constraintprogrammingsolver.gui.jobshop.util.converter;
 
 import com.google.common.collect.Iterables;
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
-import com.po.constraintprogrammingsolver.gui.jobshop.util.ValueUpdater;
+import com.po.constraintprogrammingsolver.gui.ValueUpdater;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
 import com.po.constraintprogrammingsolver.problems.jobshop.Parameter;
 import org.jfree.data.gantt.Task;

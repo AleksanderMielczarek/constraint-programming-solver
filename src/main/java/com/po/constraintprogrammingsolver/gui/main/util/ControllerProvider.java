@@ -1,6 +1,6 @@
 package com.po.constraintprogrammingsolver.gui.main.util;
 
-import com.po.constraintprogrammingsolver.gui.main.ProblemController;
+import com.po.constraintprogrammingsolver.gui.ProblemController;
 
 import java.util.EnumMap;
 import java.util.Map;

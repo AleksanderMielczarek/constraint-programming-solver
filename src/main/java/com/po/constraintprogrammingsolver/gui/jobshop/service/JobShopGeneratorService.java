@@ -1,7 +1,7 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.service;
 
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
-import com.po.constraintprogrammingsolver.gui.jobshop.util.ValueUpdater;
+import com.po.constraintprogrammingsolver.gui.ValueUpdater;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 

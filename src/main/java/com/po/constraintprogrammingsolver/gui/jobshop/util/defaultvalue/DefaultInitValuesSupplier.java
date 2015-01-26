@@ -1,7 +1,7 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.util.defaultvalue;
 
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
-import com.po.constraintprogrammingsolver.gui.jobshop.util.ValueUpdater;
+import com.po.constraintprogrammingsolver.gui.ValueUpdater;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.data.JobShopTestData;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ComparatorVariableTypeWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.IndomainTypeWrapper;

@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver.gui.main;
+package com.po.constraintprogrammingsolver.gui;
 
 import javafx.concurrent.Service;
 

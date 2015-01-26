@@ -1,6 +1,6 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.util.validator;
 
-import com.po.constraintprogrammingsolver.gui.jobshop.util.ValueUpdater;
+import com.po.constraintprogrammingsolver.gui.ValueUpdater;
 
 /**
  * Created by Aleksander on 2015-01-24.

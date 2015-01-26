@@ -14,7 +14,7 @@ import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ComparatorVa
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.IndomainTypeWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.ParameterWrapper;
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.SelectChoicePointTypeWrapper;
-import com.po.constraintprogrammingsolver.gui.main.ProblemController;
+import com.po.constraintprogrammingsolver.gui.ProblemController;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Service;
