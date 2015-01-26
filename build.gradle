@@ -16,4 +16,5 @@ dependencies {
     compile 'com.google.guava:guava:18.0'
     compile 'org.jfree:jfreechart:1.0.19-fx'
     compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'org.controlsfx:controlsfx:8.20.8'
 }

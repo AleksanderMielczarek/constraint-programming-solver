@@ -17,3 +17,7 @@
 #titled-pane-high {
     -fx-padding: 0;
 }
+
+#label-bold {
+    -fx-font-weight: bold;
+}
