@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.po.constraintprogrammingsolver.gui.jobshop.controller.JobShopProblemController">
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.po.constraintprogrammingsolver.gui.jobshop.controller.JobShopProblemController">
     <bottom>
         <VBox>
             <children>
-                <Label id="label-error" fx:id="labelError"/>
-                <Label fx:id="labelUpdateMessage"/>
-                <ProgressBar fx:id="progressBarService" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0"/>
+                <Label id="label-error" fx:id="labelError" />
+                <Label fx:id="labelUpdateMessage" />
+                <ProgressBar fx:id="progressBarService" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0" />
             </children>
         </VBox>
     </bottom>
@@ -21,54 +22,77 @@
                     <content>
                         <VBox>
                             <children>
+                        <Label text="Label" />
+                                  <TextArea fx:id="textAreaJobShopData" />
+                        <Label text="Label" />
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                        <Label text="Label" />
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                        <Label text="Label" />
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
                                 <HBox spacing="10.0">
                                     <children>
-                                        <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                  HBox.hgrow="NEVER">
+                                        <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="NEVER">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.indomain"/>
-                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.choice.point.select"
-                                                       GridPane.rowIndex="1"/>
-                                                <Label fx:id="labelComparatorVariable" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                       text="%label.comparator.variable" GridPane.rowIndex="2"/>
-                                                <ComboBox fx:id="comboBoxIndomain" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                          GridPane.columnIndex="1"/>
-                                                <ComboBox fx:id="comboBoxSelectChoicePoint" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                          GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                                <ComboBox fx:id="comboBoxComparatorVariable" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                          GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false"
-                                                        onMouseClicked="#onButtonStartBenchmarkClicked" text="%button.benchmark" GridPane.columnIndex="3"
-                                                        GridPane.columnSpan="2"/>
-                                                <Label text="%label.repetitions" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false"
-                                                        onMouseClicked="#onButtonLoadFileClicked" text="%button.load" GridPane.columnIndex="5"
-                                                        GridPane.columnSpan="2" GridPane.rowIndex="1"/>
-                                                <TextField fx:id="textFieldRepetitions" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                           GridPane.columnIndex="4" GridPane.rowIndex="1"/>
-                                                <Label text="%label.test.data" GridPane.columnIndex="5"/>
-                                                <ComboBox fx:id="comboBoxTestData" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                                          GridPane.columnIndex="6"/>
-                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false"
-                                                        onMouseClicked="#onButtonGenerateDataClicked" text="%button.generate" GridPane.columnIndex="5"
-                                                        GridPane.columnSpan="2" GridPane.rowIndex="2"/>
+                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.indomain" />
+                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.choice.point.select" GridPane.rowIndex="1" />
+                                                <Label fx:id="labelComparatorVariable" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.comparator.variable" GridPane.rowIndex="2" />
+                                                <ComboBox fx:id="comboBoxIndomain" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" />
+                                                <ComboBox fx:id="comboBoxSelectChoicePoint" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <ComboBox fx:id="comboBoxComparatorVariable" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#onButtonStartBenchmarkClicked" text="%button.benchmark" GridPane.columnIndex="3" GridPane.columnSpan="2" />
+                                                <Label text="%label.repetitions" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#onButtonLoadFileClicked" text="%button.load" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                                                <TextField fx:id="textFieldRepetitions" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                                <Label text="%label.test.data" GridPane.columnIndex="5" />
+                                                <ComboBox fx:id="comboBoxTestData" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnIndex="6" />
+                                                <Button maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#onButtonGenerateDataClicked" text="%button.generate" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                                             </children>
                                         </GridPane>
-                                        <TextArea fx:id="textAreaJobShopData" HBox.hgrow="ALWAYS"/>
                                     </children>
                                 </HBox>
                             </children>
@@ -83,37 +107,37 @@
                                     <children>
                                         <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.cost"/>
-                                                <Label text="%label.backtracks" GridPane.rowIndex="1"/>
-                                                <Label text="%label.decisions" GridPane.rowIndex="2"/>
-                                                <Label text="%label.maximum.depth" GridPane.rowIndex="3"/>
-                                                <Label text="%label.nodes" GridPane.rowIndex="4"/>
-                                                <Label text="%label.wrong.decisions" GridPane.rowIndex="5"/>
-                                                <Label text="%label.time" GridPane.rowIndex="6"/>
-                                                <Label fx:id="labelBacktracks" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                                <Label fx:id="labelDecisions" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                                <Label fx:id="labelMaximumDepth" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                                <Label fx:id="labelNodes" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                                                <Label fx:id="labelWrongDecisions" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                                                <Label fx:id="labelTime" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                                                <Label fx:id="labelCost" GridPane.columnIndex="1"/>
+                                                <Label maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="%label.cost" />
+                                                <Label text="%label.backtracks" GridPane.rowIndex="1" />
+                                                <Label text="%label.decisions" GridPane.rowIndex="2" />
+                                                <Label text="%label.maximum.depth" GridPane.rowIndex="3" />
+                                                <Label text="%label.nodes" GridPane.rowIndex="4" />
+                                                <Label text="%label.wrong.decisions" GridPane.rowIndex="5" />
+                                                <Label text="%label.time" GridPane.rowIndex="6" />
+                                                <Label fx:id="labelBacktracks" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label fx:id="labelDecisions" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Label fx:id="labelMaximumDepth" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <Label fx:id="labelNodes" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <Label fx:id="labelWrongDecisions" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                <Label fx:id="labelTime" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                <Label fx:id="labelCost" GridPane.columnIndex="1" />
                                             </children>
                                         </GridPane>
-                                        <TextArea fx:id="textAreaJobShopResult" editable="false" HBox.hgrow="ALWAYS"/>
+                                        <TextArea fx:id="textAreaJobShopResult" editable="false" HBox.hgrow="ALWAYS" />
                                     </children>
                                 </HBox>
                             </top>
@@ -126,58 +150,52 @@
                             <content>
                                 <VBox prefHeight="200.0" prefWidth="100.0">
                                     <children>
-                                        <LineChart fx:id="lineChartBacktracks" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                                                   minWidth="-Infinity" title="%label.backtracks">
+                                        <LineChart fx:id="lineChartBacktracks" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.backtracks">
                                             <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
+                                                <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis side="LEFT"/>
+                                                <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
-                                        <LineChart fx:id="lineChartDecisions" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                                                   minWidth="-Infinity" title="%label.decisions">
+                                        <LineChart fx:id="lineChartDecisions" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.decisions">
                                             <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
+                                                <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis side="LEFT"/>
+                                                <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
-                                        <LineChart fx:id="lineChartMaximumDepth" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                                                   minWidth="-Infinity" title="%label.maximum.depth">
+                                        <LineChart fx:id="lineChartMaximumDepth" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.maximum.depth">
                                             <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
+                                                <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis side="LEFT"/>
+                                                <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
-                                        <LineChart fx:id="lineChartNodes" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                                                   minWidth="-Infinity" title="%label.nodes">
+                                        <LineChart fx:id="lineChartNodes" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.nodes">
                                             <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
+                                                <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis side="LEFT"/>
+                                                <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
-                                        <LineChart fx:id="lineChartWrongDecisions" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                                                   minWidth="-Infinity" title="%label.wrong.decisions">
+                                        <LineChart fx:id="lineChartWrongDecisions" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.wrong.decisions">
                                             <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
+                                                <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis side="LEFT"/>
+                                                <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
-                                        <LineChart fx:id="lineChartTime" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                                                   minWidth="-Infinity" title="%label.time">
+                                        <LineChart fx:id="lineChartTime" legendVisible="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" title="%label.time">
                                             <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
+                                                <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis side="LEFT"/>
+                                                <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                     </children>
