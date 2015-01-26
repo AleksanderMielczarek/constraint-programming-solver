@@ -3,12 +3,17 @@ package com.po.constraintprogrammingsolver.gui.main.controller;
 import com.po.constraintprogrammingsolver.Context;
 import com.po.constraintprogrammingsolver.gui.jobshop.controller.JobShopProblemController;
 import com.po.constraintprogrammingsolver.gui.main.model.ConstraintProgrammingSolverModel;
+import com.po.constraintprogrammingsolver.gui.main.service.DialogService;
 import com.po.constraintprogrammingsolver.gui.main.util.ControllerProvider;
 import com.po.constraintprogrammingsolver.gui.main.util.Problem;
 import com.po.constraintprogrammingsolver.gui.main.util.ServiceProvider;
 import com.po.constraintprogrammingsolver.gui.trucks.TrucksProblemController;
+import javafx.concurrent.Service;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
+
+import java.util.ResourceBundle;
 
 /**
  * Created by Aleksander on 2014-12-01.
@@ -23,12 +28,19 @@ public class ConstraintProgrammingSolverController {
     @FXML
     private TrucksProblemController trucksProblemController;
 
+    @FXML
+    private ResourceBundle resources;
+
     private final ConstraintProgrammingSolverModel model = new ConstraintProgrammingSolverModel();
     private final ServiceProvider serviceProvider = new ServiceProvider(model);
     private final ControllerProvider controllerProvider = new ControllerProvider();
 
+    private Service<Void> dialogService;
+
     @FXML
     public void initialize() {
+        dialogService = new DialogService(resources);
+
         //register problem here
         controllerProvider.registerProblemController(Problem.JOB_SHOP, jobShopProblemController);
 
@@ -51,5 +63,10 @@ public class ConstraintProgrammingSolverController {
             return;
         }
         serviceProvider.getProblemService().restart();
+    }
+
+    @FXML
+    private void onMenuItemAboutClicked(ActionEvent event) {
+        dialogService.restart();
     }
 }
