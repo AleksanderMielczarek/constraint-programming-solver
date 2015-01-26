@@ -10,7 +10,7 @@ import org.jacop.search.Indomain;
  * Created by Aleksander on 2015-01-04.
  */
 abstract class AbstractJacopStrategyProvider implements JacopStrategyProvider {
-    final Indomain<IntVar> indomain;
+    protected Indomain<IntVar> indomain;
 
     AbstractJacopStrategyProvider(IndomainType indomainType) {
         indomain = IndomainFactory.createIndomain(indomainType);
