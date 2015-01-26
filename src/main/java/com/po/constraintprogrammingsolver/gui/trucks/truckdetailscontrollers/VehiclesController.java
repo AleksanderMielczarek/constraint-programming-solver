@@ -132,11 +132,11 @@ public class VehiclesController implements Initializable, TruckController<Truck>
         });
     }
 
-    public int getTruckIndexInTable() {
+    int getTruckIndexInTable() {
         return truckIndexInTable.get();
     }
 
-    public void setTruckIndexInTable(int truckIndexInTable) {
+    void setTruckIndexInTable(int truckIndexInTable) {
         this.truckIndexInTable.set(truckIndexInTable);
     }
 

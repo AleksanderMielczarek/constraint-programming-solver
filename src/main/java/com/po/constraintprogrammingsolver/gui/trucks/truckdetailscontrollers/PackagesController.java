@@ -125,7 +125,7 @@ public class PackagesController implements Initializable, TruckController<Packag
         return truckIndexInTable;
     }
 
-    public void setTruckIndexInTable(int truckIndexInTable) {
+    void setTruckIndexInTable(int truckIndexInTable) {
         this.truckIndexInTable.set(truckIndexInTable);
     }
 

@@ -3,12 +3,15 @@ package com.po.constraintprogrammingsolver.problems.trucks;
 import java.util.ArrayList;
 
 /**
- * Created by Janek on 2015-01-08.
+ * Contains initial trucks and packages existing after application running.
  */
 public class InitData {
     private ArrayList<Truck> startVehicles;
     private ArrayList<Package> startPackages;
 
+    /**
+     * Constructs initial data class
+     */
     public InitData() {
         startVehicles = new ArrayList<>();
         startPackages = new ArrayList<>();
@@ -38,10 +41,18 @@ public class InitData {
         startPackages.add(new Package(10, 3));
     }
 
+    /**
+     * Returns initial data of vehicles.
+     * @return the initial data od vehicles.
+     */
     public ArrayList<Truck> getStartVehicles() {
         return startVehicles;
     }
 
+    /**
+     * Returns initial data of packages.
+     * @return the initial data of packages.
+     */
     public ArrayList<Package> getStartPackages() {
         return startPackages;
     }

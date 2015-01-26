@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 /**
- * Created by Aleksander on 2014-12-03.
+ * Class solving trucks problem.
  */
 public class TrucksProblemSolver implements ProblemSolver<TrucksProblemData, TrucksResult> {
     private int[] packagesWeight = {3, 5, 1, 2};
@@ -24,6 +24,11 @@ public class TrucksProblemSolver implements ProblemSolver<TrucksProblemData, Tru
     private TrucksResult trucksResult;
     private TrucksProblemData trucksProblemData;
 
+    /**
+     * Solves problem with data in trucksProblemData.
+     * @param trucksProblemData the data contains all trucks, packages and parameters to solver
+     * @return the result of calculating optimal solution
+     */
     @Override
     public Optional<TrucksResult> solveProblem(TrucksProblemData trucksProblemData) {
         //constructor

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Janek on 2015-01-02.
+ * Contains final, calculating, optimal solution.
  */
 public class TrucksResult {
     private Map<Integer, Integer> mapPackageID;
@@ -21,6 +21,9 @@ public class TrucksResult {
 
     private SimpleStringProperty wholeCost;
 
+    /**
+     * Constructs class containing final, calculating, optimal solution.
+     */
     public TrucksResult() {
         mapPackageID = new HashMap<>();
         mapVehicleID = new HashMap<>();
@@ -30,17 +33,23 @@ public class TrucksResult {
         wholeCost = new SimpleStringProperty();
     }
 
+    /**
+     * Returns final cost property.
+     * @return the final cost property
+     */
     public SimpleStringProperty wholeCostProperty() {
         return wholeCost;
     }
 
-    public void setWholeCost(String wholeCost) {
-        this.wholeCost.set(wholeCost);
-    }
 
+    /**
+     * Returns final cost value.
+     * @return wholeCost the result cost value
+     */
     public String getWholeCost() {
         return wholeCost.get();
     }
+
 
     public void setWholeCost(TrucksProblemData trucksProblemData, double costWithSolver) {
         double finalCost;
@@ -55,9 +64,6 @@ public class TrucksResult {
         return packagesLocations;
     }
 
-    public void setPackagesLocations(ObservableMap<Integer, String> packagesLocations) {
-        this.packagesLocations = packagesLocations;
-    }
 
     public void setPackageLocations(int[] packagesLocationsArray) {
         Map<Integer, ArrayList<Integer>> tempMapPackagesLocations = new HashMap<>();

@@ -1,8 +1,11 @@
 package com.po.constraintprogrammingsolver.problems.trucks;
 
 /**
- * Created by Janek on 2015-01-04.
+ * Contains constans used in problem solvers.
  */
 public class Constans {
+    /**
+     * Weight of truck without trailer.
+     */
     public static final double WeightTruck = 15.0;
 }
