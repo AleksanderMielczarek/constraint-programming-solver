@@ -8,5 +8,5 @@ public enum Parameter {
     DECISIONS,
     MAXIMUM_DEPTH,
     NODES,
-    WRONG_DECISIONS;
+    WRONG_DECISIONS
 }

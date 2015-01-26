@@ -51,7 +51,7 @@ public class TrucksResult {
         double distance = trucksProblemData.getOthersData().getDistanceValue();
         double costFuel = trucksProblemData.getOthersData().getCostFuel();
 
-        finalCost = ((double) costWithSolver * distance / 100.0)*costFuel;
+        finalCost = (costWithSolver * distance / 100.0)*costFuel;
         this.wholeCost.set(Double.toString(finalCost));
     }
 

@@ -9,10 +9,10 @@ import org.jacop.search.Indomain;
 /**
  * Created by Aleksander on 2015-01-04.
  */
-public abstract class AbstractJacopStrategyProvider implements JacopStrategyProvider {
-    protected final Indomain<IntVar> indomain;
+abstract class AbstractJacopStrategyProvider implements JacopStrategyProvider {
+    final Indomain<IntVar> indomain;
 
-    public AbstractJacopStrategyProvider(IndomainType indomainType) {
+    AbstractJacopStrategyProvider(IndomainType indomainType) {
         indomain = IndomainFactory.createIndomain(indomainType);
     }
 }

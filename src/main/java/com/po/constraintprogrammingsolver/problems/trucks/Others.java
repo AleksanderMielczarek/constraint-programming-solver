@@ -3,7 +3,7 @@ package com.po.constraintprogrammingsolver.problems.trucks;
 import javafx.beans.property.SimpleDoubleProperty;
 
 /**
- * Containts solver parameters existing in "Others" window.
+ * Contains solver parameters existing in "Others" window.
  */
 public class Others {
     private SimpleDoubleProperty distanceValue;

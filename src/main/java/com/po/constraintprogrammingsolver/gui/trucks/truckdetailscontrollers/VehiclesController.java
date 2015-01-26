@@ -105,23 +105,18 @@ public class VehiclesController implements Initializable, TruckController<Truck>
         trucksLoadingCol.setCellValueFactory(new PropertyValueFactory<>("loading"));
         trucksLoadingCol.setCellFactory(TextFieldTableCell.<Truck, Integer>forTableColumn(new IntegerStringConverter()));
         trucksLoadingCol.setOnEditCommit(
-                (TableColumn.CellEditEvent<Truck, Integer> t) -> {
-                    t.getTableView().getItems().get(
-                            t.getTablePosition().getRow()).setLoading(t.getNewValue());
-                });
+                (TableColumn.CellEditEvent<Truck, Integer> t) -> t.getTableView().getItems().get(
+                        t.getTablePosition().getRow()).setLoading(t.getNewValue()));
         trucksCombustionCol.setCellValueFactory(new PropertyValueFactory<>("combustion"));
         trucksCombustionCol.setCellFactory(TextFieldTableCell.<Truck, Integer>forTableColumn(new IntegerStringConverter()));
         trucksCombustionCol.setOnEditCommit(
-                (TableColumn.CellEditEvent<Truck, Integer> t) -> {
-                    t.getTableView().getItems().get(
-                            t.getTablePosition().getRow()).setCombustion(t.getNewValue());
-
-                });
+                (TableColumn.CellEditEvent<Truck, Integer> t) -> t.getTableView().getItems().get(
+                        t.getTablePosition().getRow()).setCombustion(t.getNewValue()));
     }
 
     private void handlingDeleteTruckBtn() {
         trucksTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Truck>() {
-            public void changed(ObservableValue<? extends Truck> observable, Truck oldvalue, Truck newValue) {
+            public void changed(ObservableValue<? extends Truck> observable, Truck oldValue, Truck newValue) {
                 setTruckIndexInTable(trucksData.indexOf(newValue));
             }
         });

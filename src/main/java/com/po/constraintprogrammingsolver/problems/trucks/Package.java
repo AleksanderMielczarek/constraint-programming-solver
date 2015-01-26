@@ -37,7 +37,7 @@ public class Package {
 
     /**
      * Returns package weight.
-     * @return the pakages weight
+     * @return the packages weight
      */
     public int getWeight() {
         return weight.get();

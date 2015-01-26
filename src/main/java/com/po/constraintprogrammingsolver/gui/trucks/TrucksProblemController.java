@@ -83,17 +83,11 @@ public class TrucksProblemController {
         TableColumn<ObservableMap.Entry<Integer, String>, String> packagesCol =
                 resultController.getPackagesCol();
 
-        packagesLocations.addListener((MapChangeListener.Change<? extends Integer, ? extends String> change) -> {
-            packageLocationTable.setItems(FXCollections.observableArrayList(packagesLocations.entrySet()));
-        });
+        packagesLocations.addListener((MapChangeListener.Change<? extends Integer, ? extends String> change) -> packageLocationTable.setItems(FXCollections.observableArrayList(packagesLocations.entrySet())));
 
-        vehicleColLocation.setCellValueFactory((p) -> {
-            return new ReadOnlyObjectWrapper<>(p.getValue().getKey());
-        });
+        vehicleColLocation.setCellValueFactory((p) -> new ReadOnlyObjectWrapper<>(p.getValue().getKey()));
 
-        packagesCol.setCellValueFactory((p) -> {
-            return new ReadOnlyObjectWrapper<>(p.getValue().getValue());
-        });
+        packagesCol.setCellValueFactory((p) -> new ReadOnlyObjectWrapper<>(p.getValue().getValue()));
         packageLocationTable.setItems(FXCollections.observableArrayList(packagesLocations.entrySet()));
     }
 
@@ -105,17 +99,11 @@ public class TrucksProblemController {
         TableColumn<ObservableMap.Entry<Integer, Integer>, Integer> loadCol =
                 resultController.getLoadCol();
 
-        capacities.addListener((MapChangeListener.Change<? extends Integer, ? extends Integer> change) -> {
-            vehiclesLoadTable.setItems(FXCollections.observableArrayList(capacities.entrySet()));
-        });
+        capacities.addListener((MapChangeListener.Change<? extends Integer, ? extends Integer> change) -> vehiclesLoadTable.setItems(FXCollections.observableArrayList(capacities.entrySet())));
 
-        vehicleColLoad.setCellValueFactory((p) -> {
-            return new ReadOnlyObjectWrapper<>(p.getValue().getKey());
-        });
+        vehicleColLoad.setCellValueFactory((p) -> new ReadOnlyObjectWrapper<>(p.getValue().getKey()));
 
-        loadCol.setCellValueFactory((p) -> {
-            return new ReadOnlyObjectWrapper<>(p.getValue().getValue());
-        });
+        loadCol.setCellValueFactory((p) -> new ReadOnlyObjectWrapper<>(p.getValue().getValue()));
         vehiclesLoadTable.setItems(FXCollections.observableArrayList(capacities.entrySet()));
     }
 

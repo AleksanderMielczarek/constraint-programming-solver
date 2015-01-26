@@ -1,7 +1,6 @@
 package com.po.constraintprogrammingsolver.problems.strategy;
 
 import com.po.constraintprogrammingsolver.problems.strategy.indomain.IndomainType;
-import com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint.SelectChoicePointFactory;
 import com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint.SelectChoicePointStoreFactory;
 import com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint.SelectChoicePointStoreType;
 import org.jacop.core.IntVar;
@@ -21,7 +20,7 @@ public class SimpleJacopStrategyProvider extends AbstractJacopStrategyProvider {
 
     @Override
     public SelectChoicePoint<IntVar> getSelectChoicePoint(IntVar[] variables, Store store) {
-        SelectChoicePointFactory selectChoicePointFactory = new SelectChoicePointStoreFactory(variables, indomain, store);
+        SelectChoicePointStoreFactory selectChoicePointFactory = new SelectChoicePointStoreFactory(variables, indomain, store);
         return selectChoicePointFactory.createSelectChoicePoint(selectChoicePointType);
     }
 }

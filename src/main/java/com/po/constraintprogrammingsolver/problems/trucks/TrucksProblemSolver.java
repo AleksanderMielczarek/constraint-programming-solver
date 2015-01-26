@@ -55,18 +55,18 @@ public class TrucksProblemSolver implements ProblemSolver<TrucksProblemData, Tru
 
         Constraint binPacking = new Binpacking(packagesLocation, capacities, packagesWeight);
         store.impose(binPacking);
-        boolean Result = store.consistency();
+        boolean Result;
 
 ////        --COST FUNCTION
 
-        IntVar truckWeight = new IntVar(store, "truckWeight", (int) Constans.WeightTruck, (int)Constans.WeightTruck);
-        store.impose(new XeqC(truckWeight,(int)Constans.WeightTruck));
+        IntVar truckWeight = new IntVar(store, "truckWeight", (int) Constants.WeightTruck, (int) Constants.WeightTruck);
+        store.impose(new XeqC(truckWeight,(int) Constants.WeightTruck));
 
         IntVar[] allSingleCost = new IntVar[TrucksNr];
         IntVar[] newCapacities = new IntVar[TrucksNr];
         IntVar[] singleCost = new IntVar[TrucksNr];
         IntVar[] bracket = new IntVar[TrucksNr];
-        IntVar[] divideEquatation = new IntVar[TrucksNr];
+        IntVar[] divideEquation = new IntVar[TrucksNr];
         IntVar[] trucksCombustionSolver = new IntVar[TrucksNr];
         IntVar[] ifTruckUsed = new IntVar[TrucksNr];
         int multiplier = 1000;
@@ -75,11 +75,11 @@ public class TrucksProblemSolver implements ProblemSolver<TrucksProblemData, Tru
             newCapacities[i] = new IntVar(store, "newCapacities" + i, 0, multiplier*trucksLoading[i]);
             store.impose(new XmulCeqZ(capacities[i], multiplier, newCapacities[i]));
 
-            divideEquatation[i] = new IntVar(store, "divideEquatation" + i, 0, multiplier*(int) Math.ceil(trucksLoading[i]/Constans.WeightTruck));
-            store.impose(new XdivYeqZ(newCapacities[i], truckWeight, divideEquatation[i]));
+            divideEquation[i] = new IntVar(store, "divideEquation" + i, 0, multiplier*(int) Math.ceil(trucksLoading[i]/ Constants.WeightTruck));
+            store.impose(new XdivYeqZ(newCapacities[i], truckWeight, divideEquation[i]));
 
-            bracket[i] = new IntVar(store, "bracket" + i, multiplier, multiplier+(multiplier*(int) Math.ceil(trucksLoading[i]/Constans.WeightTruck)));
-            store.impose(new XplusCeqZ(divideEquatation[i], multiplier, bracket[i]));
+            bracket[i] = new IntVar(store, "bracket" + i, multiplier, multiplier+(multiplier*(int) Math.ceil(trucksLoading[i]/ Constants.WeightTruck)));
+            store.impose(new XplusCeqZ(divideEquation[i], multiplier, bracket[i]));
 
             trucksCombustionSolver[i] = new IntVar(store, "trucksCombustionSolver" + i, trucksCombustion[i], trucksCombustion[i]);
             store.impose(new XeqC(trucksCombustionSolver[i], trucksCombustion[i]));
@@ -87,24 +87,24 @@ public class TrucksProblemSolver implements ProblemSolver<TrucksProblemData, Tru
             ifTruckUsed[i] = new IntVar(store, "ifTruckUsed" + i, 0, 1);
             store.impose( new IfThenElse(new XgtC(capacities[i], 0), new XeqC(ifTruckUsed[i], 1), new XeqC(ifTruckUsed[i], 0)));
 
-            allSingleCost[i] = new IntVar(store, "allSingleCost" + i, trucksCombustion[i], trucksCombustion[i]*(multiplier+multiplier*(int) Math.ceil(trucksLoading[i]/Constans.WeightTruck)));
+            allSingleCost[i] = new IntVar(store, "allSingleCost" + i, trucksCombustion[i], trucksCombustion[i]*(multiplier+multiplier*(int) Math.ceil(trucksLoading[i]/ Constants.WeightTruck)));
             store.impose(new XmulYeqZ(trucksCombustionSolver[i], bracket[i], allSingleCost[i]));
 
-            singleCost[i] = new IntVar(store, "singleCost" + i,0, trucksCombustion[i]*(multiplier+multiplier*(int) Math.ceil(trucksLoading[i]/Constans.WeightTruck)));
+            singleCost[i] = new IntVar(store, "singleCost" + i,0, trucksCombustion[i]*(multiplier+multiplier*(int) Math.ceil(trucksLoading[i]/ Constants.WeightTruck)));
             store.impose(new XmulYeqZ(allSingleCost[i], ifTruckUsed[i], singleCost[i]));
 
         }
         int[] maxSumOfCost = new int[TrucksNr];
         for (int i=0; i<TrucksNr; i++) {
-            maxSumOfCost[i] = trucksCombustion[i]*(multiplier+multiplier*(int) Math.ceil(trucksLoading[i]/Constans.WeightTruck));
+            maxSumOfCost[i] = trucksCombustion[i]*(multiplier+multiplier*(int) Math.ceil(trucksLoading[i]/ Constants.WeightTruck));
         }
         IntVar cost = new IntVar(store, "costSum", 0, IntStream.of(maxSumOfCost).sum());
         store.impose(new Sum(singleCost, cost));
 
 //        ------------------------------------------------------
 
-        Search<IntVar> label = new DepthFirstSearch<IntVar>();
-        SelectChoicePoint<IntVar> select = new SimpleSelect<IntVar>(packagesLocation, null, new IndomainMin<IntVar>());
+        Search<IntVar> label = new DepthFirstSearch<>();
+        SelectChoicePoint<IntVar> select = new SimpleSelect<>(packagesLocation, null, new IndomainMin<>());
         label.setAssignSolution(true);
         label.setPrintInfo(true);
         Result = label.labeling(store, select, cost);
@@ -120,8 +120,8 @@ public class TrucksProblemSolver implements ProblemSolver<TrucksProblemData, Tru
 //            stringBuilder.append("---Not resolved---");
 //        System.out.println(stringBuilder.toString());
         if(Result) {
-            trucksResult.setPackageLocations(changeIntvarToInt(packagesLocation));
-            trucksResult.setCapacities(changeIntvarToInt(capacities));
+            trucksResult.setPackageLocations(changeIntVarToInt(packagesLocation));
+            trucksResult.setCapacities(changeIntVarToInt(capacities));
             trucksResult.setWholeCost(trucksProblemData, (double) cost.value() / multiplier);
             return Optional.of(trucksResult);
         }
@@ -163,7 +163,7 @@ public class TrucksProblemSolver implements ProblemSolver<TrucksProblemData, Tru
         trucksResult.setMapVehicleID(mapVehicleID);
     }
 
-    private int[] changeIntvarToInt(IntVar[] intVarArray) {
+    private int[] changeIntVarToInt(IntVar[] intVarArray) {
         int[] resultArray = new int[intVarArray.length];
         for (int i = 0; i < intVarArray.length; i++) {
             resultArray[i] = intVarArray[i].value();

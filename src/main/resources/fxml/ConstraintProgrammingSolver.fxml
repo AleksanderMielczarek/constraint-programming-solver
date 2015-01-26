@@ -34,7 +34,7 @@
         </TabPane>
     </center>
     <right>
-        <Button fx:id="startButton" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#startButtonOnMouseClicked" text="%button.start"
+        <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#startButtonOnMouseClicked" text="%button.start"
                 textOverrun="CLIP"/>
     </right>
 </BorderPane>

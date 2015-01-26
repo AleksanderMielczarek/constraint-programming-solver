@@ -37,13 +37,10 @@ public class JobShopSolutionToModelConverter implements ValueUpdater {
 
         solution.getJobShopData().tasksOnJobs().values().stream()
                 .forEach(task ->
-                                builder.append(resources.getString(RESULT_JOB) + COLON + task.getJob().get().getJobNumber().get())
-                                        .append(TABULATOR)
-                                        .append(resources.getString(RESULT_TASK) + COLON + task.getTaskNumber().get())
-                                        .append(TABULATOR)
-                                        .append(resources.getString(RESULT_MACHINE) + COLON + task.getMachineNumber())
-                                        .append(TABULATOR)
-                                        .append(resources.getString(RESULT_TIME) + COLON + task.startTime().get())
+                                builder.append(resources.getString(RESULT_JOB)).append(COLON).append(task.getJob().get().getJobNumber().get())
+                                        .append(TABULATOR).append(resources.getString(RESULT_TASK)).append(COLON).append(task.getTaskNumber().get())
+                                        .append(TABULATOR).append(resources.getString(RESULT_MACHINE)).append(COLON).append(task.getMachineNumber())
+                                        .append(TABULATOR).append(resources.getString(RESULT_TIME)).append(COLON).append(task.startTime().get())
                                         .append(NEW_LINE)
                 );
 

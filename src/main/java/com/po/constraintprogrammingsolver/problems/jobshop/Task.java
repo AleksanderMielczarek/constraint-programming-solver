@@ -63,10 +63,8 @@ public class Task {
 
         Task task = (Task) o;
 
-        if (taskNumber != task.taskNumber) return false;
-        if (!job.equals(task.job)) return false;
+        return taskNumber == task.taskNumber && job.equals(task.job);
 
-        return true;
     }
 
     @Override

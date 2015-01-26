@@ -55,9 +55,8 @@ public class Job {
 
         Job job = (Job) o;
 
-        if (jobNumber != job.jobNumber) return false;
+        return jobNumber == job.jobNumber;
 
-        return true;
     }
 
     @Override

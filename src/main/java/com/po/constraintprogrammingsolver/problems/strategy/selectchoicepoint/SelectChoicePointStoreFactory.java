@@ -9,7 +9,7 @@ import org.jacop.search.SelectChoicePoint;
 /**
  * Created by Aleksander on 2015-01-04.
  */
-public class SelectChoicePointStoreFactory implements SelectChoicePointFactory<SelectChoicePointStoreType> {
+public class SelectChoicePointStoreFactory {
     private final IntVar[] variables;
     private final Indomain<IntVar> indomain;
     private final Store store;
@@ -20,7 +20,6 @@ public class SelectChoicePointStoreFactory implements SelectChoicePointFactory<S
         this.store = store;
     }
 
-    @Override
     public SelectChoicePoint<IntVar> createSelectChoicePoint(SelectChoicePointStoreType selectChoicePointType) {
         switch (selectChoicePointType) {
             case INPUT_ORDER_SELECT:

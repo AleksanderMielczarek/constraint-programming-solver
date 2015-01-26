@@ -48,6 +48,7 @@ public class JobShopModel {
     private final BooleanProperty benchmarkExpanded = new SimpleBooleanProperty();
 
     public JobShopModel() {
+        //noinspection unchecked
         Arrays.stream(ParameterWrapper.values())
                 .forEach(wrapper -> lineChartDataMap.put(wrapper, new SimpleObjectProperty<>(FXCollections.observableArrayList(new XYChart.Series<>()))));
     }

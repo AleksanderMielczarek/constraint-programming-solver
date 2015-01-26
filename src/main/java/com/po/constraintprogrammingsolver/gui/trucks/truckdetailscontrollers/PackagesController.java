@@ -97,16 +97,13 @@ public class PackagesController implements Initializable, TruckController<Packag
         packageWeightCol.setCellValueFactory(new PropertyValueFactory<>("weight"));
         packageWeightCol.setCellFactory(TextFieldTableCell.<Package, Integer>forTableColumn(new IntegerStringConverter()));
         packageWeightCol.setOnEditCommit(
-                (TableColumn.CellEditEvent<Package, Integer> t) -> {
-                    t.getTableView().getItems().get(
-                            t.getTablePosition().getRow()).setWeight(t.getNewValue());
-
-                });
+                (TableColumn.CellEditEvent<Package, Integer> t) -> t.getTableView().getItems().get(
+                        t.getTablePosition().getRow()).setWeight(t.getNewValue()));
     }
 
     private void handlingDeletePackageBtn() {
         packagesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Package>() {
-            public void changed(ObservableValue<? extends Package> observable, Package oldvalue, Package newValue) {
+            public void changed(ObservableValue<? extends Package> observable, Package oldValue, Package newValue) {
                 setTruckIndexInTable(trucksData.indexOf(newValue));
             }
         });

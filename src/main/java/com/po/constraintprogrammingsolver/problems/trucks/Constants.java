@@ -3,7 +3,7 @@ package com.po.constraintprogrammingsolver.problems.trucks;
 /**
  * Contains constans used in problem solvers.
  */
-public class Constans {
+public class Constants {
     /**
      * Weight of truck without trailer.
      */

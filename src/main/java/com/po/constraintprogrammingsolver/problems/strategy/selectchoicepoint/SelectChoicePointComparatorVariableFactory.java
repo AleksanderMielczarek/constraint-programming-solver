@@ -6,8 +6,7 @@ import org.jacop.search.*;
 /**
  * Created by Aleksander on 2015-01-04.
  */
-public class SelectChoicePointComparatorVariableFactory implements SelectChoicePointFactory<SelectChoicePointComparatorVariableType> {
-
+public class SelectChoicePointComparatorVariableFactory {
     private final IntVar[] variables;
     private final Indomain<IntVar> indomain;
     private final ComparatorVariable<IntVar> comparatorVariable;
@@ -18,7 +17,6 @@ public class SelectChoicePointComparatorVariableFactory implements SelectChoiceP
         this.comparatorVariable = comparatorVariable;
     }
 
-    @Override
     public SelectChoicePoint<IntVar> createSelectChoicePoint(SelectChoicePointComparatorVariableType selectChoicePointType) {
         switch (selectChoicePointType) {
             case SIMPLE_SELECT:

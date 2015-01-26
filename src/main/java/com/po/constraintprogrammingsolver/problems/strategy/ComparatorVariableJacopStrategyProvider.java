@@ -6,7 +6,6 @@ import com.po.constraintprogrammingsolver.problems.strategy.comparatorvariable.C
 import com.po.constraintprogrammingsolver.problems.strategy.indomain.IndomainType;
 import com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint.SelectChoicePointComparatorVariableFactory;
 import com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint.SelectChoicePointComparatorVariableType;
-import com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint.SelectChoicePointFactory;
 import org.jacop.core.IntVar;
 import org.jacop.core.Store;
 import org.jacop.search.ComparatorVariable;
@@ -27,7 +26,7 @@ public class ComparatorVariableJacopStrategyProvider extends AbstractJacopStrate
 
     @Override
     public SelectChoicePoint<IntVar> getSelectChoicePoint(IntVar[] variables, Store store) {
-        SelectChoicePointFactory selectChoicePointFactory = new SelectChoicePointComparatorVariableFactory(variables, indomain, comparatorVariable);
+        SelectChoicePointComparatorVariableFactory selectChoicePointFactory = new SelectChoicePointComparatorVariableFactory(variables, indomain, comparatorVariable);
         return selectChoicePointFactory.createSelectChoicePoint(selectChoicePointType);
     }
 }

@@ -108,11 +108,9 @@ public class JobShopProblemSolver implements JacopStrategyProblemSolver<JobShopD
             task.setStartTimeVar(var);
         });
 
-        IntVar[] starts = data.tasks().stream()
+        return data.tasks().stream()
                 .map(Task::getStartTimeVar)
                 .map(Optional::get)
                 .toArray(IntVar[]::new);
-
-        return starts;
     }
 }
