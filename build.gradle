@@ -3,7 +3,7 @@ apply plugin: 'application'
 
 sourceCompatibility = 1.8
 version = '1.0.0'
-mainClassName = 'com.po.constraintprogrammingsolver.ConstraintProgrammingSolver'
+mainClassName = 'com.po.constraintprogrammingsolver.gui.ConstraintProgrammingSolver'
 
 repositories {
     mavenCentral()

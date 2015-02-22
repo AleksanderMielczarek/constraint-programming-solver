@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * @author Aleksander Mielczarek
+ * @author Jan Sładek
  * @since 2015-01-02
  */
 public class ResultController implements Initializable {

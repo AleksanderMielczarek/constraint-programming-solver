@@ -9,7 +9,7 @@ import com.po.constraintprogrammingsolver.gui.jobshop.util.validator.JobShopRepe
 import com.po.constraintprogrammingsolver.gui.jobshop.util.validator.JobShopValidator;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopData;
 import com.po.constraintprogrammingsolver.problems.jobshop.JobShopSolution;
-import com.po.constraintprogrammingsolver.problems.jobshop.Parameter;
+import com.po.constraintprogrammingsolver.problems.Parameter;
 import com.po.constraintprogrammingsolver.problems.strategy.JacopStrategyProvider;
 import javafx.concurrent.Task;
 import org.apache.commons.lang3.StringUtils;

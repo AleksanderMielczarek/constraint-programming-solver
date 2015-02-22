@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 /**
- * @author Aleksander Mielczarek
+ * @author Jan Sładek
  * @since 2014-12-28
  */
 public interface TruckController<T> {

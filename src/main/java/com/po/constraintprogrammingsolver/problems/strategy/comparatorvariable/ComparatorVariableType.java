@@ -1,6 +1,8 @@
 package com.po.constraintprogrammingsolver.problems.strategy.comparatorvariable;
 
 /**
+ * Types of supported {@link org.jacop.search.ComparatorVariable}.
+ *
  * @author Aleksander Mielczarek
  * @since 2015-01-04
  */

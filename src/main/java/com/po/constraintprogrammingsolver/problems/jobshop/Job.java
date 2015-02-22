@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * Represents single Job with start time and list of tasks. It has also a unique number, which is set later. Normally it's empty {@link java.util.Optional}
+ * Represents single Job with start time and list of tasks {@link com.po.constraintprogrammingsolver.problems.jobshop.Task}.
+ * It has also a unique number, which is set later. Normally it's empty {@link java.util.Optional}
  *
  * @author Aleksander Mielczarek
  * @since 2015-01-01

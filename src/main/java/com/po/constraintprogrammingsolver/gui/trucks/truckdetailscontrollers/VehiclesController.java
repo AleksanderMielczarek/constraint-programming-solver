@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * @author Aleksander Mielczarek
+ * @author Jan Sładek
  * @since 2014-12-28
  */
 public class VehiclesController implements Initializable, TruckController<Truck> {

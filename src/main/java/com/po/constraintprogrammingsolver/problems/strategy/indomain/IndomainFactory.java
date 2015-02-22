@@ -4,6 +4,8 @@ import org.jacop.core.IntVar;
 import org.jacop.search.*;
 
 /**
+ * Static factory creating {@link org.jacop.search.Indomain}.
+ *
  * @author Aleksander Mielczarek
  * @since 2015-01-04
  */
@@ -11,8 +13,13 @@ public class IndomainFactory {
     private IndomainFactory() {
     }
 
-    public static Indomain<IntVar> createIndomain(IndomainType jacopType) {
-        switch (jacopType) {
+    /**
+     * Create {@link org.jacop.search.Indomain}
+     * @param indomainType select indomain
+     * @return {@link org.jacop.search.Indomain}
+     */
+    public static Indomain<IntVar> createIndomain(IndomainType indomainType) {
+        switch (indomainType) {
             case INDOMAIN_MIN:
                 return new IndomainMin<>();
             case INDOMAIN_MAX:

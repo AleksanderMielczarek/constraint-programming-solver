@@ -3,6 +3,7 @@ package com.po.constraintprogrammingsolver.problems.jobshop;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Iterables;
 import com.po.constraintprogrammingsolver.problems.JacopStrategyProblemSolver;
+import com.po.constraintprogrammingsolver.problems.Parameter;
 import com.po.constraintprogrammingsolver.problems.strategy.JacopStrategyProvider;
 import org.jacop.constraints.*;
 import org.jacop.core.IntVar;
@@ -15,10 +16,19 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Solver solving Jobshop scheduling problem.
+ *
  * @author Aleksander Mielczarek
  * @since 2014-12-03
  */
 public class JobShopProblemSolver implements JacopStrategyProblemSolver<JobShopData, JobShopSolution> {
+    /**
+     * Solve Jobshop problem. During optimization max value of jobs end time is being minimized. Solver finds start times of all tasks.
+     *
+     * @param data                  object with Jobshop input data
+     * @param jacopStrategyProvider contains Jacop strategy used during solving
+     * @return result of Jobshop problem, contains {@link com.po.constraintprogrammingsolver.problems.jobshop.JobShopData} with tasks start times.
+     */
     @Override
     public Optional<JobShopSolution> solveProblem(JobShopData data, JacopStrategyProvider jacopStrategyProvider) {
         Store store = new Store();

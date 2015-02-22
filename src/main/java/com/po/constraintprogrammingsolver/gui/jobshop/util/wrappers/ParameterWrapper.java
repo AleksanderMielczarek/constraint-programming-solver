@@ -1,6 +1,6 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers;
 
-import com.po.constraintprogrammingsolver.problems.jobshop.Parameter;
+import com.po.constraintprogrammingsolver.problems.Parameter;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package com.po.constraintprogrammingsolver.gui.jobshop.controller;
 
-import com.po.constraintprogrammingsolver.Context;
+import com.po.constraintprogrammingsolver.gui.Context;
 import com.po.constraintprogrammingsolver.gui.ProblemController;
 import com.po.constraintprogrammingsolver.gui.jobshop.model.JobShopModel;
 import com.po.constraintprogrammingsolver.gui.jobshop.service.JobShopBenchmarkService;

@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 
 /**
- * @author Aleksander Mielczarek
+ * @author Jan Sładek
  * @since 2014-12-19
  */
 public class TrucksProblemController {

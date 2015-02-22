@@ -1,6 +1,8 @@
-package com.po.constraintprogrammingsolver.problems.jobshop;
+package com.po.constraintprogrammingsolver.problems;
 
 /**
+ * Parameters which can be extracted from {@link org.jacop.search.Search}
+ *
  * @author Aleksander Mielczarek
  * @since 2015-01-24
  */

@@ -4,6 +4,8 @@ import org.jacop.core.IntVar;
 import org.jacop.search.*;
 
 /**
+ * Static factory creating {@link org.jacop.search.ComparatorVariable}
+ *
  * @author Aleksander Mielczarek
  * @since 2015-01-04
  */
@@ -11,6 +13,12 @@ public class ComparatorVariableFactory {
     private ComparatorVariableFactory() {
     }
 
+    /**
+     * Create {@link org.jacop.search.ComparatorVariable}
+     *
+     * @param comparatorVariableType selected comparator variable
+     * @return {@link org.jacop.search.ComparatorVariable}
+     */
     public static ComparatorVariable<IntVar> createComparatorVariable(ComparatorVariableType comparatorVariableType) {
         switch (comparatorVariableType) {
             case LARGEST_DOMAIN:

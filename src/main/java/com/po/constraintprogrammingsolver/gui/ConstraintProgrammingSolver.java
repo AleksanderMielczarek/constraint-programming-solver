@@ -1,4 +1,4 @@
-package com.po.constraintprogrammingsolver;
+package com.po.constraintprogrammingsolver.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,6 +1,6 @@
 package com.po.constraintprogrammingsolver.gui.main.controller;
 
-import com.po.constraintprogrammingsolver.Context;
+import com.po.constraintprogrammingsolver.gui.Context;
 import com.po.constraintprogrammingsolver.gui.jobshop.controller.JobShopProblemController;
 import com.po.constraintprogrammingsolver.gui.main.model.ConstraintProgrammingSolverModel;
 import com.po.constraintprogrammingsolver.gui.main.service.DialogService;
