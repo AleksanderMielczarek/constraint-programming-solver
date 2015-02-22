@@ -16,7 +16,8 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * Created by Aleksander on 2015-01-23.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-23
  */
 public class JobShopModel {
     private final ObjectProperty<IndomainTypeWrapper> indomain = new SimpleObjectProperty<>();

@@ -21,9 +21,9 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 
 /**
- * Created by Janek on 2014-12-19.
+ * @author Aleksander Mielczarek
+ * @since 2014-12-19
  */
-
 public class TrucksProblemController {
     @FXML
     private TitledPane dataAccordion;

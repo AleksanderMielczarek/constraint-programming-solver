@@ -10,7 +10,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- * Created by Aleksander on 2015-01-04.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-04
  */
 public enum SelectChoicePointTypeWrapper {
     INPUT_ORDER_SELECT_WRAPPER(SelectChoicePointStoreType.INPUT_ORDER_SELECT, "combo.select.input.order.select"),

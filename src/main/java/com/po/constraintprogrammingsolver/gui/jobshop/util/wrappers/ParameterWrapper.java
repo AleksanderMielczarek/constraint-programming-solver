@@ -5,7 +5,8 @@ import com.po.constraintprogrammingsolver.problems.jobshop.Parameter;
 import java.util.Optional;
 
 /**
- * Created by Aleksander on 2015-01-25.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-25
  */
 public enum ParameterWrapper {
     BACKTRACKS_WRAPPER(Parameter.BACKTRACKS),

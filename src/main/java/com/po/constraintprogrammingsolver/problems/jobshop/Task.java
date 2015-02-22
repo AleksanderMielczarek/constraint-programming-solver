@@ -5,7 +5,8 @@ import org.jacop.core.IntVar;
 import java.util.Optional;
 
 /**
- * Created by Aleksander on 2015-01-01.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-01
  */
 public class Task {
     private final int machineNumber;

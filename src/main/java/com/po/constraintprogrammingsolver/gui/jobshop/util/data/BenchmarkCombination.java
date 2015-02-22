@@ -19,7 +19,8 @@ import static com.po.constraintprogrammingsolver.problems.strategy.selectchoicep
 import static com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint.SelectChoicePointStoreType.INPUT_ORDER_SELECT;
 
 /**
- * Created by Aleksander on 2015-01-24.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-24
  */
 public enum BenchmarkCombination {
 

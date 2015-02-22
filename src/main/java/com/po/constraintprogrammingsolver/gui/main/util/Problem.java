@@ -5,7 +5,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Created by Aleksander on 2014-12-20.
+ * @author Aleksander Mielczarek
+ * @since 2014-12-20
  */
 public enum Problem {
     TRUCKS("trucks"), JOB_SHOP("jobshop");

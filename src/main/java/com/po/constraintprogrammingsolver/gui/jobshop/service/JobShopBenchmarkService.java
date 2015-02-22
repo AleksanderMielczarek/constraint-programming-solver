@@ -18,7 +18,8 @@ import java.text.MessageFormat;
 import java.util.*;
 
 /**
- * Created by Aleksander on 2015-01-24.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-24
  */
 public class JobShopBenchmarkService extends JobShopProblemService {
     protected static final String MESSAGE_SOLVING_BENCHMARK = "message.solving.benchmark";

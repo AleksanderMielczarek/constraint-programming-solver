@@ -11,7 +11,8 @@ import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 
 /**
- * Created by Aleksander on 2014-12-01.
+ * @author Aleksander Mielczarek
+ * @since 2014-12-01
  */
 public class ConstraintProgrammingSolver extends Application {
     @Override

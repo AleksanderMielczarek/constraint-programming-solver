@@ -8,7 +8,8 @@ import javafx.scene.chart.XYChart;
 import java.util.List;
 
 /**
- * Created by Aleksander on 2015-01-24.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-24
  */
 public class DefaultJobShopBenchmarkValuesSupplier implements DefaultValuesSupplier, ValueUpdater {
     private final JobShopModel model;

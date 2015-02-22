@@ -8,7 +8,8 @@ import org.jacop.core.Store;
 import org.jacop.search.SelectChoicePoint;
 
 /**
- * Created by Aleksander on 2015-01-04.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-04
  */
 public class SimpleJacopStrategyProvider extends AbstractJacopStrategyProvider {
     private final SelectChoicePointStoreType selectChoicePointType;

@@ -1,7 +1,8 @@
 package com.po.constraintprogrammingsolver.problems.strategy.indomain;
 
 /**
- * Created by Aleksander on 2015-01-04.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-04
  */
 public enum IndomainType {
     INDOMAIN_MIN,

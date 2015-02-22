@@ -6,7 +6,8 @@ import javafx.util.StringConverter;
 import java.util.ResourceBundle;
 
 /**
- * Created by Aleksander on 2015-01-04.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-04
  */
 public enum ComparatorVariableTypeWrapper {
     LARGEST_DOMAIN_WRAPPER(ComparatorVariableType.LARGEST_DOMAIN, "combo.comparator.largest.domain"),

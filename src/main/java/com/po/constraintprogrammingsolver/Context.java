@@ -5,7 +5,8 @@ import javafx.stage.Stage;
 import java.util.concurrent.ExecutorService;
 
 /**
- * Created by Aleksander on 2015-01-25.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-25
  */
 public enum Context {
     INSTANCE;

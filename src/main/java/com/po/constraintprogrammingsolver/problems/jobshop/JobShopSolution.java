@@ -3,7 +3,8 @@ package com.po.constraintprogrammingsolver.problems.jobshop;
 import java.util.Map;
 
 /**
- * Created by Aleksander on 2015-01-04.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-04
  */
 public class JobShopSolution {
     private final JobShopData jobShopData;

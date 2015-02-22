@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by Aleksander on 2015-01-03.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-03
  */
 public class JobShopModelToDataConverter {
     public static final String PART_SEPARATOR = ";";

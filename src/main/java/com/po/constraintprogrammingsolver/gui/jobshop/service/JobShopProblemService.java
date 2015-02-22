@@ -16,7 +16,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- * Created by Aleksander on 2015-01-23.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-23
  */
 public class JobShopProblemService extends AbstractJobShopService {
     protected static final String SOLUTION_NOT_FOUND = "label.solution.not.found";

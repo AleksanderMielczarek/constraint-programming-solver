@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Created by Aleksander on 2015-01-24.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-24
  */
 public class JobShopBenchmarkSolutionToModelConverter implements ValueUpdater {
     private final JobShopModel model;

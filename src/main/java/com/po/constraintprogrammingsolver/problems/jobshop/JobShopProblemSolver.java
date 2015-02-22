@@ -15,7 +15,8 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by Aleksander on 2014-12-03.
+ * @author Aleksander Mielczarek
+ * @since 2014-12-03
  */
 public class JobShopProblemSolver implements JacopStrategyProblemSolver<JobShopData, JobShopSolution> {
     @Override

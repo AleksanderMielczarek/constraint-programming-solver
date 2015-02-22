@@ -16,7 +16,8 @@ import java.util.concurrent.FutureTask;
 import java.util.stream.Collectors;
 
 /**
- * Created by Aleksander on 2015-01-25.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-25
  */
 public class JobShopLoaderService extends Service<Void> implements ValueUpdater {
     private static final String ERROR_FILE_UPLOAD = "label.error.file.upload";

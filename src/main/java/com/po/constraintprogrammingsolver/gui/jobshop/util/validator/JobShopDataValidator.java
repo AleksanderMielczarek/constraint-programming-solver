@@ -13,7 +13,8 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**
- * Created by Aleksander on 2015-01-03.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-03
  */
 public class JobShopDataValidator implements JobShopValidator {
     private static final String ERROR_EMPTY = "label.jobshop.error.empty";

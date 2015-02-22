@@ -6,7 +6,8 @@ import javafx.util.StringConverter;
 import java.util.ResourceBundle;
 
 /**
- * Created by Aleksander on 2015-01-03.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-03
  */
 public enum IndomainTypeWrapper {
     INDOMAIN_MIN_WRAPPER(IndomainType.INDOMAIN_MIN, "combo.indomain.min"),

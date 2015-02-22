@@ -5,7 +5,8 @@ import com.po.constraintprogrammingsolver.gui.ValueUpdater;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Created by Aleksander on 2015-01-24.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-24
  */
 public class DefaultJobShopProblemResultValuesSupplier implements DefaultValuesSupplier, ValueUpdater {
     private final JobShopModel model;

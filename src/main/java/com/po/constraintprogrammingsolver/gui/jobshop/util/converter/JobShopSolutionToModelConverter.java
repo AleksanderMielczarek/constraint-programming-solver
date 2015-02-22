@@ -12,7 +12,8 @@ import org.jfree.data.time.SimpleTimePeriod;
 import java.util.ResourceBundle;
 
 /**
- * Created by Aleksander on 2015-01-03.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-03
  */
 public class JobShopSolutionToModelConverter implements ValueUpdater {
     private static final String CHART_LABEL = "chart.label";

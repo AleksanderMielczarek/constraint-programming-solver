@@ -6,7 +6,8 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * Created by Aleksander on 2015-01-03.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-03
  */
 public class ControllerProvider {
     private final Map<Problem, ProblemController> controllers = new EnumMap<>(Problem.class);

@@ -11,7 +11,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Janek on 2015-01-02.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-02
  */
 public class ResultController implements Initializable {
     @FXML

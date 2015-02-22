@@ -7,7 +7,8 @@ import org.jacop.search.InputOrderSelect;
 import org.jacop.search.SelectChoicePoint;
 
 /**
- * Created by Aleksander on 2015-01-04.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-04
  */
 public class SelectChoicePointStoreFactory {
     private final IntVar[] variables;

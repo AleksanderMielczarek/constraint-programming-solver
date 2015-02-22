@@ -5,7 +5,8 @@ import javafx.application.Platform;
 import java.util.function.Consumer;
 
 /**
- * Created by Aleksander on 2015-01-24.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-24
  */
 public interface ValueUpdater {
     public default <T> void valueUpdate(Consumer<T> consumer, T value) {

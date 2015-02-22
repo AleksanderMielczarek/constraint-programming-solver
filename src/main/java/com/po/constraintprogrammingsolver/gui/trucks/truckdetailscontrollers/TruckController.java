@@ -5,7 +5,8 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 /**
- * Created by Janek on 2014-12-28.
+ * @author Aleksander Mielczarek
+ * @since 2014-12-28
  */
 public interface TruckController<T> {
     public ObservableList<T> getData();

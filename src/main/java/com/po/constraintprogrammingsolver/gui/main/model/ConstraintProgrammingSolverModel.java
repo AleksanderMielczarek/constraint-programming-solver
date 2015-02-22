@@ -5,7 +5,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 /**
- * Created by Aleksander on 2015-01-24.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-24
  */
 public class ConstraintProgrammingSolverModel {
     private final ObjectProperty<Problem> problem = new SimpleObjectProperty<>();

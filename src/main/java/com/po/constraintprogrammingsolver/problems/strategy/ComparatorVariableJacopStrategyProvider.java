@@ -12,7 +12,8 @@ import org.jacop.search.ComparatorVariable;
 import org.jacop.search.SelectChoicePoint;
 
 /**
- * Created by Aleksander on 2015-01-04.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-04
  */
 public class ComparatorVariableJacopStrategyProvider extends AbstractJacopStrategyProvider {
     private final SelectChoicePointComparatorVariableType selectChoicePointType;

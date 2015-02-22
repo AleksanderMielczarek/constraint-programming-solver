@@ -7,7 +7,8 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * Created by Aleksander on 2014-12-20.
+ * @author Aleksander Mielczarek
+ * @since 2014-12-20
  */
 public class ServiceProvider {
     private final ConstraintProgrammingSolverModel model;

@@ -9,7 +9,8 @@ import com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint.Se
 import com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint.SelectChoicePointStoreType;
 
 /**
- * Created by Aleksander on 2015-01-21.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-21
  */
 public class JobShopModelToJacopProviderConverter {
     private final JobShopModel model;

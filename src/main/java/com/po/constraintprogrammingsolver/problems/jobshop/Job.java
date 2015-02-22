@@ -7,7 +7,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * Created by Aleksander on 2015-01-01.
+ * Represents single Job with start time and list of tasks. It has also a unique number, which is set later. Normally it's empty {@link java.util.Optional}
+ *
+ * @author Aleksander Mielczarek
+ * @since 2015-01-01
  */
 public class Job {
     private final int startTime;
@@ -15,6 +18,12 @@ public class Job {
 
     private int jobNumber;
 
+    /**
+     * Constructor taking start time and tasks to do
+     *
+     * @param startTime time of start the job
+     * @param tasks     {@link java.util.List} with all tasks to do
+     */
     public Job(int startTime, List<Task> tasks) {
         this.startTime = startTime;
         this.tasks = tasks;
@@ -22,10 +31,16 @@ public class Job {
         tasks.forEach(task -> task.setJob(this));
     }
 
+    /**
+     * @return number of tasks in task list
+     */
     public int numberOfTasks() {
         return tasks.size();
     }
 
+    /**
+     * @return numbers of tasks on task list
+     */
     public Set<Integer> tasksNumbers() {
         return IntStream.range(1, numberOfTasks() + 1)
                 .mapToObj(Integer::valueOf)
@@ -56,7 +71,6 @@ public class Job {
         Job job = (Job) o;
 
         return jobNumber == job.jobNumber;
-
     }
 
     @Override

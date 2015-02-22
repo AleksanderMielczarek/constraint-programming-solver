@@ -8,7 +8,8 @@ import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.IndomainType
 import com.po.constraintprogrammingsolver.gui.jobshop.util.wrappers.SelectChoicePointTypeWrapper;
 
 /**
- * Created by Aleksander on 2015-01-23.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-23
  */
 public class DefaultInitValuesSupplier implements DefaultValuesSupplier, ValueUpdater {
     private static final JobShopTestData DEFAULT_JOBS = JobShopTestData.DATA_1;

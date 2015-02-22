@@ -6,7 +6,8 @@ import com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint.Se
 import com.po.constraintprogrammingsolver.problems.strategy.selectchoicepoint.SelectChoicePointStoreType;
 
 /**
- * Created by Aleksander on 2015-01-04.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-04
  */
 public class JacopStrategyProviders {
     private JacopStrategyProviders() {

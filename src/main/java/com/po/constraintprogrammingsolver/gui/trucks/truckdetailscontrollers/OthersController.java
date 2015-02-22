@@ -11,7 +11,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Janek on 2014-12-28.
+ * @author Aleksander Mielczarek
+ * @since 2014-12-28
  */
 public class OthersController implements Initializable {
     @FXML

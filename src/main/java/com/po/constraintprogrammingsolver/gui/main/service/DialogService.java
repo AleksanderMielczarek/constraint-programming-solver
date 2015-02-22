@@ -9,7 +9,8 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import java.util.ResourceBundle;
 
 /**
- * Created by Aleksander on 2015-01-26.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-26
  */
 public class DialogService extends Service<Void> implements ValueUpdater {
     private static final String DIALOG_TITLE = "dialog.title";

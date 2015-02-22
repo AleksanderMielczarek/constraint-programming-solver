@@ -16,7 +16,8 @@ import javafx.scene.control.TabPane;
 import java.util.ResourceBundle;
 
 /**
- * Created by Aleksander on 2014-12-01.
+ * @author Aleksander Mielczarek
+ * @since 2014-12-01
  */
 public class ConstraintProgrammingSolverController {
     @FXML

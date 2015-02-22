@@ -6,7 +6,8 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 /**
- * Created by Aleksander on 2015-01-25.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-25
  */
 public enum JobShopTestData {
     DATA_1("10;2 1 3 4;10 5 15 5" + System.getProperty("line.separator") + "5;3 2 1 4;10 5 5 10" + System.getProperty("line.separator") + "0;1 3 4 2;5 5 5 5" + System.getProperty("line.separator") + "5;3 2 4;5 10 15"),

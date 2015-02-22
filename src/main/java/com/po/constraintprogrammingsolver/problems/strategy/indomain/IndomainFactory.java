@@ -4,7 +4,8 @@ import org.jacop.core.IntVar;
 import org.jacop.search.*;
 
 /**
- * Created by Aleksander on 2015-01-04.
+ * @author Aleksander Mielczarek
+ * @since 2015-01-04
  */
 public class IndomainFactory {
     private IndomainFactory() {

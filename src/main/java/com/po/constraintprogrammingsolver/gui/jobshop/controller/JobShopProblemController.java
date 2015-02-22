@@ -39,7 +39,8 @@ import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
 /**
- * Created by Aleksander on 2014-12-19.
+ * @author Aleksander Mielczarek
+ * @since 2014-12-19
  */
 public class JobShopProblemController implements ProblemController {
     private static final String CHART_TITLE = "chart.title";
